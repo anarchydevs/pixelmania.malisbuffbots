@@ -14,6 +14,12 @@ namespace MalisBuffBots
 {
     public class Main : ClientlessPluginEntry
     {
+        // Use the BuffsDb.json to reference/change tags for nanos:
+        // _waitTime - wait period before canceling the request,
+        // Custom _waitTime can be set for individual nanos (look at line 144 onward)
+        // To use the buffers, type in vicinity "cast <nanoTag1> <nanoTag2> <nanoTag3> .. 
+        // Supports multi buff per line requests and team buffs
+
         private static Dictionary<Profession, List<NanoEntry>> _nanoDb;
         private List<BuffEntry> _buffEntries;
         private double _waitTime;
