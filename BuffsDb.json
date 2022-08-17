@@ -1,0 +1,705 @@
+{
+  "Adventurer": [
+    {
+      "Name": "Boon of the Wanderer",
+      "Id": 204318,
+      "Type": "Single",
+      "Tags": [
+        "boon",
+        "botw"
+      ]
+    }
+  ],
+  "Agent": [
+    {
+      "Name": "Assassin's Grin",
+      "Id": 81856,
+      "Type": "Single",
+      "Tags": [
+        "ag",
+        "grin",
+        "assassin"
+      ]
+    },
+    {
+      "Name": "Enhanced Senses",
+      "Id": 25988,
+      "Type": "Single",
+      "Tags": [
+        "es"
+      ]
+    },
+    {
+      "Name": "Enhanced Sureshot",
+      "Id": 160791,
+      "Type": "Single",
+      "Tags": [
+        "ess",
+        "sureshot"
+      ]
+    },
+    {
+      "Name": "Feline Grace",
+      "Id": 25989,
+      "Type": "Single",
+      "Tags": [
+        "fg"
+      ]
+    },
+    {
+      "Name": "Take the Shot",
+      "Id": 32065,
+      "Type": "Single",
+      "Tags": [
+        "tts"
+      ]
+    },
+    {
+      "Name": "Unexpected Attack",
+      "Id": 32067,
+      "Type": "Single",
+      "Tags": [
+        "ua"
+      ]
+    }
+  ],
+  "Bureaucrat": [
+    {
+      "Name": "Improved Cut Red Tape",
+      "Id": 222695,
+      "Type": "Single",
+      "Tags": [
+        "icrt",
+        "redtape"
+      ]
+    },
+    {
+      "Name": "Soothing Calm",
+      "Id": 222853,
+      "Type": "Single",
+      "Tags": [
+        "sc",
+        "soothing"
+      ]
+    }
+  ],
+  "Doctor": [
+    {
+      "Name": "Continuous Reconstruction",
+      "Id": 222824,
+      "Type": "Single",
+      "Tags": [
+        "cr",
+        "hd"
+      ]
+    },
+    {
+      "Name": "Deathless Blessing",
+      "Id": 43852,
+      "Type": "Single",
+      "Tags": [
+        "db",
+        "deathless"
+      ]
+    },
+    {
+      "Name": "Instinctive Control",
+      "Id": 28669,
+      "Type": "Single",
+      "Tags": [
+        "iic",
+        "instinctive"
+      ]
+    },
+    {
+      "Name": "Improved Nano Repulsor",
+      "Id": 222823,
+      "Type": "Single",
+      "Tags": [
+        "inr",
+        "nr"
+      ]
+    },
+    {
+      "Name": "Iron Circle",
+      "Id": 42400,
+      "Type": "Single",
+      "Tags": [
+        "ic",
+        "iron",
+        "circle"
+      ]
+    },
+    {
+      "Name": "Superior Omni-Med Enhancement",
+      "Id": 95709,
+      "Type": "Team",
+      "Tags": [
+        "omni-med",
+        "omnimed",
+        "some"
+      ]
+    },
+    {
+      "Name": "Life Channeler",
+      "Id": 96247,
+      "Type": "Single",
+      "Tags": [
+        "lc",
+        "channeler",
+        "life"
+      ]
+    },
+    {
+      "Name": "Superior First Aid",
+      "Id": 28675,
+      "Type": "Single",
+      "Tags": [
+        "sfa"
+      ]
+    }
+  ],
+  "Enforcer": [
+    {
+      "Name": "Brutal Thug",
+      "Id": 29630,
+      "Type": "Single",
+      "Tags": [
+        "bt",
+        "brutal"
+      ]
+    },
+    {
+      "Name": "Coruscating Screen",
+      "Id": 55751,
+      "Type": "Single",
+      "Tags": [
+        "cs",
+        "screen"
+      ]
+    },
+    {
+      "Name": "Essence of Behemoth",
+      "Id": 95708,
+      "Type": "Single",
+      "Tags": [
+        "behe",
+        "ess",
+        "essence"
+      ]
+    },
+    {
+      "Name": "Focused Anger",
+      "Id": 29641,
+      "Tags": [
+        "fa"
+      ]
+    },
+    {
+      "Name": "Prodigious Strength",
+      "Id": 29652,
+      "Type": "Single",
+      "Tags": [
+        "prod",
+        "ps"
+      ]
+    },
+    {
+      "Name": "Thug's Delight",
+      "Id": 43371,
+      "Type": "Single",
+      "Tags": [
+        "td",
+        "delight"
+      ]
+    }
+  ],
+  "Engineer": [
+    {
+      "Name": "Aegis Barrier",
+      "Id": 29789,
+      "Type": "Single",
+      "Tags": [
+        "ab",
+        "aegis"
+      ]
+    },
+    {
+      "Name": "Extreme Prejudice",
+      "Id": 29762,
+      "Type": "Single",
+      "Tags": [
+        "ep",
+        "prejudice"
+      ]
+    },
+    {
+      "Name": "Philosopher's Stone",
+      "Id": 29772,
+      "Type": "Single",
+      "Tags": [
+        "phil",
+        "philosopher",
+        "stone"
+      ]
+    },
+    {
+      "Name": "Pistol Mastery",
+      "Id": 29246,
+      "Type": "Single",
+      "Tags": [
+        "pm"
+      ]
+    },
+    {
+      "Name": "Sloughing Combat Field",
+      "Id": 204422,
+      "Type": "Team",
+      "Tags": [
+        "+3",
+        "scf",
+        "blocks",
+        "blockers",
+        "sloughing"
+      ]
+    }
+  ],
+  "Fixer": [
+    {
+      "Name": "Back Pain",
+      "Id": 31409,
+      "Type": "Single",
+      "Tags": [
+        "bp"
+      ]
+    },
+    {
+      "Name": "NCU Nano",
+      "Id": 163079,
+      "Type": "Team",
+      "Tags": [
+        "ncu"
+      ]
+    },
+    {
+      "Name": "Dr Hack 'n Quack",
+      "Id": 162734,
+      "Type": "Single",
+      "Tags": [
+        "hnq",
+        "quack",
+        "hot"
+      ]
+    },
+    {
+      "Name": "Gridspace Freedom (Team)",
+      "Id": 162595,
+      "Type": "Team",
+      "Tags": [
+        "gsfteam",
+        "teamgsf"
+      ]
+    },
+    {
+      "Name": "Gridspace Freedom",
+      "Id": 93132,
+      "Type": "Single",
+      "Tags": [
+        "gsf"
+      ]
+    },
+    {
+      "Name": "Karma Harvest",
+      "Id": 31390,
+      "Type": "Single",
+      "Tags": [
+        "kh",
+        "karma"
+      ]
+    }
+  ],
+  "MartialArtist": [
+    {
+      "Name": "Dirty Fighter",
+      "Id": 28870,
+      "Type": "Single",
+      "Tags": [
+        "df"
+      ]
+    },
+    {
+      "Name": "Fervor of the Devotee",
+      "Id": 210323,
+      "Type": "Single",
+      "Tags": [
+        "fervor",
+        "devotee"
+      ]
+    },
+    {
+      "Name": "Fists of Stellar Harmony",
+      "Id": 81827,
+      "Type": "Single",
+      "Tags": [
+        "fosh",
+        "fists",
+        "harmony"
+      ]
+    },
+    {
+      "Name": "Lesser Controlled Rage",
+      "Id": 43369,
+      "Type": "Single",
+      "Tags": [
+        "lcr",
+        "rage"
+      ]
+    },
+    {
+      "Name": "Limbo Mastery",
+      "Id": 28894,
+      "Type": "Single",
+      "Tags": [
+        "lm",
+        "limbo"
+      ]
+    },
+    {
+      "Name": "Mark of Peril",
+      "Id": 160574,
+      "Type": "Single",
+      "Tags": [
+        "mop",
+        "mark",
+        "peril"
+      ]
+    },
+    {
+      "Name": "Martial Arts Mastery",
+      "Id": 28895,
+      "Type": "Single",
+      "Tags": [
+        "ma mastery",
+        "mam"
+      ]
+    },
+    {
+      "Name": "Reduce Inertia",
+      "Id": 28903,
+      "Type": "Single",
+      "Tags": [
+        "ri"
+      ]
+    },
+    {
+      "Name": "Return Attack",
+      "Id": 28904,
+      "Type": "Single",
+      "Tags": [
+        "ra"
+      ]
+    }
+  ],
+  "Metaphysicist": [
+    {
+      "Name": "Mocham's Gift: BioMet",
+      "Id": 29299,
+      "Type": "Single",
+      "Tags": [
+        "bmmo"
+      ]
+    },
+    {
+      "Name": "Mocham's Gift: MatCrea",
+      "Id": 29300,
+      "Type": "Single",
+      "Tags": [
+        "mcmo"
+      ]
+    },
+    {
+      "Name": "Mocham's Gift: SpaceTime",
+      "Id": 29301,
+      "Type": "Single",
+      "Tags": [
+        "stmo",
+        "tsmo"
+      ]
+    },
+    {
+      "Name": "Mocham's Gift: MatMet",
+      "Id": 29302,
+      "Type": "Single",
+      "Tags": [
+        "mmmo"
+      ]
+    },
+    {
+      "Name": "Mocham's Gift: PsyMod",
+      "Id": 29303,
+      "Type": "Single",
+      "Tags": [
+        "pmmo"
+      ]
+    },
+    {
+      "Name": "Mocham's Gift: SenseImp",
+      "Id": 29304,
+      "Type": "Single",
+      "Tags": [
+        "simo"
+      ]
+    },
+    {
+      "Name": "One Mind, One Purpose",
+      "Id": 95522,
+      "Type": "Single",
+      "Tags": [
+        "onemind",
+        "om",
+        "omop"
+      ]
+    },
+    {
+      "Name": "BioMet Mastery",
+      "Id": 29275,
+      "Type": "Single",
+      "Tags": [
+        "bmma"
+      ]
+    },
+    {
+      "Name": "MatCrea Mastery",
+      "Id": 29294,
+      "Type": "Single",
+      "Tags": [
+        "mcma"
+      ]
+    },
+    {
+      "Name": "SpaceTime Mastery",
+      "Id": 28903,
+      "Type": "Single",
+      "Tags": [
+        "stma",
+        "tsma"
+      ]
+    },
+    {
+      "Name": "MatMet Mastery",
+      "Id": 29296,
+      "Type": "Single",
+      "Tags": [
+        "mmma"
+      ]
+    },
+    {
+      "Name": "PsyMod Mastery",
+      "Id": 29312,
+      "Type": "Single",
+      "Tags": [
+        "pmma"
+      ]
+    },
+    {
+      "Name": "Sense Imp Mastery",
+      "Id": 29315,
+      "Type": "Single",
+      "Tags": [
+        "sima"
+      ]
+    },
+    {
+      "Name": "Mocham's Neural Interface-Web",
+      "Id": 95409,
+      "Type": "Single",
+      "Tags": [
+        "mniw",
+        "neural",
+        "web"
+      ]
+    },
+    {
+      "Name": "Advanced Symbol Manipulation",
+      "Id": 28903,
+      "Type": "Single",
+      "Tags": [
+        "np",
+        "asm"
+      ]
+    }
+  ],
+  "NanoTechnician": [
+    {
+      "Name": "Advanced Fleeting Immunity",
+      "Id": 270356,
+      "Type": "Single",
+      "Tags": [
+        "sorb",
+        "absorb",
+        "afi",
+        "fleeting",
+        "fleeting"
+      ]
+    },
+    {
+      "Name": "CrunchCom Nano Compressor Pro",
+      "Id": 95412,
+      "Type": "Single",
+      "Tags": [
+        "ccncp",
+        "crunch",
+        "crunchcom"
+      ]
+    },
+    {
+      "Name": "Izgimmer's Obfuscated Recompiler",
+      "Id": 95417,
+      "Type": "Single",
+      "Tags": [
+        "cost",
+        "ior"
+      ]
+    },
+    {
+      "Name": "Superior Nano Command",
+      "Id": 95446,
+      "Type": "Single",
+      "Tags": [
+        "snc"
+      ]
+    },
+    {
+      "Name": "Notum Overload",
+      "Id": 95443,
+      "Type": "Single",
+      "Tags": [
+        "range"
+      ]
+    },
+    {
+      "Name": "Personal Notum Harvester",
+      "Id": 90406,
+      "Type": "Single",
+      "Tags": [
+        "pnh",
+        "notum harvester"
+      ]
+    },
+    {
+      "Name": "Superior Humidity Extractor",
+      "Id": 90402,
+      "Type": "Single",
+      "Tags": [
+        "she",
+        "humidity",
+        "extractor"
+      ]
+    }
+  ],
+  "Soldier": [
+    {
+      "Name": "Full Automatic Targeting",
+      "Id": 270248,
+      "Type": "Single",
+      "Tags": [
+        "fat"
+      ]
+    },
+    {
+      "Name": "Riot Control",
+      "Id": 29251,
+      "Type": "Single",
+      "Tags": [
+        "rc"
+      ]
+    },
+    {
+      "Name": "Offensive Steamroller",
+      "Id": 29240,
+      "Type": "Single",
+      "Tags": [
+        "os"
+      ]
+    },
+    {
+      "Name": "Reactive Reflective Field (Extended)",
+      "Id": 70311,
+      "Type": "Single",
+      "Tags": [
+        "rrfe",
+        "reflect"
+      ]
+    }
+  ],
+  "Trader": [
+    {
+      "Name": "Skill Wrangler (Greater)",
+      "Id": 121342,
+      "Type": "Single",
+      "Tags": [
+        "greater"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Premium)",
+      "Id": 121335,
+      "Type": "Single",
+      "Tags": [
+        "wrangle",
+        "premium",
+        "131"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Advanced)",
+      "Id": 121345,
+      "Type": "Single",
+      "Tags": [
+        "advanced"
+      ]
+    },
+    {
+      "Name": "Maestro: Electrical Engineering",
+      "Id": 30734,
+      "Type": "Single",
+      "Tags": [
+        "maestroee"
+      ]
+    },
+    {
+      "Name": "Maestro: Field Quantum Physics",
+      "Id": 30735,
+      "Type": "Single",
+      "Tags": [
+        "maestrofqp",
+        "maestroqp"
+      ]
+    },
+    {
+      "Name": "Maestro: Mechanical Engineering",
+      "Id": 30736,
+      "Type": "Single",
+      "Tags": [
+        "maestrome"
+      ]
+    },
+    {
+      "Name": "Maestro: Pharmaceutical",
+      "Id": 30737,
+      "Type": "Single",
+      "Tags": [
+        "maestropt",
+        "maestrop"
+      ]
+    },
+    {
+      "Name": "Maestro: Weapon Smithing",
+      "Id": 30738,
+      "Type": "Single",
+      "Tags": [
+        "maestrows"
+      ]
+    }
+  ]
+}
