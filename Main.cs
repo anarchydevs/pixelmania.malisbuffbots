@@ -32,6 +32,7 @@ namespace MalisBuffBots
         {
             Logger.Information("- Mali's Clientless Buffbots -");
 
+            Client.SuppressDeserializationErrors();
             Client.OnUpdate += OnUpdate;
             Client.MessageReceived += OnMessageReceived;
             Client.Chat.VicinityMessageReceived += (e, msg) => HandleVicinityMessage(msg);
