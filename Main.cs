@@ -22,6 +22,11 @@ namespace MalisBuffBots
         // type "stand" or "sit" to switch their movement states
         // _sitKitThreshold is used for auto using sit kits below the given number,
         // your sit kit must be in the first inventory slot for this to work properly
+        // to properly set it there, make sure to clean your inventory completely
+        // with a clean inventory, withdraw the sit kit to your inventory
+        // if your character spam sits / stands up and doesnt use the kit
+        // you either haven't correctly put it in the first slot or
+        // the character doesn't meet the requirements to use the item
 
         private static Dictionary<Profession, List<NanoEntry>> _nanoDb;
         private List<BuffEntry> _buffEntries;
