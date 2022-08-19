@@ -34,10 +34,12 @@ namespace MalisBuffBots
             Client.OnUpdate += OnUpdate;
             Client.MessageReceived += OnMessageReceived;
             Client.Chat.VicinityMessageReceived += (e, msg) => HandleVicinityMessage(msg);
-
+            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
             _buffEntries = new List<BuffEntry>();
             _nanoDb = JsonConvert.DeserializeObject<Dictionary<Profession, List<NanoEntry>>>(File.ReadAllText($@"{Extensions.PluginDir}\BuffsDb.json"));
             _graceTime = 0.5f;
+
+
         }
 
         private void HandleVicinityMessage(VicinityMsg msg)
