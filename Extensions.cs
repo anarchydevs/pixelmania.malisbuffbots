@@ -2,11 +2,9 @@
 using AOSharp.Common.GameData;
 using SmokeLounge.AOtomation.Messaging.GameData;
 using SmokeLounge.AOtomation.Messaging.Messages.N3Messages;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 
 namespace MalisBuffBots
 {
@@ -23,7 +21,23 @@ namespace MalisBuffBots
                 Parameter2 = nanoId,
             });
         }
+        public static void UseSitKit()
+        {
+            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.SwitchToSit);
 
+            Targeting.SetTarget(DynelManager.LocalPlayer.Identity);
+
+            Client.Send(new GenericCmdMessage
+            {
+                Count = 0xFF,
+                Action = GenericCmdAction.Use,
+                User = new Identity(IdentityType.SimpleChar, Client.LocalDynelId),
+                Source = Identity.None,
+                Target = new Identity(IdentityType.Inventory, 64)
+            });
+
+            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+        }
         public static int FindBestNcuNano(int playerLevel)
         {
             if (25 <= playerLevel && playerLevel < 50) { return Nanos.RetoolNCU; }

@@ -20,6 +20,8 @@ namespace MalisBuffBots
         // To use the buffers, type in vicinity "cast <nanoTag1> <nanoTag2> <nanoTag3> .. 
         // Supports multi buff per line requests and team buffs
         // type "stand" or "sit" to switch their movement states
+        // _sitKitThreshold is used for auto using sit kits below the given number,
+        // your sit kit must be in the first inventory slot for this to work properly
 
         private static Dictionary<Profession, List<NanoEntry>> _nanoDb;
         private List<BuffEntry> _buffEntries;
@@ -28,6 +30,8 @@ namespace MalisBuffBots
         private BuffEntry _currentBuffEntry;
         private bool _isInTeam = false;
         private bool _sentTeamRequest = false;
+        private int _sitKitThreshold = 1000;
+
         public override void Init(string pluginDir)
         {
             Logger.Information("- Mali's Clientless Buffbots -");
@@ -104,7 +108,15 @@ namespace MalisBuffBots
             _graceTime -= deltaTime;
 
             if (_graceTime < 0)
+            {
+                if (DynelManager.LocalPlayer.TryGetStat(Stat.CurrentNano, out int maxNano) && maxNano < _sitKitThreshold)
+                {
+                    Extensions.UseSitKit();
+                    return;
+                }
+
                 AttemptToBuff(_currentBuffEntry);
+            }
 
             _waitTime -= deltaTime;
 
