@@ -71,16 +71,19 @@ namespace MalisBuffBots
                         {
                             DynelManager.Find(new Identity(IdentityType.SimpleChar, Client.LocalDynelId), out PlayerChar playerChar);
 
-                            var dictNano = _nanoDb[DynelManager.LocalPlayer.Profession].FirstOrDefault(x => x.Tags.Contains(reqNano));
+                            var dictNano = _nanoDb[DynelManager.LocalPlayer.Profession].Where(x => x.Tags.Contains(reqNano));
 
                             if (dictNano == null)
                                 continue;
 
-                            _buffEntries.Add(new BuffEntry
+                            foreach (var nano in dictNano)
                             {
-                                Character = requestor,
-                                NanoEntry = dictNano
-                            });
+                                _buffEntries.Add(new BuffEntry
+                                {
+                                    Character = requestor,
+                                    NanoEntry = nano
+                                });
+                            }
                         }
                     }
                     break;
