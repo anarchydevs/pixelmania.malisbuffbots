@@ -171,6 +171,9 @@ namespace MalisBuffBots
 
         private void NextBuff()
         {
+            if (_currentBuffEntry != null)
+                _buffEntries.RemoveAt(0);
+
             _currentBuffEntry = _buffEntries.FirstOrDefault();
 
             switch (_currentBuffEntry.NanoEntry.Id)
