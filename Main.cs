@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using SmokeLounge.AOtomation.Messaging.GameData;
 using SmokeLounge.AOtomation.Messaging.Messages;
 using SmokeLounge.AOtomation.Messaging.Messages.N3Messages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -119,6 +120,7 @@ namespace MalisBuffBots
             {
                 if (DynelManager.LocalPlayer.TryGetStat(Stat.CurrentNano, out int maxNano) && maxNano < _sitKitThreshold)
                 {
+                    Logger.Information($"Attempting to use sit kit.");
                     Extensions.UseSitKit();
                     return;
                 }
@@ -146,6 +148,7 @@ namespace MalisBuffBots
 
             if (charActionMessage.Action == CharacterActionType.AcceptTeamRequest)
             {
+                Logger.Information($" Team invite accepted from '{_currentBuffEntry.Character.Name}'");
                 _isInTeam = true;
             }
             else if (charActionMessage.Action == CharacterActionType.FinishNanoCasting)
@@ -153,6 +156,7 @@ namespace MalisBuffBots
                 if (charActionMessage.Identity.Instance != Client.LocalDynelId)
                     return;
 
+                Logger.Information($"Finished casting '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}'");
                 _buffEntries.RemoveAt(0);
                 _currentBuffEntry = null;
                 _waitTime = 0;
@@ -173,11 +177,15 @@ namespace MalisBuffBots
         {
             if (_currentBuffEntry != null)
             {
+                Logger.Warning($"Casting '{_currentBuffEntry.NanoEntry.Name}' on {_currentBuffEntry.Character.Name} failed. Removing entry.");
                 _buffEntries.RemoveAt(0);
                 Team.LeaveTeam();
                 _isInTeam = false;
                 _sentTeamRequest = false;
             }
+
+            if (_buffEntries.FirstOrDefault() == null)
+                return;
 
             _currentBuffEntry = _buffEntries.FirstOrDefault();
 
@@ -211,6 +219,7 @@ namespace MalisBuffBots
             {
                 if (!_sentTeamRequest)
                 {
+                    Logger.Information($" Team invite sent to '{buffEntry.Character.Name}'");
                     Team.Invite(buffEntry.Character);
                     _sentTeamRequest = true;  
                 }
@@ -219,6 +228,7 @@ namespace MalisBuffBots
                     return;
             }
 
+            Logger.Information($"Attempting to cast '{buffEntry.NanoEntry.Name}' on '{buffEntry.Character.Name}', Remaining time: {Math.Round(_waitTime, 2)} seconds.");
             DynelManager.LocalPlayer.Cast(buffEntry.Character, buffEntry.NanoEntry.Id);
             _graceTime = 0.5f;
         }
