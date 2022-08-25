@@ -172,7 +172,12 @@ namespace MalisBuffBots
         private void NextBuff()
         {
             if (_currentBuffEntry != null)
+            {
                 _buffEntries.RemoveAt(0);
+                Team.LeaveTeam();
+                _isInTeam = false;
+                _sentTeamRequest = false;
+            }
 
             _currentBuffEntry = _buffEntries.FirstOrDefault();
 
