@@ -182,6 +182,7 @@ namespace MalisBuffBots
                 Team.LeaveTeam();
                 _isInTeam = false;
                 _sentTeamRequest = false;
+                _currentBuffEntry = null;
             }
 
             if (_buffEntries.FirstOrDefault() == null)
@@ -189,23 +190,24 @@ namespace MalisBuffBots
 
             _currentBuffEntry = _buffEntries.FirstOrDefault();
 
+            if (Extensions.IsNcuNano(_currentBuffEntry.NanoEntry.Id))
+            {
+                _currentBuffEntry.NanoEntry.Id = Extensions.FindBestNcuNano(_currentBuffEntry.Character.Level);
+                _waitTime = 15f;
+                return;
+            }
+
             switch (_currentBuffEntry.NanoEntry.Id)
             {
                 case Nanos.SloughingCombatField:
                     {
                         _waitTime = 40f;
-                        break;
-                    }
-                case Nanos.RetoolNCU:
-                    {
-                        _currentBuffEntry.NanoEntry.Id = Extensions.FindBestNcuNano(_currentBuffEntry.Character.Level);
-                        _waitTime = 12f;
-                        break;
+                        return;
                     }
                 default:
                     {
                         _waitTime = 10f;
-                        break;
+                        return;
                     }
             }
         }
