@@ -4,6 +4,7 @@
       "Name": "Boon of the Wanderer",
       "Id": 204318,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "boon",
         "botw"
@@ -15,6 +16,7 @@
       "Name": "Assassin's Grin",
       "Id": 81856,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ag",
         "grin",
@@ -25,6 +27,7 @@
       "Name": "Enhanced Senses",
       "Id": 25988,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "es"
       ]
@@ -33,6 +36,7 @@
       "Name": "Enhanced Sureshot",
       "Id": 160791,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ess",
         "sureshot"
@@ -42,6 +46,7 @@
       "Name": "Feline Grace",
       "Id": 25989,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "fg"
       ]
@@ -50,6 +55,7 @@
       "Name": "Take the Shot",
       "Id": 32065,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "tts"
       ]
@@ -58,6 +64,7 @@
       "Name": "Unexpected Attack",
       "Id": 32067,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ua"
       ]
@@ -68,6 +75,7 @@
       "Name": "Improved Cut Red Tape",
       "Id": 222695,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "icrt",
         "redtape"
@@ -77,6 +85,7 @@
       "Name": "Soothing Calm",
       "Id": 222853,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "sc",
         "soothing"
@@ -88,6 +97,7 @@
       "Name": "Continuous Reconstruction",
       "Id": 222824,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "cr",
         "hd"
@@ -97,6 +107,7 @@
       "Name": "Deathless Blessing",
       "Id": 43852,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "db",
         "deathless"
@@ -106,6 +117,7 @@
       "Name": "Instinctive Control",
       "Id": 28669,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "iic",
         "instinctive"
@@ -115,6 +127,7 @@
       "Name": "Improved Nano Repulsor",
       "Id": 222823,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "inr",
         "nr"
@@ -124,6 +137,7 @@
       "Name": "Iron Circle",
       "Id": 42400,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ic",
         "iron",
@@ -134,6 +148,7 @@
       "Name": "Superior Omni-Med Enhancement",
       "Id": 95709,
       "Type": "Team",
+      "Timeout": 10,
       "Tags": [
         "omni-med",
         "omnimed",
@@ -144,6 +159,7 @@
       "Name": "Life Channeler",
       "Id": 96247,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "lc",
         "channeler",
@@ -154,6 +170,7 @@
       "Name": "Superior First Aid",
       "Id": 28675,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "sfa"
       ]
@@ -164,6 +181,7 @@
       "Name": "Brutal Thug",
       "Id": 29630,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "bt",
         "brutal"
@@ -173,6 +191,7 @@
       "Name": "Coruscating Screen",
       "Id": 55751,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "cs",
         "screen"
@@ -182,6 +201,7 @@
       "Name": "Essence of Behemoth",
       "Id": 95708,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "behe",
         "ess",
@@ -191,6 +211,7 @@
     {
       "Name": "Focused Anger",
       "Id": 29641,
+      "Timeout": 10,
       "Tags": [
         "fa"
       ]
@@ -199,6 +220,7 @@
       "Name": "Prodigious Strength",
       "Id": 29652,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "prod",
         "ps"
@@ -208,6 +230,7 @@
       "Name": "Thug's Delight",
       "Id": 43371,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "td",
         "delight"
@@ -219,6 +242,7 @@
       "Name": "Aegis Barrier",
       "Id": 29789,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ab",
         "aegis"
@@ -228,6 +252,7 @@
       "Name": "Extreme Prejudice",
       "Id": 29762,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ep",
         "prejudice"
@@ -237,6 +262,7 @@
       "Name": "Philosopher's Stone",
       "Id": 29772,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "phil",
         "philosopher",
@@ -247,6 +273,7 @@
       "Name": "Pistol Mastery",
       "Id": 29246,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "pm"
       ]
@@ -255,6 +282,7 @@
       "Name": "Sloughing Combat Field",
       "Id": 204422,
       "Type": "Team",
+      "Timeout": 40,
       "Tags": [
         "+3",
         "scf",
@@ -269,6 +297,7 @@
       "Name": "Back Pain",
       "Id": 31409,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "bp"
       ]
@@ -277,6 +306,7 @@
       "Name": "NCU Nano",
       "Id": 163079,
       "Type": "Team",
+      "Timeout": 15,
       "Tags": [
         "ncu"
       ]
@@ -285,6 +315,7 @@
       "Name": "Dr Hack 'n Quack",
       "Id": 162734,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "hnq",
         "quack",
@@ -295,6 +326,7 @@
       "Name": "Gridspace Freedom (Team)",
       "Id": 162595,
       "Type": "Team",
+      "Timeout": 10,
       "Tags": [
         "gsfteam",
         "teamgsf"
@@ -304,6 +336,7 @@
       "Name": "Gridspace Freedom",
       "Id": 93132,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "gsf"
       ]
@@ -312,6 +345,7 @@
       "Name": "Karma Harvest",
       "Id": 31390,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "kh",
         "karma"
@@ -323,6 +357,7 @@
       "Name": "Dirty Fighter",
       "Id": 28870,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "df"
       ]
@@ -331,6 +366,7 @@
       "Name": "Fervor of the Devotee",
       "Id": 210323,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "fervor",
         "devotee"
@@ -340,6 +376,7 @@
       "Name": "Fists of Stellar Harmony",
       "Id": 81827,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "fosh",
         "fists",
@@ -350,6 +387,7 @@
       "Name": "Lesser Controlled Rage",
       "Id": 43369,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "lcr",
         "rage"
@@ -359,6 +397,7 @@
       "Name": "Limbo Mastery",
       "Id": 28894,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "lm",
         "limbo"
@@ -368,6 +407,7 @@
       "Name": "Mark of Peril",
       "Id": 160574,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "mop",
         "mark",
@@ -378,8 +418,9 @@
       "Name": "Martial Arts Mastery",
       "Id": 28895,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
-        "ma mastery",
+        "mamastery",
         "mam"
       ]
     },
@@ -387,6 +428,7 @@
       "Name": "Reduce Inertia",
       "Id": 28903,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ri"
       ]
@@ -395,6 +437,7 @@
       "Name": "Return Attack",
       "Id": 28904,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ra"
       ]
@@ -405,6 +448,7 @@
       "Name": "Mocham's Gift: BioMet",
       "Id": 29299,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "bmmo"
       ]
@@ -413,6 +457,7 @@
       "Name": "Mocham's Gift: MatCrea",
       "Id": 29300,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "mcmo"
       ]
@@ -421,6 +466,7 @@
       "Name": "Mocham's Gift: SpaceTime",
       "Id": 29301,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "stmo",
         "tsmo"
@@ -430,6 +476,7 @@
       "Name": "Mocham's Gift: MatMet",
       "Id": 29302,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "mmmo"
       ]
@@ -438,6 +485,7 @@
       "Name": "Mocham's Gift: PsyMod",
       "Id": 29303,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "pmmo"
       ]
@@ -446,6 +494,7 @@
       "Name": "Mocham's Gift: SenseImp",
       "Id": 29304,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "simo"
       ]
@@ -454,6 +503,7 @@
       "Name": "One Mind, One Purpose",
       "Id": 95522,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "onemind",
         "om",
@@ -464,6 +514,7 @@
       "Name": "BioMet Mastery",
       "Id": 29275,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "bmma"
       ]
@@ -472,6 +523,7 @@
       "Name": "MatCrea Mastery",
       "Id": 29294,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "mcma"
       ]
@@ -480,6 +532,7 @@
       "Name": "SpaceTime Mastery",
       "Id": 28903,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "stma",
         "tsma"
@@ -489,6 +542,7 @@
       "Name": "MatMet Mastery",
       "Id": 29296,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "mmma"
       ]
@@ -497,6 +551,7 @@
       "Name": "PsyMod Mastery",
       "Id": 29312,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "pmma"
       ]
@@ -505,6 +560,7 @@
       "Name": "Sense Imp Mastery",
       "Id": 29315,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "sima"
       ]
@@ -513,6 +569,7 @@
       "Name": "Mocham's Neural Interface-Web",
       "Id": 95409,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "mniw",
         "neural",
@@ -523,6 +580,7 @@
       "Name": "Advanced Symbol Manipulation",
       "Id": 28903,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "np",
         "asm"
@@ -534,6 +592,7 @@
       "Name": "Advanced Fleeting Immunity",
       "Id": 270356,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "sorb",
         "absorb",
@@ -546,6 +605,7 @@
       "Name": "CrunchCom Nano Compressor Pro",
       "Id": 95412,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "ccncp",
         "crunch",
@@ -556,6 +616,7 @@
       "Name": "Izgimmer's Obfuscated Recompiler",
       "Id": 95417,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "cost",
         "ior"
@@ -565,6 +626,7 @@
       "Name": "Superior Nano Command",
       "Id": 95446,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "snc"
       ]
@@ -573,6 +635,7 @@
       "Name": "Notum Overload",
       "Id": 95443,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "range"
       ]
@@ -581,6 +644,7 @@
       "Name": "Personal Notum Harvester",
       "Id": 90406,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "pnh",
         "notum harvester"
@@ -590,6 +654,7 @@
       "Name": "Superior Humidity Extractor",
       "Id": 90402,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "she",
         "humidity",
@@ -602,6 +667,7 @@
       "Name": "Full Automatic Targeting",
       "Id": 270248,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "fat"
       ]
@@ -610,6 +676,7 @@
       "Name": "Riot Control",
       "Id": 29251,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "rc"
       ]
@@ -618,6 +685,7 @@
       "Name": "Offensive Steamroller",
       "Id": 29240,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "os"
       ]
@@ -626,6 +694,7 @@
       "Name": "Reactive Reflective Field (Extended)",
       "Id": 70311,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "rrfe",
         "reflect"
@@ -637,6 +706,7 @@
       "Name": "Skill Wrangler (Greater)",
       "Id": 121342,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "greater"
       ]
@@ -645,6 +715,7 @@
       "Name": "Skill Wrangler (Premium)",
       "Id": 121335,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "wrangle",
         "premium",
@@ -655,6 +726,7 @@
       "Name": "Skill Wrangler (Advanced)",
       "Id": 121345,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "advanced"
       ]
@@ -663,6 +735,7 @@
       "Name": "Maestro: Electrical Engineering",
       "Id": 30734,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "maestroee"
       ]
@@ -671,6 +744,7 @@
       "Name": "Maestro: Field Quantum Physics",
       "Id": 30735,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "maestrofqp",
         "maestroqp"
@@ -680,6 +754,7 @@
       "Name": "Maestro: Mechanical Engineering",
       "Id": 30736,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "maestrome"
       ]
@@ -688,6 +763,7 @@
       "Name": "Maestro: Pharmaceutical",
       "Id": 30737,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "maestropt",
         "maestrop"
@@ -697,6 +773,7 @@
       "Name": "Maestro: Weapon Smithing",
       "Id": 30738,
       "Type": "Single",
+      "Timeout": 10,
       "Tags": [
         "maestrows"
       ]
