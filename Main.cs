@@ -45,7 +45,7 @@ namespace MalisBuffBots
 
          Use the Settings.json to configure sit kit threshold usage, might have other future uses
          Configure your sit kit item id in the RelevantItems, make sure your character meets the skill requirements to use sit kits if you arent using premium health and nano recharger 
-
+         You could check for target's ncu before casting (use case flag checking) using simpleChar.Buffs.Contains
          If you log out your bots / kill the process, wait until they fully leave the server before rebooting them, else there might be issues with certain stats not getting registered for the LocalPlayer
         */
         private Dictionary<Profession, List<NanoEntry>> _nanoDb;
