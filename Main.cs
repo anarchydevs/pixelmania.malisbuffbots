@@ -20,10 +20,10 @@ namespace MalisBuffBots
         /* 
         TUTORIAL:   
 
-        Use the BuffsDb.json to modify bot casting behavior, Example:
+        Use the BuffsDb.json to modify bot casting behavior, example:
         {
             "Name": "NCU Nanos", - name of the entry, used in logging information
-            "LevelToId": { - level to id map, it will check players level and cast the appropriate id, always order highest level to lowest, if we don't care about this just write a single entry with the key being "0"
+            "LevelToId": { - level to id map, it will check players level and cast the given nano id, always order highest level to lowest, if we don't care about this just write a single entry with the key being "0"
             "185": 163095,
             "165": 163094,
             "135": 163087,
@@ -43,7 +43,7 @@ namespace MalisBuffBots
          ORG CHAT: If you want to use org chat for relaying requests, use the Client.Chat.GroupMessageReceived event handler (look in TestPlugin for an example of filtering only org chat messages), and just reroute the commands there
          PRIVATE CHAT: You can use Client.SendPrivateMessage to send messages to people, for command purposes or logging purposes, might want to do it from a single bot to avoid spam
 
-         Use the Settings.json to configure sit kit threshold usage, might have future uses
+         Use the Settings.json to configure sit kit threshold usage, might have other future uses
          Configure your sit kit item id in the RelevantItems, make sure your character meets the skill requirements to use sit kits if you arent using premium health and nano recharger 
 
          If you log out your bots / kill the process, wait until they fully leave the server before rebooting them, else there might be issues with certain stats not getting registered for the LocalPlayer
