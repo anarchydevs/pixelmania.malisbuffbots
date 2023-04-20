@@ -23,24 +23,6 @@ namespace MalisBuffBots
 
         public static bool IsInTeam(this LocalPlayer localPlayer) => localPlayer.GetStat(Stat.Team) != 0;
 
-        public static void UseItemInFirstSlot(this LocalPlayer client)
-        {
-            client.MovementComponent.ChangeMovement(MovementAction.SwitchToSit);
-
-            Targeting.SetTarget(client.Identity);
-
-            Client.Send(new GenericCmdMessage
-            {
-                Count = 0xFF,
-                Action = GenericCmdAction.Use,
-                User = new Identity(IdentityType.SimpleChar, Client.LocalDynelId),
-                Source = Identity.None,
-                Target = new Identity(IdentityType.Inventory, 64)
-            });
-
-            client.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
-        }
-
         public static void RemoveCustomBuff(this LocalPlayer localPlayer, int id)
         {
             if (id == 0)
