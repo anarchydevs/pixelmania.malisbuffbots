@@ -2,781 +2,649 @@
   "Adventurer": [
     {
       "Name": "Boon of the Wanderer",
-      "Id": 204318,
+      "LevelToId": { "0": 204318 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "boon",
-        "botw"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "boon", "botw" ]
     }
   ],
   "Agent": [
     {
       "Name": "Assassin's Grin",
-      "Id": 81856,
+      "LevelToId": { "0": 81856 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ag",
-        "grin",
-        "assassin"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ag", "grin", "assassin" ]
     },
     {
       "Name": "Enhanced Senses",
-      "Id": 25988,
+      "LevelToId": { "0": 25988 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "es"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "es" ]
     },
     {
       "Name": "Enhanced Sureshot",
-      "Id": 160791,
+      "LevelToId": { "0": 160791 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ess",
-        "sureshot"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ess", "sureshot" ]
     },
     {
       "Name": "Feline Grace",
-      "Id": 25989,
+      "LevelToId": { "0": 25989 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "fg"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "fg" ]
     },
     {
       "Name": "Take the Shot",
-      "Id": 32065,
+      "LevelToId": { "0": 32065 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "tts"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "tts" ]
     },
     {
       "Name": "Unexpected Attack",
-      "Id": 32067,
+      "LevelToId": { "0": 32067 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ua"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ua" ]
     }
   ],
   "Bureaucrat": [
     {
       "Name": "Improved Cut Red Tape",
-      "Id": 222695,
+      "LevelToId": { "0": 222695 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "icrt",
-        "redtape"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "icrt", "redtape" ]
     },
     {
       "Name": "Soothing Calm",
-      "Id": 222853,
+      "LevelToId": { "0": 222853 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "sc",
-        "soothing"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "sc", "soothing" ]
     }
   ],
   "Doctor": [
     {
       "Name": "Continuous Reconstruction",
-      "Id": 222824,
+      "LevelToId": { "0": 222824 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "cr",
-        "hd"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "cr", "hd" ]
     },
     {
       "Name": "Deathless Blessing",
-      "Id": 43852,
+      "LevelToId": { "0": 43852 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "db",
-        "deathless"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "db", "deathless" ]
     },
     {
       "Name": "Instinctive Control",
-      "Id": 28669,
+      "LevelToId": { "0": 28669 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "iic",
-        "instinctive"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "iic", "instinctive" ]
     },
     {
       "Name": "Improved Nano Repulsor",
-      "Id": 222823,
+      "LevelToId": { "0": 222823 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "inr",
-        "nr"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "inr", "nr" ]
     },
     {
       "Name": "Iron Circle",
-      "Id": 42400,
+      "LevelToId": { "0": 42400 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ic",
-        "iron",
-        "circle"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ic", "iron", "circle" ]
     },
     {
       "Name": "Superior Omni-Med Enhancement",
-      "Id": 95709,
+      "LevelToId": { "0": 95709 },
       "Type": "Team",
-      "Timeout": 10,
-      "Tags": [
-        "omni-med",
-        "omnimed",
-        "some"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "omni-med", "omnimed", "some" ]
     },
     {
       "Name": "Life Channeler",
-      "Id": 96247,
+      "LevelToId": { "0": 96247 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "lc",
-        "channeler",
-        "life"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "lc", "channeler", "life" ]
     },
     {
       "Name": "Superior First Aid",
-      "Id": 28675,
+      "LevelToId": { "0": 28675 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "sfa"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "sfa" ]
     }
   ],
   "Enforcer": [
     {
       "Name": "Brutal Thug",
-      "Id": 29630,
+      "LevelToId": { "0": 29630 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "bt",
-        "brutal"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "bt", "brutal" ]
     },
     {
       "Name": "Coruscating Screen",
-      "Id": 55751,
+      "LevelToId": { "0": 55751 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "cs",
-        "screen"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "cs", "screen" ]
     },
     {
       "Name": "Essence of Behemoth",
-      "Id": 95708,
+      "LevelToId": { "0": 95708 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "behe",
-        "ess",
-        "essence"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "behe", "ess", "essence" ]
     },
     {
       "Name": "Focused Anger",
-      "Id": 29641,
-      "Timeout": 10,
-      "Tags": [
-        "fa"
-      ]
+      "LevelToId": { "0": 29641 },
+      "Type": "Single",
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "fa" ]
     },
     {
       "Name": "Prodigious Strength",
-      "Id": 29652,
+      "LevelToId": { "0": 29652 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "prod",
-        "ps"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "prod", "ps" ]
     },
     {
       "Name": "Thug's Delight",
-      "Id": 43371,
+      "LevelToId": { "0": 43371 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "td",
-        "delight"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "td", "delight" ]
     }
   ],
   "Engineer": [
     {
       "Name": "Aegis Barrier",
-      "Id": 29789,
+      "LevelToId": { "0": 29789 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ab",
-        "aegis"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ab", "aegis" ]
     },
     {
       "Name": "Extreme Prejudice",
-      "Id": 29762,
+      "LevelToId": { "0": 29762 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ep",
-        "prejudice"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ep", "prejudice" ]
     },
     {
       "Name": "Philosopher's Stone",
-      "Id": 29772,
+      "LevelToId": { "0": 29772 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "phil",
-        "philosopher",
-        "stone"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "phil", "philosopher", "stone" ]
     },
     {
       "Name": "Pistol Mastery",
-      "Id": 29246,
+      "LevelToId": { "0": 29246 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "pm"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "pm" ]
     },
     {
       "Name": "Sloughing Combat Field",
-      "Id": 204422,
+      "LevelToId": { "0": 204422 },
       "Type": "Team",
-      "Timeout": 40,
-      "Tags": [
-        "+3",
-        "scf",
-        "blocks",
-        "blockers",
-        "sloughing"
-      ]
+      "TimeOut": 40,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "+3", "scf", "blocks", "blockers", "sloughing" ]
     }
   ],
   "Fixer": [
     {
       "Name": "Back Pain",
-      "Id": 31409,
+      "LevelToId": { "0": 31409 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "bp"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "bp" ]
     },
     {
-      "Name": "NCU Nano",
-      "Id": 163079,
+      "Name": "NCU Nanos",
+      "LevelToId": {
+        "185": 163095,
+        "165": 163094,
+        "135": 163087,
+        "125": 163085,
+        "75": 163083,
+        "50": 163081,
+        "25": 163079
+      },
       "Type": "Team",
-      "Timeout": 15,
-      "Tags": [
-        "ncu"
-      ]
+      "TimeOut": 15,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ncu" ]
     },
     {
       "Name": "Dr Hack 'n Quack",
-      "Id": 162734,
+      "LevelToId": { "0": 162734 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "hnq",
-        "quack",
-        "hot"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "hnq", "quack", "hot" ]
     },
     {
       "Name": "Gridspace Freedom (Team)",
-      "Id": 162595,
+      "LevelToId": { "0": 162595 },
       "Type": "Team",
-      "Timeout": 10,
-      "Tags": [
-        "gsfteam",
-        "teamgsf"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "gsfteam", "teamgsf" ]
     },
     {
       "Name": "Gridspace Freedom",
-      "Id": 93132,
+      "LevelToId": { "0": 93132 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "gsf"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "gsf" ]
     },
     {
       "Name": "Karma Harvest",
-      "Id": 31390,
+      "LevelToId": { "0": 31390 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "kh",
-        "karma"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "kh", "karma" ]
     }
   ],
   "MartialArtist": [
     {
       "Name": "Dirty Fighter",
-      "Id": 28870,
+      "LevelToId": { "0": 28870 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "df"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "df" ]
     },
     {
       "Name": "Fervor of the Devotee",
-      "Id": 210323,
+      "LevelToId": { "0": 210323 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "fervor",
-        "devotee"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "fervor", "devotee" ]
     },
     {
       "Name": "Fists of Stellar Harmony",
-      "Id": 81827,
+      "LevelToId": { "0": 81827 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "fosh",
-        "fists",
-        "harmony"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "fosh", "fists", "harmony" ]
     },
     {
       "Name": "Lesser Controlled Rage",
-      "Id": 43369,
+      "LevelToId": { "0": 43369 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "lcr",
-        "rage"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "lcr", "rage" ]
     },
     {
       "Name": "Limbo Mastery",
-      "Id": 28894,
+      "LevelToId": { "0": 28894 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "lm",
-        "limbo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "lm", "limbo" ]
     },
     {
       "Name": "Mark of Peril",
-      "Id": 160574,
+      "LevelToId": { "0": 160574 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mop",
-        "mark",
-        "peril"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mop", "mark", "peril" ]
     },
     {
       "Name": "Martial Arts Mastery",
-      "Id": 28895,
+      "LevelToId": { "0": 28895 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mamastery",
-        "mam"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mamastery", "mam" ]
     },
     {
       "Name": "Reduce Inertia",
-      "Id": 28903,
+      "LevelToId": { "0": 28903 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ri"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ri" ]
     },
     {
       "Name": "Return Attack",
-      "Id": 28904,
+      "LevelToId": { "0": 28904 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ra"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ra" ]
     }
   ],
   "Metaphysicist": [
     {
       "Name": "Mocham's Gift: BioMet",
-      "Id": 29299,
+      "LevelToId": { "0": 29299 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "bmmo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "bmmo" ]
     },
     {
       "Name": "Mocham's Gift: MatCrea",
-      "Id": 29300,
+      "LevelToId": { "0": 29300 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mcmo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mcmo" ]
     },
     {
       "Name": "Mocham's Gift: SpaceTime",
-      "Id": 29301,
+      "LevelToId": { "0": 29301 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "stmo",
-        "tsmo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "stmo", "tsmo" ]
     },
     {
       "Name": "Mocham's Gift: MatMet",
-      "Id": 29302,
+      "LevelToId": { "0": 29302 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mmmo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mmmo" ]
     },
     {
       "Name": "Mocham's Gift: PsyMod",
-      "Id": 29303,
+      "LevelToId": { "0": 29303 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "pmmo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "pmmo" ]
     },
     {
       "Name": "Mocham's Gift: SenseImp",
-      "Id": 29304,
+      "LevelToId": { "0": 29304 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "simo"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "simo" ]
     },
     {
       "Name": "One Mind, One Purpose",
-      "Id": 95522,
+      "LevelToId": { "0": 95522 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "onemind",
-        "om",
-        "omop"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "onemind", "om", "omop" ]
     },
     {
       "Name": "BioMet Mastery",
-      "Id": 29275,
+      "LevelToId": { "0": 29275 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "bmma"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "bmma" ]
     },
     {
       "Name": "MatCrea Mastery",
-      "Id": 29294,
+      "LevelToId": { "0": 29294 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mcma"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mcma" ]
     },
     {
       "Name": "SpaceTime Mastery",
-      "Id": 28903,
+      "LevelToId": { "0": 28903 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "stma",
-        "tsma"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "stma", "tsma" ]
     },
     {
       "Name": "MatMet Mastery",
-      "Id": 29296,
+      "LevelToId": { "0": 29296 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mmma"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mmma" ]
     },
     {
       "Name": "PsyMod Mastery",
-      "Id": 29312,
+      "LevelToId": { "0": 29312 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "pmma"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "pmma" ]
     },
     {
       "Name": "Sense Imp Mastery",
-      "Id": 29315,
+      "LevelToId": { "0": 29315 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "sima"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "sima" ]
     },
     {
       "Name": "Mocham's Neural Interface-Web",
-      "Id": 95409,
+      "LevelToId": { "0": 95409 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "mniw",
-        "neural",
-        "web"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "mniw", "neural", "web" ]
     },
     {
       "Name": "Advanced Symbol Manipulation",
-      "Id": 28903,
+      "LevelToId": { "0": 28903 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "np",
-        "asm"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "np", "asm" ]
     }
   ],
   "NanoTechnician": [
     {
       "Name": "Advanced Fleeting Immunity",
-      "Id": 270356,
+      "LevelToId": { "0": 270356 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "sorb",
-        "absorb",
-        "afi",
-        "fleeting",
-        "fleeting"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "sorb", "absorb", "afi", "fleeting", "fleeting" ]
     },
     {
       "Name": "CrunchCom Nano Compressor Pro",
-      "Id": 95412,
+      "LevelToId": { "0": 95412 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "ccncp",
-        "crunch",
-        "crunchcom"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "ccncp", "crunch", "crunchcom" ]
     },
     {
       "Name": "Izgimmer's Obfuscated Recompiler",
-      "Id": 95417,
+      "LevelToId": { "0": 95417 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "cost",
-        "ior"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "cost", "ior" ]
     },
     {
       "Name": "Superior Nano Command",
-      "Id": 95446,
+      "LevelToId": { "0": 95446 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "snc"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "snc" ]
     },
     {
       "Name": "Notum Overload",
-      "Id": 95443,
+      "LevelToId": { "0": 95443 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "range"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "range" ]
     },
     {
       "Name": "Personal Notum Harvester",
-      "Id": 90406,
+      "LevelToId": { "0": 90406 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "pnh",
-        "notum harvester"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "pnh", "notum harvester" ]
     },
     {
       "Name": "Superior Humidity Extractor",
-      "Id": 90402,
+      "LevelToId": { "0": 90402 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "she",
-        "humidity",
-        "extractor"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "she", "humidity", "extractor" ]
     }
   ],
   "Soldier": [
     {
       "Name": "Full Automatic Targeting",
-      "Id": 270248,
+      "LevelToId": { "0": 270248 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "fat"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "fat" ]
     },
     {
       "Name": "Riot Control",
-      "Id": 29251,
+      "LevelToId": { "0": 29251 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "rc"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "rc" ]
     },
     {
       "Name": "Offensive Steamroller",
-      "Id": 29240,
+      "LevelToId": { "0": 29240 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "os"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "os" ]
     },
     {
       "Name": "Reactive Reflective Field (Extended)",
-      "Id": 70311,
+      "LevelToId": { "0": 70311 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "rrfe",
-        "reflect"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "rrfe", "reflect" ]
     }
   ],
   "Trader": [
     {
       "Name": "Skill Wrangler (Greater)",
-      "Id": 121342,
+      "LevelToId": { "0": 121342 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "greater"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "greater" ]
     },
     {
       "Name": "Skill Wrangler (Premium)",
-      "Id": 121335,
+      "LevelToId": { "0": 121335 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "wrangle",
-        "premium",
-        "131"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "wrangle", "premium", "131" ]
     },
     {
       "Name": "Skill Wrangler (Advanced)",
-      "Id": 121345,
+      "LevelToId": { "0": 121345 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "advanced"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "advanced" ]
     },
     {
       "Name": "Maestro: Electrical Engineering",
-      "Id": 30734,
+      "LevelToId": { "0": 30734 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "maestroee"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "maestroee" ]
     },
     {
       "Name": "Maestro: Field Quantum Physics",
-      "Id": 30735,
+      "LevelToId": { "0": 30735 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "maestrofqp",
-        "maestroqp"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "maestrofqp", "maestroqp" ]
     },
     {
       "Name": "Maestro: Mechanical Engineering",
-      "Id": 30736,
+      "LevelToId": { "0": 30736 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "maestrome"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "maestrome" ]
     },
     {
       "Name": "Maestro: Pharmaceutical",
-      "Id": 30737,
+      "LevelToId": { "0": 30737 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "maestropt",
-        "maestrop"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "maestropt", "maestrop" ]
     },
     {
       "Name": "Maestro: Weapon Smithing",
-      "Id": 30738,
+      "LevelToId": { "0": 30738 },
       "Type": "Single",
-      "Timeout": 10,
-      "Tags": [
-        "maestrows"
-      ]
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "maestrows" ]
     }
   ]
 }

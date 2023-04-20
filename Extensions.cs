@@ -21,16 +21,7 @@ namespace MalisBuffBots
             });
         }
 
-        public static bool NanoLessThan(this LocalPlayer localPlayer, int threshold)
-        {
-            if (localPlayer.TryGetStat(Stat.CurrentNano, out int maxNano) && maxNano < threshold)
-            {
-                Logger.Information($"Attempting to use sit kit.");
-                return true;
-            }
-
-            return false;
-        }
+        public static bool IsInTeam(this LocalPlayer localPlayer) => localPlayer.GetStat(Stat.Team) != 0;
 
         public static void UseItemInFirstSlot(this LocalPlayer client)
         {
@@ -48,6 +39,16 @@ namespace MalisBuffBots
             });
 
             client.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+        }
+
+        public static void RemoveCustomBuff(this LocalPlayer localPlayer, int id)
+        {
+            if (id == 0)
+                return;
+
+            localPlayer.RemoveBuff(id);
+
+            Logger.Information($"Removing buff with id: {id}.");
         }
     }
 }

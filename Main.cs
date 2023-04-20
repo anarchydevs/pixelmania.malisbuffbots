@@ -15,28 +15,42 @@ namespace MalisBuffBots
 {
     public class Main : ClientlessPluginEntry
     {
-        // Use the BuffsDb.json to reference/change tags, timeout periods for nanos:
-        // To use the buffers, type in vicinity "cast <nanoTag1> <nanoTag2> <nanoTag3> .. 
-        // Supports multi buff per line requests and team buffs
-        // type "stand" or "sit" to switch their movement states
+        // NOTE: BuffsDb.json structure was changed in 21th April 2023 update, if you have custom nanos, make sure to update accordingly
 
-        // Use the Settings.json to configure sit kit threshold usage,
-        // your sit kit must be in the first inventory slot for this to work
-        // to properly set it there, make sure to clean your inventory completely
-        // with a clean inventory, withdraw the sit kit to your inventory
+        /* 
+        TUTORIAL:   
 
-        // if your character spam sits / stands up and doesnt use the kit
-        // you either haven't correctly put it in the first slot or
-        // the character doesn't meet the requirements to use the item
+        Use the BuffsDb.json to modify bot casting behavior, Example:
+        {
+            "Name": "NCU Nanos", - name of the entry, used in logging information
+            "LevelToId": { - level to id map, it will check players level and cast the appropriate id, always order highest level to lowest, if we don't care about this just write a single entry with the key being "0"
+            "185": 163095,
+            "165": 163094,
+            "135": 163087,
+            "125": 163085,
+            "75": 163083,
+            "50": 163081,
+            "25": 163079
+            },
+            "Type": "Team", - Player will be invited to team before casting, other option is "Single" for non team buffs
+            "TimeOut": 15, - Timeout period, aka how many seconds the bot will attempt to cast this particular nano before moving to the next entry
+            "RemoveNanoIdUponCast": 0, - In cases like engi blocker aura, you can specify a custom nano id to remove that id from your ncu that would otherwise not allow your bot to cast it again, if we don't care about this leave at 0
+            "Tags": [ "ncu" ] - Tags used for commands, aka "cast ncu" would trigger this entry
+        },
 
+         To use the buffers, type in vicinity "cast <nanoTag1> <nanoTag2> <nanoTag3> .. (multi buffs per line is allowed)
+         type "stand" or "sit" to switch their movement states if they are in the wrong initial state
+         ORG CHAT: If you want to use org chat for relaying requests, use the Client.Chat.GroupMessageReceived event handler (look in TestPlugin for an example of filtering only org chat messages), and just reroute the commands there
+         PRIVATE CHAT: You can use Client.SendPrivateMessage to send messages to people, for command purposes or logging purposes, might want to do it from a single bot to avoid spam
+
+         Use the Settings.json to configure sit kit threshold usage, might have future uses
+         Configure your sit kit item id in the RelevantItems, make sure your character meets the skill requirements to use sit kits if you arent using premium health and nano recharger 
+
+         If you log out your bots / kill the process, wait until they fully leave the server before rebooting them, else there might be issues with certain stats not getting registered for the LocalPlayer
+        */
         private Dictionary<Profession, List<NanoEntry>> _nanoDb;
         private Dictionary<Settings, int> _settings;
-        private List<BuffEntry> _buffEntries;
-        private BuffEntry _currentBuffEntry;
-        private double _waitTime;
-        private double _graceTime;
-        private bool _isInTeam = false;
-        private bool _sentTeamRequest = false;
+        private BuffQueue _buffQueue;
 
         public override void Init(string pluginDir)
         {
@@ -46,11 +60,9 @@ namespace MalisBuffBots
             Client.OnUpdate += OnUpdate;
             Client.MessageReceived += OnMessageReceived;
             Client.Chat.VicinityMessageReceived += (e, msg) => HandleVicinityMessage(msg);
-            _buffEntries = new List<BuffEntry>();
+            _buffQueue = new BuffQueue();
             _nanoDb = JsonConvert.DeserializeObject<Dictionary<Profession, List<NanoEntry>>>(File.ReadAllText($@"{Utils.PluginDir}\BuffsDb.json"));
             _settings = JsonConvert.DeserializeObject<Dictionary<Settings, int>>(File.ReadAllText($@"{Utils.PluginDir}\Settings.json"));
-
-            _graceTime = 0.5f;
         }
 
         private void HandleVicinityMessage(VicinityMsg msg)
@@ -94,23 +106,28 @@ namespace MalisBuffBots
 
         private void OnUpdate(object _, double deltaTime)
         {
-            if (_buffEntries.Count == 0)
+            if (_buffQueue.QueueIsEmpty())
                 return;
 
-            _graceTime -= deltaTime;
+            if (!_buffQueue.TimerExpired(deltaTime))
+                return;
 
-            if (_graceTime < 0)
+            if (DynelManager.LocalPlayer.TryGetStat(Stat.CurrentNano, out int currentNano) &&
+                currentNano < _settings[Settings.SitKitThreshold] &&
+                !DynelManager.LocalPlayer.Cooldowns.ContainsKey(Stat.Treatment))
             {
-                if (DynelManager.LocalPlayer.NanoLessThan(_settings[Settings.SitKitThreshold]))
-                    DynelManager.LocalPlayer.UseItemInFirstSlot();
-                else
-                    ProcessCurrentBuffEntry();
+                if (Inventory.Items.Find((int)RelevantItems.PremiumHealthAndNanoRecharger, out Item item))
+                {
+                    var moveComponent = DynelManager.LocalPlayer.MovementComponent;
+                    moveComponent.ChangeMovement(MovementAction.SwitchToSit);
+                    item.Use();
+                    moveComponent.ChangeMovement(MovementAction.LeaveSit);
+                }
             }
-
-            _waitTime -= deltaTime;
-
-            if (_waitTime < 0)
-                ProcessNextBuffEntry();
+            else
+            {
+                _buffQueue.ProcessCurrentBuffEntry();
+            }
         }
 
         private void OnMessageReceived(object _, Message msg)
@@ -120,26 +137,23 @@ namespace MalisBuffBots
 
             N3Message n3Msg = (N3Message)msg.Body;
 
-            if (n3Msg.N3MessageType != N3MessageType.CharacterAction)
+            if (n3Msg.N3MessageType != N3MessageType.CharacterAction || n3Msg.Identity.Instance != Client.LocalDynelId)
                 return;
 
-            CharacterActionMessage charActionMessage = (CharacterActionMessage)n3Msg;
+            ProcessCharacterActionMessage((CharacterActionMessage)n3Msg);
+        }
 
-            if (charActionMessage.Action == CharacterActionType.AcceptTeamRequest)
+        private void ProcessCharacterActionMessage(CharacterActionMessage actionMsg)
+        {
+            switch (actionMsg.Action)
             {
-                Logger.Information($" Team invite accepted from '{_currentBuffEntry.Character.Name}'");
-                _isInTeam = true;
-            }
-            else if (charActionMessage.Action == CharacterActionType.FinishNanoCasting)
-            {
-                if (charActionMessage.Identity.Instance != Client.LocalDynelId)
-                    return;
-
-                Logger.Information($"Finished casting '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}'");
-                DeleteCurrentBuffEntry();
-
-                if (charActionMessage.Parameter2 == Nanos.SloughingCombatField) 
-                    DynelManager.LocalPlayer.RemoveBuff(231055);
+                case CharacterActionType.AcceptTeamRequest:
+                    Logger.Information($"Team invite accepted from '{_buffQueue.CurrentBuffEntry.Character.Name}'");
+                    break;
+                case CharacterActionType.FinishNanoCasting:
+                    Logger.Information($"Finished casting '{_buffQueue.CurrentBuffEntry.NanoEntry.Name}' on '{_buffQueue.CurrentBuffEntry.Character.Name}'");
+                    _buffQueue.ResetCurrentBuffEntry();
+                    break;
             }
         }
 
@@ -147,86 +161,21 @@ namespace MalisBuffBots
         {
             foreach (var reqNano in commandParts.Skip(1).Distinct())
             {
-                var dictNano = _nanoDb[DynelManager.LocalPlayer.Profession].Where(x => x.Tags.Contains(reqNano));
+                var dbResult = _nanoDb[DynelManager.LocalPlayer.Profession].Where(x => x.Tags.Contains(reqNano));
 
-                if (dictNano == null || dictNano.Count() == 0)
+                if (dbResult.Count() == 0)
                     continue;
 
-                foreach (var nano in dictNano)
-                {
-                    _buffEntries.Add(new BuffEntry
-                    {
-                        Character = requestor,
-                        NanoEntry = nano
-                    });
-                }
+                foreach (var nano in dbResult)
+                    _buffQueue.Enqueue(new BuffEntry(requestor, nano));
 
                 Logger.Information($"Received cast request from '{requestor.Name}'");
             }
         }
-
-        private void ProcessNextBuffEntry()
-        {
-            if (_currentBuffEntry != null)
-            {
-                Logger.Warning($"Casting '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}' failed. Removing entry.");
-                DeleteCurrentBuffEntry();
-            }
-
-            BuffEntry firstBuffEntry = _buffEntries.FirstOrDefault();
-
-            if (firstBuffEntry == null)
-                return;
-
-            _currentBuffEntry = firstBuffEntry;
-
-            if (Utils.IsNcuNano(_currentBuffEntry.NanoEntry.Id))
-                _currentBuffEntry.NanoEntry.Id = Utils.FindBestNcuNano(_currentBuffEntry.Character.Level);
-
-            _waitTime = _currentBuffEntry.NanoEntry.TimeOut;
-        }
-
-        private void DeleteCurrentBuffEntry()
-        {
-            _buffEntries.RemoveAt(0);
-            Team.LeaveTeam();
-            _isInTeam = false;
-            _sentTeamRequest = false;
-            _currentBuffEntry = null;
-            _waitTime = 0;
-        }
-
-        private void ProcessCurrentBuffEntry()
-        {
-            if (_currentBuffEntry == null)
-                return;
-
-            if (_currentBuffEntry.NanoEntry.Type == CastType.Team)
-            {
-                AttemptToTeamInvite();
-
-                if (!_isInTeam)
-                    return;
-            }
-
-            AttemptToBuffTarget();
-        }
-
-        private void AttemptToBuffTarget()
-        {
-            Logger.Information($"Attempting to cast '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}', Remaining time: {Math.Round(_waitTime, 2)} seconds.");
-            DynelManager.LocalPlayer.Cast(_currentBuffEntry.Character, _currentBuffEntry.NanoEntry.Id);
-            _graceTime = 0.5f;
-        }
-
-        private void AttemptToTeamInvite()
-        {
-            if (_sentTeamRequest)
-                return;
-
-            Logger.Information($" Team invite sent to '{_currentBuffEntry.Character.Name}'");
-            Team.Invite(_currentBuffEntry.Character);
-            _sentTeamRequest = true;
-        }
     }
+}
+
+public enum RelevantItems
+{
+    PremiumHealthAndNanoRecharger = 297274
 }
