@@ -124,7 +124,7 @@
       "Type": "Team",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "omni-med", "omnimed", "some" ]
+      "Tags": [ "omni-med", "omnimed", "some", "hp", "health" ]
     },
     {
       "Name": "Life Channeler",
@@ -140,7 +140,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "sfa" ]
+      "Tags": [ "sfa", "treat", "treatment" ]
     }
   ],
   "Enforcer": [
@@ -150,7 +150,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "bt", "brutal" ]
+      "Tags": [ "bt", "brutal", "thug", "1hb" ]
     },
     {
       "Name": "Coruscating Screen",
@@ -285,6 +285,22 @@
       "Tags": [ "gsf" ]
     },
     {
+      "Name": "Hack Grid Data Stream (Team)",
+      "LevelToId": { "0": 160982 },
+      "Type": "Single",
+      "Timeout": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [ "fgrid" ]
+    },
+    {
+      "Name": "Blood Makes Noise",
+      "LevelToId": { "0": 31380 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "bmn", "perception", "blood" ]
+      },
+    {
       "Name": "Karma Harvest",
       "LevelToId": { "0": 31390 },
       "Type": "Single",
@@ -340,7 +356,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "mop", "mark", "peril" ]
+      "Tags": [ "mop", "mark", "peril", "crit" ]
     },
     {
       "Name": "Martial Arts Mastery",
@@ -374,7 +390,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "bmmo" ]
+      "Tags": [ "bmmo", "bmmoch" ]
     },
     {
       "Name": "Mocham's Gift: MatCrea",
@@ -382,7 +398,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "mcmo" ]
+      "Tags": [ "mcmo", "mcmoch" ]
     },
     {
       "Name": "Mocham's Gift: SpaceTime",
@@ -390,7 +406,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "stmo", "tsmo" ]
+      "Tags": [ "stmo", "tsmo", "stmoch", "tsmoch" ]
     },
     {
       "Name": "Mocham's Gift: MatMet",
@@ -398,7 +414,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "mmmo" ]
+      "Tags": [ "mmmo", "mmmoch" ]
     },
     {
       "Name": "Mocham's Gift: PsyMod",
@@ -406,7 +422,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "pmmo" ]
+      "Tags": [ "pmmo", "pmmoch" ]
     },
     {
       "Name": "Mocham's Gift: SenseImp",
@@ -414,7 +430,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "simo" ]
+      "Tags": [ "simo", "simoch" ]
     },
     {
       "Name": "One Mind, One Purpose",
@@ -423,6 +439,54 @@
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
       "Tags": [ "onemind", "om", "omop" ]
+    },
+    {
+      "Name": "Infuse With Knowledge: Sensory Improvement",
+      "LevelToId": { "0": 151757 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "siinf", "sii", "siinfuse" ]
+    },
+    {
+      "Name": "Infuse With Knowledge: Psychological Modification",
+      "LevelToId": { "0": 151760 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "pminf", "pmi", "pminfuse" ]
+    },
+    {
+      "Name": "Infuse With Knowledge: Time and Space",
+      "LevelToId": { "0": 151758 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "tsinf", "tsi", "tsinfuse" ]
+    },
+    {
+      "Name": "Infuse With Knowledge: Material Metamorphose",
+      "LevelToId": { "0": 151759 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "mminf", "mmi", "mminfuse" ]
+    },
+    {
+      "Name": "Infuse With Knowledge: Material Creation",
+      "LevelToId": { "0": 151762 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "mcinf", "mci", "mcinfuse" ]
+    },
+    {
+      "Name": "Infuse With Knowledge: Biological Metamorphose",
+      "LevelToId": { "0": 151761 },
+        "Type": "Single",
+        "Timeout": 10,
+        "RemoveNanoIdUponCast": 0,
+        "Tags": [ "bminf", "bmi", "bminfuse" ]
     },
     {
       "Name": "BioMet Mastery",
@@ -442,7 +506,7 @@
     },
     {
       "Name": "SpaceTime Mastery",
-      "LevelToId": { "0": 28903 },
+      "LevelToId": { "0": 29295 },
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
@@ -478,11 +542,11 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "mniw", "neural", "web" ]
+      "Tags": [ "mniw", "neural", "web", "cost" ]
     },
     {
       "Name": "Advanced Symbol Manipulation",
-      "LevelToId": { "0": 28903 },
+      "LevelToId": { "0": 29327 },
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
@@ -554,7 +618,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "fat" ]
+      "Tags": [ "fat", "aao" ]
     },
     {
       "Name": "Riot Control",
@@ -562,7 +626,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "rc" ]
+      "Tags": [ "rc", "burst" ]
     },
     {
       "Name": "Offensive Steamroller",
@@ -570,7 +634,7 @@
       "Type": "Single",
       "TimeOut": 10,
       "RemoveNanoIdUponCast": 0,
-      "Tags": [ "os" ]
+      "Tags": [ "os", "fling", "inits", "init" ]
     },
     {
       "Name": "Reactive Reflective Field (Extended)",
