@@ -231,7 +231,7 @@
       "LevelToId": { "0": 204422 },
       "Type": "Team",
       "TimeOut": 40,
-      "RemoveNanoIdUponCast": 0,
+      "RemoveNanoIdUponCast": 231055,
       "Tags": [ "+3", "scf", "blocks", "blockers", "sloughing" ]
     }
   ],
