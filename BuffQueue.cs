@@ -26,7 +26,7 @@ namespace MalisBuffBots
 
         public void Enqueue(BuffEntry buffEntry) => _queue.Enqueue(buffEntry);
 
-        public bool QueueIsEmpty() => _queue.Count == 0 && CurrentBuffEntry == null;
+        public bool IsEmpty() => _queue.Count == 0 && CurrentBuffEntry == null;
 
         public bool TimerExpired(double deltaTime)
         {
@@ -88,8 +88,14 @@ namespace MalisBuffBots
 
         private void AttemptToBuffTarget()
         {
-            Logger.Information($"Attempting to cast '{CurrentBuffEntry.NanoEntry.Name}' on '{CurrentBuffEntry.Character.Name}', Remaining time: {Math.Round(_waitTime, 2)} seconds.");
+            if (Main.Settings.PvpFlagCheck && CurrentBuffEntry.Character.IsPvpFlagged())
+            {
+                Logger.Information($"Cast attempt '{CurrentBuffEntry.NanoEntry.Name}' on '{CurrentBuffEntry.Character.Name}' skipped (character is flagged)");
+                ResetCurrentBuffEntry();
+                return;
+            }
 
+            Logger.Information($"Attempting to cast '{CurrentBuffEntry.NanoEntry.Name}' on '{CurrentBuffEntry.Character.Name}', Remaining time: {Math.Round(_waitTime, 2)} seconds.");
             var levelToId = CurrentBuffEntry.NanoEntry.LevelToId.First(x => x.Key <= CurrentBuffEntry.Character.Level).Value;
             DynelManager.LocalPlayer.Cast(CurrentBuffEntry.Character, levelToId);
             _graceTime = 0.5f;
@@ -105,7 +111,7 @@ namespace MalisBuffBots
 
             if (!_teamRequestSent)
             {
-                Logger.Information($" Team invite sent to '{CurrentBuffEntry.Character.Name}'");
+                Logger.Information($"Team invite sent to '{CurrentBuffEntry.Character.Name}'");
                 Team.Invite(CurrentBuffEntry.Character);
                 _teamRequestSent = true;
             }

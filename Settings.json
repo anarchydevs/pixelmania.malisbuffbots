@@ -1,3 +1,4 @@
 {
-  "SitKitThreshold": 1000
+  "SitKitThreshold": 1000,
+  "PvpFlagCheck": 1
 }
