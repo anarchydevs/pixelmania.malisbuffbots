@@ -22,7 +22,7 @@ namespace MalisBuffBots
             Client.Send(new CharacterActionMessage
             {
                 Action = CharacterActionType.RemoveFriendlyNano,
-                Parameter1 = 53019,
+                Parameter1 = (int)IdentityType.NanoProgram,
                 Parameter2 = id,
             });
 

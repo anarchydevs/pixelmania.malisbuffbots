@@ -80,7 +80,7 @@ namespace MalisBuffBots
         public void ResetCurrentBuffEntry()
         {
             Utils.LeaveTeam();
-            Utils.RemoveBuff(CurrentBuffEntry.NanoEntry.RemoveNanoIdUponCast);
+            DynelManager.LocalPlayer.RemoveBuff(CurrentBuffEntry.NanoEntry.RemoveNanoIdUponCast);
             _teamRequestSent = false;
             CurrentBuffEntry = null;
             _waitTime = 0;

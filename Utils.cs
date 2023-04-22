@@ -20,16 +20,6 @@ namespace MalisBuffBots
                 Action = (CharacterActionType)24
             });
         }
-
-        public static void RemoveBuff(int id)
-        {
-            Client.Send(new CharacterActionMessage
-            {
-                Action = CharacterActionType.RemoveFriendlyNano,
-                Parameter1 = (int)IdentityType.NanoProgram,
-                Parameter2 = id,
-            });
-        }
     }
 }
 

@@ -24,18 +24,11 @@ namespace MalisBuffBots
 
         public bool Process(VicinityMsg msg, out string command, out string[] commandParts, out PlayerChar requester)
         {
-            Logger.Information(msg.Message);
-
             commandParts = msg.Message.Split(' ');
             command = commandParts[0];
-            requester = null;
-
             commandParts = commandParts.Length > 1 ? commandParts.Skip(1).ToArray() : null;
 
-            if (DynelManager.Find(msg.SenderName, out PlayerChar playerChar))
-            {
-                requester = playerChar;
-            }
+            if (DynelManager.Find(msg.SenderName, out requester)) { }
 
             if (!_commands.TryGetValue(command, out var action))
             {
