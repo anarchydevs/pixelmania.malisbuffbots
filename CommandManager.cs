@@ -22,7 +22,7 @@ namespace MalisBuffBots
             { "cast", msg => CastActionRequest(msg) },
         };
 
-        public bool Process(VicinityMsg msg, out string command, out string[] commandParts, out PlayerChar requester)
+        public bool TryProcess(VicinityMsg msg, out string command, out string[] commandParts, out PlayerChar requester)
         {
             commandParts = msg.Message.Split(' ');
             command = commandParts[0];
