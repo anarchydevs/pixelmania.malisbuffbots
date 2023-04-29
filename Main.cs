@@ -100,6 +100,9 @@ namespace MalisBuffBots
 
         private void ProcessCharacterActionMessage(CharacterActionMessage actionMsg)
         {
+            if (_buffQueue.CurrentBuffEntry == null)
+                return;
+
             switch (actionMsg.Action)
             {
                 case CharacterActionType.AcceptTeamRequest:
