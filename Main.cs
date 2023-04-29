@@ -67,17 +67,12 @@ namespace MalisBuffBots
             if (!_buffQueue.TimerExpired(deltaTime))
                 return;
 
-            if (DynelManager.LocalPlayer.TryGetStat(Stat.CurrentNano, out int currentNano) &&
-                currentNano < Settings.SitKitThreshold &&
-                !DynelManager.LocalPlayer.Cooldowns.ContainsKey(Stat.Treatment))
+            if (DynelManager.LocalPlayer.ShouldUseSitKit(out Item item))
             {
-                if (Inventory.Items.Find((int)ItemId.PremiumHealthAndNanoRecharger, out Item item))
-                {
-                    var moveComponent = DynelManager.LocalPlayer.MovementComponent;
-                    moveComponent.ChangeMovement(MovementAction.SwitchToSit);
-                    item.Use();
-                    moveComponent.ChangeMovement(MovementAction.LeaveSit);
-                }
+                var moveComponent = DynelManager.LocalPlayer.MovementComponent;
+                moveComponent.ChangeMovement(MovementAction.SwitchToSit);
+                item.Use();
+                moveComponent.ChangeMovement(MovementAction.LeaveSit);
             }
             else
             {
@@ -92,7 +87,10 @@ namespace MalisBuffBots
 
             N3Message n3Msg = (N3Message)msg.Body;
 
-            if (n3Msg.N3MessageType != N3MessageType.CharacterAction || n3Msg.Identity.Instance != Client.LocalDynelId)
+            if (n3Msg.Identity.Instance != Client.LocalDynelId)
+                return;
+
+            if (n3Msg.N3MessageType != N3MessageType.CharacterAction)
                 return;
 
             ProcessCharacterActionMessage((CharacterActionMessage)n3Msg);

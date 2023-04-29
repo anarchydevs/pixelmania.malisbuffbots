@@ -14,6 +14,16 @@ namespace MalisBuffBots
 
         public static bool IsInTeam(this LocalPlayer localPlayer) => localPlayer.GetStat(Stat.Team) != 0;
 
+        public static bool ShouldUseSitKit(this LocalPlayer localPlayer,out Item item)
+        {
+            item = null;
+
+            return localPlayer.TryGetStat(Stat.CurrentNano, out int currentNano) &&
+                 currentNano < Main.Settings.SitKitThreshold &&
+                 !localPlayer.Cooldowns.ContainsKey(Stat.Treatment) &&
+                 Inventory.Items.Find((int)ItemId.PremiumHealthAndNanoRecharger, out item);
+        }
+
         public static void TryRemoveBuff(this LocalPlayer localPlayer, int id)
         {
             if (id == 0)
