@@ -14,7 +14,7 @@ namespace MalisBuffBots
 
         public static bool IsInTeam(this LocalPlayer localPlayer) => localPlayer.GetStat(Stat.Team) != 0;
 
-        public static void RemoveBuff(this LocalPlayer localPlayer, int id)
+        public static void TryRemoveBuff(this LocalPlayer localPlayer, int id)
         {
             if (id == 0)
                 return;

@@ -38,7 +38,6 @@ namespace MalisBuffBots
 
             if (_waitTime < 0)
             {
-                Logger.Information("Obtanining new buff entry");
                 CurrentBuffEntry = GetNextBuffEntry();
                 _waitTime = CurrentBuffEntry == null ? 0 : CurrentBuffEntry.NanoEntry.TimeOut;
             }
@@ -74,13 +73,15 @@ namespace MalisBuffBots
             if (_queue.Count == 0)
                 return null;
 
+            Logger.Information("Obtaining new buff entry");
+
             return _queue.Dequeue();
         }
 
         public void ResetCurrentBuffEntry()
         {
             Utils.LeaveTeam();
-            DynelManager.LocalPlayer.RemoveBuff(CurrentBuffEntry.NanoEntry.RemoveNanoIdUponCast);
+            DynelManager.LocalPlayer.TryRemoveBuff(CurrentBuffEntry.NanoEntry.RemoveNanoIdUponCast);
             _teamRequestSent = false;
             CurrentBuffEntry = null;
             _waitTime = 0;
