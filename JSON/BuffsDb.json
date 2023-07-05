@@ -227,21 +227,6 @@
       ]
     },
     {
-      "Name": "Vaccine of Ransacking",
-      "LevelToId": [
-        {
-          "Level": 0,
-          "Id": 204425
-        }
-      ],
-      "Type": 0,
-      "TimeOut": 10,
-      "RemoveNanoIdUponCast": 0,
-      "Tags": [
-        "vacc" 
-      ]
-    },
-    {
       "Name": "Instinctive Control",
       "LevelToId": [
         {
