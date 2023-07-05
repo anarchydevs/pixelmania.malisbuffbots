@@ -15,17 +15,23 @@ namespace MalisBuffBots
 {
     public class CommandManager
     {
-        private static readonly Dictionary<string, Func<VicinityMsg, bool>> _commands = new Dictionary<string, Func<VicinityMsg, bool>>()
+        private static readonly Dictionary<Command, Func<PrivateMessage, bool>> _commands = new Dictionary<Command, Func<PrivateMessage, bool>>()
         {
-            { "stand", msg => StandRequestAction(msg) },
-            { "sit", msg => SitRequestAction(msg) },
-            { "cast", msg => CastActionRequest(msg) },
+            { Command.Stand, msg => StandAction(msg) },
+            { Command.Sit, msg => SitAction(msg) },
+            { Command.Cast, msg => CastRequest(msg) },
+            { Command.Rebuff, msg => RebuffRequest(msg) },
+            { Command.Buffmacro, msg => BuffMacroRequest(msg) },
         };
 
-        public bool TryProcess(VicinityMsg msg, out string command, out string[] commandParts, out PlayerChar requester)
+        public bool TryProcess(PrivateMessage msg, out Command command, out string[] commandParts, out PlayerChar requester)
         {
-            commandParts = msg.Message.Split(' ');
-            command = commandParts[0];
+            commandParts = msg.Message.ToLower().Split(' ');
+            requester = null;
+
+            if (!Enum.TryParse(commandParts[0].ToTitleCase(), out command))
+                return false;
+
             commandParts = commandParts.Length > 1 ? commandParts.Skip(1).ToArray() : null;
 
             if (DynelManager.Find(msg.SenderName, out requester)) { }
@@ -39,7 +45,7 @@ namespace MalisBuffBots
             return _commands[command].Invoke(msg);
         }
 
-        private static bool CastActionRequest(VicinityMsg msg)
+        private static bool CastRequest(PrivateMessage msg)
         {
             if (msg.Message.Split(' ').Length < 2)
             {
@@ -50,16 +56,37 @@ namespace MalisBuffBots
             return true;
         }
 
-        private static bool SitRequestAction(VicinityMsg msg)
+        private static bool SitAction(PrivateMessage msg)
         {
             Logger.Information($"Received sit request from {msg.SenderName}");
             return true;
         }
 
-        private static bool StandRequestAction(VicinityMsg msg)
+        private static bool StandAction(PrivateMessage msg)
         {
             Logger.Information($"Received stand request from {msg.SenderName}");
             return true;
         }
+
+        private static bool RebuffRequest(PrivateMessage msg)
+        {
+            Logger.Information($"Received rebuff request from {msg.SenderName}");
+            return true;
+        }
+
+        private static bool BuffMacroRequest(PrivateMessage msg)
+        {
+            Logger.Information($"Received ncu scan request from {msg.SenderName}");
+            return true;
+        }
+    }
+
+    public enum Command
+    {
+        Stand,
+        Sit,
+        Cast,
+        Rebuff,
+        Buffmacro,
     }
 }

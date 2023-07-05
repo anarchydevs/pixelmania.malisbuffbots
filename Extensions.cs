@@ -4,6 +4,7 @@ using AOSharp.Common.GameData;
 using SmokeLounge.AOtomation.Messaging.GameData;
 using SmokeLounge.AOtomation.Messaging.Messages.N3Messages;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MalisBuffBots
@@ -19,9 +20,9 @@ namespace MalisBuffBots
             item = null;
 
             return localPlayer.TryGetStat(Stat.CurrentNano, out int currentNano) &&
-                 currentNano < Main.Settings.SitKitThreshold &&
+                 currentNano < Main.SettingsJson.Data.SitKitThreshold &&
                  !localPlayer.Cooldowns.ContainsKey(Stat.Treatment) &&
-                 Inventory.Items.Find((int)ItemId.PremiumHealthAndNanoRecharger, out item);
+                 Inventory.Items.Find((int)Main.SettingsJson.Data.SitKitItemId, out item);
         }
 
         public static void TryRemoveBuff(this LocalPlayer localPlayer, int id)
@@ -38,6 +39,8 @@ namespace MalisBuffBots
 
             Logger.Information($"Removing buff with id: {id}.");
         }
+
+        public static string ToTitleCase(this string text) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text.ToLower());
     }
 }
 

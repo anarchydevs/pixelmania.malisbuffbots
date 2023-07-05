@@ -10,136 +10,152 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MalisBuffBots
 {
     public class Main : ClientlessPluginEntry
     {
-        private NanoDb _nanoDb;
-        public static Settings Settings;
-        private BuffQueue _buffQueue;
-        private CommandManager _commandManager;
+        public static SettingsJson SettingsJson;        // Behavior related settings (configurable in JSON/Settings.json)
+        public static BuffsJson BuffsJson;          // All bot nanos (configurable in JSON/BuffsDb.json)
+        public static RebuffJson RebuffJson;    // Rebuff info (configurable in JSON/RebuffInfo.json)
+        public static QueueProcessor QueueProcessor;
+        public static RebuffProcessor RebuffProcessor;
+        public static IPC Ipc;
+        private static CommandManager _commandManager; // Command processor
 
         public override void Init(string pluginDir)
         {
             Logger.Information("- Mali's Clientless Buffbots -");
 
-            Client.SuppressDeserializationErrors();
-            Client.OnUpdate += OnUpdate;
-            Client.MessageReceived += OnMessageReceived;
-            Client.Chat.VicinityMessageReceived += (e, msg) => HandleVicinityMessage(msg);
+            Client.SuppressDeserializationErrors(); 
+            Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
+
+            Ipc = new IPC(225, 1);
 
             _commandManager = new CommandManager();
-            _buffQueue = new BuffQueue();
-            _nanoDb = new NanoDb($@"{Utils.PluginDir}\BuffsDb.json");
-            Settings = new Settings($@"{Utils.PluginDir}\Settings.json");
+
+            BuffsJson = new BuffsJson($"{Utils.PluginDir}\\JSON\\BuffsDb.json");
+            SettingsJson = new SettingsJson($"{Utils.PluginDir}\\JSON\\Settings.json");
+            RebuffJson = new RebuffJson($"{Utils.PluginDir}\\JSON\\RebuffInfo.json");
+
+            QueueProcessor = new QueueProcessor();
+
+            Client.OnUpdate += OnUpdate;
+            Client.MessageReceived += OnMessageReceived;
+            Client.OnUpdate += Ipc.OnUpdate;
         }
 
-        private void HandleVicinityMessage(VicinityMsg msg)
+        private void HandlePrivateMessage(PrivateMessage msg)
         {
-            if (_commandManager.TryProcess(msg, out string command, out string[] commandParts, out PlayerChar requester))
+            if (!_commandManager.TryProcess(msg, out Command command, out string[] commandParts, out PlayerChar requester))
+                return;
+
+            if (SettingsJson.Data.InitConnectionDelay > 0 && requester != null)
+                Client.SendPrivateMessage((uint)requester.Identity.Instance, "I am still loading. Your request will be processed shortly.");
+
+            // Command logic execution
+            switch (command)
             {
-                switch (command)
-                {
-                    case "cast":
-                        if (requester == null)
-                        {
-                            Logger.Error($"Unable to locate requester.");
-                            break;
-                        }
-                        ProcessBuffRequest(commandParts, requester);
+                case Command.Cast:
+                    if (requester == null)
+                    {
+                        Logger.Error($"Unable to locate requester.");
                         break;
-                    case "stand":
-                        DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+                    }
+                    ProcessCastRequest(commandParts, requester);
+                    break;
+                case Command.Rebuff:
+                    if (requester == null)
+                    {
+                        Logger.Error($"Unable to locate requester.");
                         break;
-                    case "sit":
-                        DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.SwitchToSit);
+                    }
+                    ProcessRebuffRequest(requester);
+                    break;
+                case Command.Buffmacro:
+                    if (requester == null)
+                    {
+                        Logger.Error($"Unable to locate requester.");
                         break;
-                }
+                    }
+                    ProcessBuffmacroRequest(requester);
+                    break;
+                case Command.Stand:
+                    DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+                    break;
+                case Command.Sit:
+                    DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.SwitchToSit);
+                    break;
             }
         }
 
-        private void OnUpdate(object _, double deltaTime)
+        private void OnUpdate(object sender, double delta)
         {
-            if (_buffQueue.IsEmpty())
+            SettingsJson.Data.InitConnectionDelay -= delta;
+
+            if (SettingsJson.Data.InitConnectionDelay > 0)
                 return;
 
-            if (!_buffQueue.TimerExpired(deltaTime))
-                return;
+            Ipc.Broadcast(new RequestSpellListInfoMessage());
+            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+            Ipc.AddSpellDataEntry((Profession)DynelManager.LocalPlayer.Profession, DynelManager.LocalPlayer.SpellList);
+            RebuffProcessor = new RebuffProcessor(RebuffJson);
 
-            if (DynelManager.LocalPlayer.ShouldUseSitKit(out Item item))
-            {
-                var moveComponent = DynelManager.LocalPlayer.MovementComponent;
-                moveComponent.ChangeMovement(MovementAction.SwitchToSit);
-                item.Use();
-                moveComponent.ChangeMovement(MovementAction.LeaveSit);
-            }
-            else
-            {
-                _buffQueue.ProcessCurrentBuffEntry();
-            }
+            Client.OnUpdate += QueueProcessor.OnUpdate;
+            Client.MessageReceived += QueueProcessor.OnMessageReceived;
+            Client.OnUpdate -= OnUpdate;
         }
 
         private void OnMessageReceived(object _, Message msg)
         {
-            if (msg.Header.PacketType != PacketType.N3Message)
-                return;
-
-            N3Message n3Msg = (N3Message)msg.Body;
-
-            if (n3Msg.Identity.Instance != Client.LocalDynelId)
-                return;
-
-            if (n3Msg.N3MessageType != N3MessageType.CharacterAction)
-                return;
-
-            ProcessCharacterActionMessage((CharacterActionMessage)n3Msg);
+            if (msg.Header.PacketType == PacketType.PingMessage)
+                Logger.Debug($"Received ping message from server.");
         }
 
-        private void ProcessCharacterActionMessage(CharacterActionMessage actionMsg)
+
+        public void ProcessCastRequest(string[] nanoTags, PlayerChar requester)
         {
-            if (_buffQueue.CurrentBuffEntry == null)
+            if (!BuffsJson.FindByTags(nanoTags, out Dictionary<Profession, List<NanoEntry>> entries))
                 return;
 
-            switch (actionMsg.Action)
-            {
-                case CharacterActionType.AcceptTeamRequest:
-                    Logger.Information($"Team invite accepted from '{_buffQueue.CurrentBuffEntry.Character.Name}'");
-                    break;
-                case CharacterActionType.FinishNanoCasting:
-                    Logger.Information($"Finished casting '{_buffQueue.CurrentBuffEntry.NanoEntry.Name}' on '{_buffQueue.CurrentBuffEntry.Character.Name}'");
-                    _buffQueue.ResetCurrentBuffEntry();
-                    break;
-            }
+            foreach (var entry in entries)
+                QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, requester);
+
+            Logger.Information($"Received cast request from '{requester.Name}'");
         }
 
-        private void ProcessBuffRequest(string[] commandParts, PlayerChar requestor)
+        private void ProcessRebuffRequest(PlayerChar requester)
         {
-            foreach (var reqNano in commandParts.Distinct())
-            {
-                var dbResult = _nanoDb.LocalPlayerProfession.Where(x => x.Tags.Contains(reqNano));
+            List<int> requesterBuffs = requester.Buffs.Select(x => x.Id).ToList();
 
-                if (dbResult.Count() == 0)
+            if (!BuffsJson.FindByIds(requesterBuffs, out Dictionary<Profession, List<NanoEntry>> entries))
+                return;
+
+            foreach (var entry in entries)
+                QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, requester);
+
+            Logger.Information($"Received rebuff request from '{requester.Name}'");
+        }
+
+
+        private void ProcessBuffmacroRequest(PlayerChar requester)
+        {
+            List<string> buffsByTag = new List<string>();
+
+            if (!BuffsJson.FindByIds(requester.Buffs.Select(x=>x.Id), out Dictionary<Profession, List<NanoEntry>> entries))
+                return;
+
+            // Skipping team casts
+            foreach (var entry in entries.Values.SelectMany(x => x))
+            {
+                if (entry.Type == CastType.Team)
                     continue;
 
-                foreach (var nano in dbResult)
-                    _buffQueue.Enqueue(new BuffEntry(requestor, nano));
-
-                Logger.Information($"Received cast request from '{requestor.Name}'");
+                buffsByTag.Add(entry.Tags.FirstOrDefault());
             }
+
+            Client.SendPrivateMessage((uint)requester.Identity.Instance, $"/macro buffpreset /tell {DynelManager.LocalPlayer.Name} cast {string.Join(" ", buffsByTag)}");
         }
     }
-}
-
-public enum ItemId
-{
-    PremiumHealthAndNanoRecharger = 297274
-}
-
-public enum PvpFlagId
-{
-    OneMin = 216382,
-    TenMin = 214879,
-    FifteenMin = 284620,
-    OneHr = 202732,
 }

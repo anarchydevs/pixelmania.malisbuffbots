@@ -16,7 +16,19 @@ namespace MalisBuffBots
     public class JsonFile<T>
     {
         protected readonly T _data;
+        protected string Raw;
 
-        public JsonFile(string jsonPath) => _data = JsonConvert.DeserializeObject<T>(File.ReadAllText(jsonPath));
+        public JsonFile(string jsonPath)
+        {
+            try
+            {
+                Raw = File.ReadAllText(jsonPath);
+                _data = JsonConvert.DeserializeObject<T>(Raw);
+            }
+            catch
+            {
+                _data = default(T);
+            }
+        }
     }
 }

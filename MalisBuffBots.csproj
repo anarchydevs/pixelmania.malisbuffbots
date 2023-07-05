@@ -41,10 +41,13 @@
       <HintPath>..\aosharp.clientless\AOSharp.Clientless\bin\Debug\AOSharp.Clientless.Chat.dll</HintPath>
     </Reference>
     <Reference Include="AOSharp.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AOSharpSDK.1.0.25\lib\net48\AOSharp.Common.dll</HintPath>
+      <HintPath>packages\AOSharpSDK.1.0.32\lib\net48\AOSharp.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="AOSharp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AOSharpSDK.1.0.32\lib\net48\AOSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>packages\Serilog.2.11.0\lib\net46\Serilog.dll</HintPath>
@@ -59,11 +62,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuffQueue.cs" />
-    <Compile Include="JsonFile.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="IPC.cs" />
+    <Compile Include="IPC\CastRequestMessage.cs" />
+    <Compile Include="IPC\IPCOpcode.cs" />
+    <Compile Include="IPC\ReceiveQueueInfoMessage.cs" />
+    <Compile Include="IPC\ReceiveSpellListInfoMessage.cs" />
+    <Compile Include="IPC\RequestQueueInfoMessage.cs" />
+    <Compile Include="IPC\RequestSpellListInfoMessage.cs" />
     <Compile Include="CommandManager.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="NanoDb.cs" />
+    <Compile Include="Models\BuffsJson.cs" />
+    <Compile Include="Models\DataMigrate.cs" />
+    <Compile Include="Models\JsonFile.cs" />
+    <Compile Include="Models\NanoEntry.cs" />
+    <Compile Include="Models\RebuffJson.cs" />
+    <Compile Include="Models\SettingsJson.cs" />
+    <Compile Include="QueueProcessor.cs" />
+    <Compile Include="RebuffProcessor.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Main.cs" />
@@ -71,13 +86,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="JSON\BuffsDb.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="JSON\RebuffInfo.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="JSON\Settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="README.md" />
-    <None Include="Settings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="BuffsDb.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

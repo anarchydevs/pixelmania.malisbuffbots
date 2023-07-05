@@ -1,0 +1,12 @@
+{
+  "Generic": [
+    {
+      "Buffs": [ "compatt", "compnano" ]
+    }
+  ],
+  "Trader": [
+    {
+      "Buffs": [ "mcmo", "tsmo" ]
+    }
+  ]
+}
