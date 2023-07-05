@@ -3,7 +3,7 @@
 - You can now request buffs from any buffer, (ex. can request rrfe from your ma bot, multi buff request is supported), 
 - Bots can now automatically rebuff eachother (configurable in RebuffInfo.json), 
 - New commands (macrobuffs, rebuff), 
-    - Macrobuffs - dumps a macro of your current buffs to your character (ex. if you have rrfe and behe it will dump /macro preset /tell buffbot behe rrfe, skips team buffs)
+    - Buffmacro - dumps a macro of your current buffs to your character (ex. if you have rrfe and behe it will dump /macro preset /tell buffbot behe rrfe, skips team buffs)
     - Rebuff - checks your ncu and rebuffs you with all available nanos (skips team buffs)
 - Generic nano support (like composites, buffers with lowest current queue will buff you these)
 - Bots will now skip buffing nanos that they don't have
@@ -55,7 +55,7 @@ Use the BuffsDb.json to modify bot casting behavior, example:
  Send a tell to any buffer to execute following commands:
  "cast <nanoTag1> <nanoTag2> <nanoTag3>" - casts buffs in given order
  "rebuff" - looks at players ncu and casts all available buffs
- "macrobuffs" - dumps a macro of your current ncu buffs
+ "Buffmacro" - dumps a macro of your current ncu buffs
 
  type "stand" or "sit" to switch their movement states if they are in the wrong initial state
  ORG CHAT: If you want to use org chat for relaying requests, use the Client.Chat.GroupMessageReceived event handler (look in TestPlugin for an example of filtering only org chat messages), and just reroute the commands there
