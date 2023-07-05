@@ -217,8 +217,15 @@ namespace MalisBuffBots
             }
 
             Logger.Information($"Attempting to cast '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}', Remaining time: {Math.Round(_waitTime, 2)} seconds.");
-            var levelToId = _currentBuffEntry.NanoEntry.LevelToId.First(x => x.Level <= _currentBuffEntry.Character.Level).Id;
-            DynelManager.LocalPlayer.Cast(_currentBuffEntry.Character, levelToId);
+          
+            var firstAvailableBuff =  _currentBuffEntry.NanoEntry.LevelToId.FirstOrDefault(x => x.Level <= _currentBuffEntry.Character.Level && DynelManager.LocalPlayer.SpellList.Contains(x.Id));
+
+            if (firstAvailableBuff == null)
+            {
+                ResetCurrentBuffEntry();
+                return;
+            }
+                DynelManager.LocalPlayer.Cast(_currentBuffEntry.Character, firstAvailableBuff.Id);
             _graceTime = 0.5f;
         }
 
