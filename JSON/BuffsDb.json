@@ -211,22 +211,6 @@
       ]
     },
     {
-      "Name": "Continuous Reconstruction",
-      "LevelToId": [
-        {
-          "Level": 0,
-          "Id": 222824
-        }
-      ],
-      "Type": "Single",
-      "TimeOut": 10,
-      "RemoveNanoIdUponCast": 0,
-      "Tags": [
-        "cr",
-        "hd"
-      ]
-    },
-    {
       "Name": "Instinctive Control",
       "LevelToId": [
         {
