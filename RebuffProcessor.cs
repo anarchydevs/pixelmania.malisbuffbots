@@ -60,6 +60,9 @@ namespace MalisBuffBots
 
         private void ProcessBuffMessage(BuffMessage buffMsg)
         {
+            if (DynelManager.LocalPlayer.Buffs.Contains(buffMsg.Buff.Instance))
+                return;
+
             if (!Main.BuffsJson.FindByIds(new List<int> { buffMsg.Buff.Instance }, out Dictionary<Profession, List<NanoEntry>> entries))
                 return;
 
