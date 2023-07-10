@@ -24,7 +24,6 @@ namespace MalisBuffBots
             _initDelay = initDelay;
             _rebuffInfo = rebuffInfo;
             Client.OnUpdate += OnUpdate;
-
             Logger.Information("Rebuff tracking initiated.");
         }
 
@@ -38,39 +37,35 @@ namespace MalisBuffBots
             TryFindBuffs(_rebuffInfo.GenericEntries);
             TryFindBuffs(_rebuffInfo.LocalProfEntries);
 
-            Client.MessageReceived += OnMessageReceived;
+            BuffStatus.BuffChanged += OnBuffChanged;
             Client.OnUpdate -= OnUpdate;
         }
 
-        public void OnMessageReceived(object _, Message msg)
+
+        private void OnBuffChanged(object sender, BuffChangedArgs buffArgs)
         {
-            if (msg.Header.PacketType != PacketType.N3Message)
+            if (buffArgs.Identity != DynelManager.LocalPlayer.Identity)
                 return;
 
-            N3Message n3Msg = (N3Message)msg.Body;
-
-            if (n3Msg.Identity.Instance != Client.LocalDynelId)
+            if (buffArgs.Status == BuffState.Refreshed)
+            {
+                Logger.Information($"Somebody refreshed my buff with id: {buffArgs.Id}");
                 return;
+            }
 
-            if (n3Msg.N3MessageType != N3MessageType.Buff)
-                return;
-
-            ProcessBuffMessage((BuffMessage)n3Msg);
+            ProcessBuffArgs(buffArgs);
         }
 
-        private void ProcessBuffMessage(BuffMessage buffMsg)
+        private void ProcessBuffArgs(BuffChangedArgs buffArgs)
         {
-            if (DynelManager.LocalPlayer.Buffs.Contains(buffMsg.Buff.Instance))
-                return;
-
-            if (!Main.BuffsJson.FindByIds(new List<int> { buffMsg.Buff.Instance }, out Dictionary<Profession, List<NanoEntry>> entries))
+            if (!Main.BuffsJson.FindByIds(new List<int> { buffArgs.Id }, out Dictionary<Profession, List<NanoEntry>> entries))
                 return;
 
             var expiredNano = entries.FirstOrDefault();
 
             foreach (var nano in expiredNano.Value)
             {
-                if (!nano.ContainsId(buffMsg.Buff.Instance))
+                if (!nano.ContainsId(buffArgs.Id))
                     continue;
 
                 Main.QueueProcessor.FinalizeBuffRequest(expiredNano.Key, new List<NanoEntry> { nano }, DynelManager.LocalPlayer);
