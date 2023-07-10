@@ -33,7 +33,9 @@ namespace MalisBuffBots
 
             foreach (var entriesByProf in Entries)
             {
-                List<NanoEntry> results = entriesByProf.Value.Where(x => distinctTags.Any(y => x.Tags.Contains(y))).ToList();
+                List<NanoEntry> results = entriesByProf.Value
+                    .Where(x => distinctTags.Any(y => x.Tags.Contains(y) || int.TryParse(y, out int id) && x.ContainsId(id)))
+                    .ToList();
 
                 if (results.Count() == 0)
                     continue;
