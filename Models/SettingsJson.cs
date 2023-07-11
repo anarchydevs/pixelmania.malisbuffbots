@@ -29,6 +29,7 @@ namespace MalisBuffBots
         public int SitKitThreshold = 1000;
         public bool PvpFlagCheck = true;
         public int SitKitItemId = 297274;
+        public byte IPCChannelId = 255;
         public double InitConnectionDelay = 20;
     }
 }

@@ -17,12 +17,12 @@ namespace MalisBuffBots
     public class Main : ClientlessPluginEntry
     {
         public static SettingsJson SettingsJson;        // Behavior related settings (configurable in JSON/Settings.json)
-        public static BuffsJson BuffsJson;          // All bot nanos (configurable in JSON/BuffsDb.json)
-        public static RebuffJson RebuffJson;    // Rebuff info (configurable in JSON/RebuffInfo.json)
+        public static BuffsJson BuffsJson;              // All bot nanos (configurable in JSON/BuffsDb.json)
+        public static RebuffJson RebuffJson;            // Rebuff info (configurable in JSON/RebuffInfo.json)
         public static QueueProcessor QueueProcessor;
         public static RebuffProcessor RebuffProcessor;
         public static IPC Ipc;
-        private static CommandManager _commandManager; // Command processor
+        private static CommandManager _commandManager;  // Command processor
 
         public override void Init(string pluginDir)
         {
@@ -30,63 +30,63 @@ namespace MalisBuffBots
 
             Client.SuppressDeserializationErrors();
             Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
-            Client.Chat.NetworkMessageReceived += (e, msg) => Test(msg);
+            Client.Chat.NetworkMessageReceived += (e, msg) => HandlePingMessages(msg); // We are leaving these for debugging purposes (will remove later)
 
-            Ipc = new IPC(225, 1);
+            SettingsJson = new SettingsJson($"{Utils.PluginDir}\\JSON\\Settings.json");
+
+            Ipc = new IPC(SettingsJson.Data.IPCChannelId, 1);
 
             _commandManager = new CommandManager();
 
             BuffsJson = new BuffsJson($"{Utils.PluginDir}\\JSON\\BuffsDb.json");
-            SettingsJson = new SettingsJson($"{Utils.PluginDir}\\JSON\\Settings.json");
             RebuffJson = new RebuffJson($"{Utils.PluginDir}\\JSON\\RebuffInfo.json");
 
             QueueProcessor = new QueueProcessor();
 
             Client.OnUpdate += OnUpdate;
-            Client.MessageReceived += OnMessageReceived;
+            Client.MessageReceived += OnMessageReceived; // We are leaving these for debugging purposes (will remove later)
             Client.OnUpdate += Ipc.OnUpdate;
         }
 
         private void HandlePrivateMessage(PrivateMessage msg)
         {
-            if (!_commandManager.TryProcess(msg, out Command command, out string[] commandParts, out PlayerChar requester))
+            if (!_commandManager.TryProcess(msg, out Command command, out string[] commandParts, out int requester))
+            {
+                ProcessUnknownCommand(requester);
                 return;
+            }
 
-            if (SettingsJson.Data.InitConnectionDelay > 0 && requester != null)
-                Client.SendPrivateMessage((uint)requester.Identity.Instance, "I am still loading. Your request will be processed shortly.");
+            if (!DynelManager.Find(new Identity { Type = IdentityType.SimpleChar,Instance = requester }, out PlayerChar simpleChar))
+            {
+                Logger.Error($"Unable to locate requester.");
+                return;
+            }
+
+            if (SettingsJson.Data.InitConnectionDelay > 0)
+            {
+                Client.SendPrivateMessage((uint)requester, "I am still loading. Your request will be processed shortly.");
+            }
 
             // Command logic execution
             switch (command)
             {
                 case Command.Cast:
-                    if (requester == null)
-                    {
-                        Logger.Error($"Unable to locate requester.");
-                        break;
-                    }
-                    ProcessCastRequest(commandParts, requester);
+                    ProcessCastRequest(commandParts, simpleChar);
                     break;
                 case Command.Rebuff:
-                    if (requester == null)
-                    {
-                        Logger.Error($"Unable to locate requester.");
-                        break;
-                    }
-                    ProcessRebuffRequest(requester);
+                    ProcessRebuffRequest(simpleChar);
                     break;
                 case Command.Buffmacro:
-                    if (requester == null)
-                    {
-                        Logger.Error($"Unable to locate requester.");
-                        break;
-                    }
-                    ProcessBuffmacroRequest(requester);
+                    ProcessBuffmacroRequest(simpleChar);
                     break;
                 case Command.Stand:
                     DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
                     break;
                 case Command.Sit:
                     DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.SwitchToSit);
+                    break;
+                case Command.Help:
+                    ProcessHelpRequest(simpleChar);
                     break;
             }
         }
@@ -98,14 +98,7 @@ namespace MalisBuffBots
             if (SettingsJson.Data.InitConnectionDelay > 0)
                 return;
 
-            Ipc.Broadcast(new RequestSpellListInfoMessage());
-            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
-            Ipc.AddSpellDataEntry((Profession)DynelManager.LocalPlayer.Profession, DynelManager.LocalPlayer.SpellList);
-            RebuffProcessor = new RebuffProcessor(RebuffJson);
-
-            Client.OnUpdate += QueueProcessor.OnUpdate;
-            Client.MessageReceived += QueueProcessor.OnMessageReceived;
-            Client.OnUpdate -= OnUpdate;
+            InitBot();
         }
 
         private void OnMessageReceived(object _, Message msg)
@@ -114,7 +107,7 @@ namespace MalisBuffBots
                 Logger.Debug($"Received ping message from GAME server.");
         }
 
-        private void Test(ChatMessage msg)
+        private void HandlePingMessages(ChatMessage msg)
         {
             if (msg.Header.PacketType == ChatMessageType.Ping)
                 Logger.Debug($"Received ping message from CHAT server.");
@@ -162,6 +155,27 @@ namespace MalisBuffBots
             }
 
             Client.SendPrivateMessage((uint)requester.Identity.Instance, $"/macro buffpreset /tell {DynelManager.LocalPlayer.Name} cast {string.Join(" ", buffsByTag)}");
+        }
+
+        private void ProcessHelpRequest(PlayerChar requester)
+        {
+            Client.SendPrivateMessage((uint)requester.Identity.Instance, ScriptTemplate.Create());
+        }
+
+        private void ProcessUnknownCommand(int requester)
+        {
+            Client.SendPrivateMessage((uint)requester, "Command not found, try 'help'.");
+        }
+
+        private void InitBot()
+        {
+            Ipc.Broadcast(new RequestSpellListInfoMessage());
+            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+            Ipc.AddSpellDataEntry((Profession)DynelManager.LocalPlayer.Profession, DynelManager.LocalPlayer.SpellList);
+            RebuffProcessor = new RebuffProcessor(RebuffJson);
+            Client.OnUpdate += QueueProcessor.OnUpdate;
+            Client.MessageReceived += QueueProcessor.OnMessageReceived;
+            Client.OnUpdate -= OnUpdate;
         }
     }
 }

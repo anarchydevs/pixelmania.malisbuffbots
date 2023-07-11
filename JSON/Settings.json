@@ -2,5 +2,6 @@
   "SitKitThreshold": 1000,
   "PvpFlagCheck": true,
   "SitKitItemId": 297274,
+  "IPCChannelId": 255,
   "InitConnectionDelay": 20.0
 }

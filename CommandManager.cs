@@ -22,19 +22,18 @@ namespace MalisBuffBots
             { Command.Cast, msg => CastRequest(msg) },
             { Command.Rebuff, msg => RebuffRequest(msg) },
             { Command.Buffmacro, msg => BuffMacroRequest(msg) },
+            { Command.Help, msg => HelpRequest(msg) },
         };
 
-        public bool TryProcess(PrivateMessage msg, out Command command, out string[] commandParts, out PlayerChar requester)
+        public bool TryProcess(PrivateMessage msg, out Command command, out string[] commandParts, out int requesterId)
         {
             commandParts = msg.Message.ToLower().Split(' ');
-            requester = null;
+            requesterId = (int)msg.SenderId;
 
             if (!Enum.TryParse(commandParts[0].ToTitleCase(), out command))
                 return false;
 
             commandParts = commandParts.Length > 1 ? commandParts.Skip(1).ToArray() : null;
-
-            if (DynelManager.Find(msg.SenderName, out requester)) { }
 
             if (!_commands.TryGetValue(command, out var action))
             {
@@ -79,6 +78,12 @@ namespace MalisBuffBots
             Logger.Information($"Received ncu scan request from {msg.SenderName}");
             return true;
         }
+
+        private static bool HelpRequest(PrivateMessage msg)
+        {
+            Logger.Information($"Received help request from {msg.SenderName}"); 
+            return true;
+        }
     }
 
     public enum Command
@@ -88,5 +93,6 @@ namespace MalisBuffBots
         Cast,
         Rebuff,
         Buffmacro,
+        Help
     }
 }
