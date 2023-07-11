@@ -1,12 +1,7 @@
 {
   "Generic": [
     {
-      "Buffs": [ "compatt", "compnano", "computil" ]
-    }
-  ],
-  "Metaphysicist": [
-    {
-      "Buffs": [ "pmi", "sii" ]
+      "Buffs": [ "compatt", "compnano" ]
     }
   ],
   "Trader": [
