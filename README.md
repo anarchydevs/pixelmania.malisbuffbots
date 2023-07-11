@@ -5,6 +5,7 @@
 - New commands (macrobuffs, rebuff), 
     - Buffmacro - dumps a macro of your current buffs to your character (ex. if you have rrfe and behe it will dump /macro preset /tell buffbot behe rrfe, skips team buffs)
     - Rebuff - checks your ncu and rebuffs you with all available nanos (skips team buffs)
+    - Help - Creates a script template of all you buffs and commands
 - Generic nano support (like composites, buffers with lowest current queue will buff you these)
 - Bots will now skip buffing nanos that they don't have
 - Slight db change (will auto migrate to new structure if using old db structure), 
@@ -64,6 +65,7 @@ Use the BuffsDb.json to modify bot casting behavior, example:
  - Sit kit threshold usage
  - Pvp flag check
  - Sit kit item id
+ - IPCChannelId - (0-255) if using multiple plugins that take advantage of IPC, make sure that this value is not the same for both plugins
  - Init connection wait period 
   
  If you log out your bots / kill the process, wait until they fully leave the server before rebooting them, else there might be issues with certain stats not getting registered for the LocalPlayer
