@@ -97,27 +97,37 @@ namespace MalisBuffBots
             {
                 int cachedSpellCount = spells.Count();
 
-                foreach (var prof in Main.Ipc.QueueData.OrderBy(x => x.Value))
+                foreach (var prof in Main.Ipc.QueueData.OrderByQueueEntries())
                 {
                     if (!Main.Ipc.SpellData.ContainsKey(prof.Key))
                         continue;
 
-                    var ownedSpells = Main.Ipc.SpellData[prof.Key].Where(x => results.Any(y => y.ContainsId(x)));
-
-                    if (ownedSpells.Count() == 0)
+                    if (!DynelManager.Characters.Any(x => x.Identity == prof.Value.Identity))
                         continue;
 
-                    var spellToCast = spells.FirstOrDefault();
+                    var nextSpellToCast = spells.FirstOrDefault();
 
-                    if (spellToCast == null)
+                    if (nextSpellToCast == null)
                         break;
 
-                    if (prof.Key == (Profession)DynelManager.LocalPlayer.Profession)
-                        Enqueue(requester, spellToCast);
-                    else
-                        Main.Ipc.Broadcast(new CastRequestMessage { Caster = prof.Key, Requester = requester.Identity.Instance, Entries = new NanoEntry[1] { spellToCast } });
+                    if (!Main.Ipc.SpellData.ContainsNanoEntry(prof.Key, nextSpellToCast))
+                        continue;
 
-                    spells.Remove(spellToCast);
+                    if (prof.Key == (Profession)DynelManager.LocalPlayer.Profession)
+                    {
+                        Enqueue(requester, nextSpellToCast);
+                    }
+                    else
+                    {
+                        Main.Ipc.Broadcast(new CastRequestMessage
+                        {
+                            Caster = prof.Key,
+                            Requester = requester.Identity.Instance,
+                            Entries = new NanoEntry[1] { nextSpellToCast }
+                        });
+                    }
+
+                    spells.Remove(nextSpellToCast);
                 }
 
                 //Nobody can cast anything that is left

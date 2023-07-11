@@ -28,8 +28,9 @@ namespace MalisBuffBots
         {
             Logger.Information("- Mali's Clientless Buffbots -");
 
-            Client.SuppressDeserializationErrors(); 
+            Client.SuppressDeserializationErrors();
             Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
+            Client.Chat.NetworkMessageReceived += (e, msg) => Test(msg);
 
             Ipc = new IPC(225, 1);
 
@@ -110,9 +111,14 @@ namespace MalisBuffBots
         private void OnMessageReceived(object _, Message msg)
         {
             if (msg.Header.PacketType == PacketType.PingMessage)
-                Logger.Debug($"Received ping message from server.");
+                Logger.Debug($"Received ping message from GAME server.");
         }
 
+        private void Test(ChatMessage msg)
+        {
+            if (msg.Header.PacketType == ChatMessageType.Ping)
+                Logger.Debug($"Received ping message from CHAT server.");
+        }
 
         public void ProcessCastRequest(string[] nanoTags, PlayerChar requester)
         {

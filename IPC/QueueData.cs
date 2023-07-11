@@ -9,15 +9,12 @@ using SmokeLounge.AOtomation.Messaging.Serialization.MappingAttributes;
 
 namespace MalisBuffBots
 {
-    [AoContract((int)IPCOpcode.ReceiveQueueInfo)]
-    public class ReceiveQueueInfoMessage : IPCMessage
+    public class QueueData
     {
-        public override short Opcode => (int)IPCOpcode.ReceiveQueueInfo;
-
         [AoMember(0)]
-        public Profession Caster { get; set; }
+        public int Entries { get; set; }
 
         [AoMember(1)]
-        public QueueData QueueData { get; set; }
+        public Identity Identity { get; set; }
     }
 }

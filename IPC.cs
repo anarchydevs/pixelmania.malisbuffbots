@@ -13,10 +13,53 @@ namespace MalisBuffBots
 {
     public class IPC : IPCChannel
     {
-        public Dictionary<Profession, int> QueueData = new Dictionary<Profession, int>();
-        public Dictionary<Profession, int[]> SpellData = new Dictionary<Profession, int[]>();
+        public IPCQueueData QueueData = new IPCQueueData();
+
+        public IPCSpellData SpellData = new IPCSpellData();
         private double _updateInterval;
         private double _cachedUpdateInterval;
+
+
+        public class IPCSpellData
+        {
+            public Dictionary<Profession, int[]> SpellData = new Dictionary<Profession, int[]>();
+
+            public bool ContainsKey(Profession prof) => SpellData.ContainsKey(prof);
+
+            public void AddOrUpdate(Profession prof, int[] spellList)
+            {
+                if (!SpellData.ContainsKey(prof))
+                    SpellData.Add(prof, spellList);
+
+                SpellData[prof] = spellList;
+            }
+
+            public int[] GetValue(Profession proffesion) => SpellData[proffesion];
+
+            public bool ContainsNanoEntry(Profession prof, NanoEntry nanoEntry)
+            {
+                if (!SpellData.TryGetValue(prof, out var spellData))
+                    return false;
+
+                return spellData.Any(s => nanoEntry.ContainsId(s));
+            }
+        }
+
+        public class IPCQueueData
+        {
+            public Dictionary<Profession, QueueData> QueueData = new Dictionary<Profession, QueueData>();
+
+            public bool ContainsKey(Profession prof) => QueueData.ContainsKey(prof);
+            public void AddOrUpdate(Profession prof, QueueData queueData)
+            {
+                if (!QueueData.ContainsKey(prof))
+                    QueueData.Add(prof, queueData);
+
+                QueueData[prof] = queueData;
+            }
+
+            public IOrderedEnumerable<KeyValuePair<Profession, QueueData>> OrderByQueueEntries() => QueueData.OrderBy(x => x.Value.Entries);
+        }
 
         public IPC(byte channelId, double updateInterval) : base(channelId)
         {
@@ -30,20 +73,14 @@ namespace MalisBuffBots
             RegisterCallback((int)IPCOpcode.ReceiveSpellListInfo, OnDisplaySpellListInfoReceived);
         }
 
-        public void AddQueueDataEntry(Profession prof, int entries)
+        public void AddQueueDataEntry(Profession prof, QueueData queueData)
         {
-            if (!QueueData.ContainsKey(prof))
-                QueueData.Add(prof, entries);
-
-            QueueData[prof] = entries;
+            QueueData.AddOrUpdate(prof, queueData);
         }
 
         public void AddSpellDataEntry(Profession prof, int[] spells)
         {
-            if (!SpellData.ContainsKey(prof))
-                SpellData.Add(prof, spells);
-
-            SpellData[prof] = spells;
+            SpellData.AddOrUpdate(prof, spells);
         }
 
         public void OnUpdate(object _, double deltaTime)
@@ -53,8 +90,8 @@ namespace MalisBuffBots
             if (_updateInterval > 0)
                 return;
 
-            QueueData = new Dictionary<Profession, int>();
-            QueueData.Add((Profession)DynelManager.LocalPlayer.Profession, Main.QueueProcessor.Entries);
+            QueueData = new IPCQueueData();
+            QueueData.AddOrUpdate((Profession)DynelManager.LocalPlayer.Profession, new QueueData { Identity = DynelManager.LocalPlayer.Identity, Entries = Main.QueueProcessor.Entries });
             Main.Ipc.Broadcast(new RequestQueueInfoMessage());
 
             _updateInterval = _cachedUpdateInterval;
@@ -82,7 +119,7 @@ namespace MalisBuffBots
         {
             ReceiveQueueInfoMessage qMsg = (ReceiveQueueInfoMessage)msg;
 
-            Main.Ipc.AddQueueDataEntry(qMsg.Caster, qMsg.Entries);
+            Main.Ipc.AddQueueDataEntry(qMsg.Caster, qMsg.QueueData);
         }
 
         private void OnRequestQueueInfoReceived(int sender, IPCMessage msg)
@@ -90,12 +127,24 @@ namespace MalisBuffBots
             if (!Client.InPlay)
                 return;
 
-            Main.Ipc.Broadcast(new ReceiveQueueInfoMessage { Caster = (Profession)DynelManager.LocalPlayer.Profession, Entries = Main.QueueProcessor.Entries });
+            Main.Ipc.Broadcast(new ReceiveQueueInfoMessage
+            {
+                Caster = (Profession)DynelManager.LocalPlayer.Profession,
+                QueueData = new QueueData 
+                { 
+                    Entries = Main.QueueProcessor.Entries, 
+                    Identity = DynelManager.LocalPlayer.Identity 
+                }
+            });
         }
 
         private void OnRequestSpellListInfoReceived(int sender, IPCMessage msg)
         {
-            Main.Ipc.Broadcast(new ReceiveSpellListInfoMessage { Profession = (Profession)DynelManager.LocalPlayer.Profession, SpellList = DynelManager.LocalPlayer.SpellList });
+            Main.Ipc.Broadcast(new ReceiveSpellListInfoMessage 
+            { 
+                Profession = (Profession)DynelManager.LocalPlayer.Profession, 
+                SpellList = DynelManager.LocalPlayer.SpellList 
+            });
         }
 
         private void OnDisplaySpellListInfoReceived(int sender, IPCMessage msg)
@@ -103,6 +152,5 @@ namespace MalisBuffBots
             ReceiveSpellListInfoMessage sMsg = (ReceiveSpellListInfoMessage)msg;
             Main.Ipc.AddSpellDataEntry(sMsg.Profession, sMsg.SpellList);
         }
-
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="IPC.cs" />
     <Compile Include="IPC\CastRequestMessage.cs" />
     <Compile Include="IPC\IPCOpcode.cs" />
+    <Compile Include="IPC\QueueData.cs" />
     <Compile Include="IPC\ReceiveQueueInfoMessage.cs" />
     <Compile Include="IPC\ReceiveSpellListInfoMessage.cs" />
     <Compile Include="IPC\RequestQueueInfoMessage.cs" />
