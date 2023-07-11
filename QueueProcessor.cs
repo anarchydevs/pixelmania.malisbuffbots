@@ -210,7 +210,7 @@ namespace MalisBuffBots
 
         private void ResetCurrentBuffEntry()
         {
-            Team.Kick(_currentBuffEntry.Character.Identity);
+            Team.LeaveTeam();
             DynelManager.LocalPlayer.TryRemoveBuff(_currentBuffEntry.NanoEntry.RemoveNanoIdUponCast);
             _teamRequestSent = false;
             _currentBuffEntry = null;
@@ -219,6 +219,13 @@ namespace MalisBuffBots
 
         private void AttemptToBuffTarget()
         {
+            if (_currentBuffEntry.Character == null)
+            {
+                Logger.Information($"Cast attempt on UNKNOWN character skipped.");
+                ResetCurrentBuffEntry();
+                return;
+            }
+
             if (Main.SettingsJson.Data.PvpFlagCheck && _currentBuffEntry.Character.IsPvpFlagged())
             {
                 Logger.Information($"Cast attempt '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}' skipped (character is flagged)");
@@ -227,7 +234,7 @@ namespace MalisBuffBots
             }
 
             Logger.Information($"Attempting to cast '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}', Remaining time: {Math.Round(_waitTime, 2)} seconds.");
-          
+
             var firstAvailableBuff =  _currentBuffEntry.NanoEntry.LevelToId.FirstOrDefault(x => x.Level <= _currentBuffEntry.Character.Level && DynelManager.LocalPlayer.SpellList.Contains(x.Id));
 
             if (firstAvailableBuff == null)
