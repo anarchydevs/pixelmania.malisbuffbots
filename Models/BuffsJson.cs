@@ -72,7 +72,7 @@ namespace MalisBuffBots
             }
 
             return result.Count > 0;
-        }
+        }   
     }
 
     public class BuffEntry

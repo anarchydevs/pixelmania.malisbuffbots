@@ -361,7 +361,6 @@
       "RemoveNanoIdUponCast": 0,
       "Tags": [
         "behe",
-        "ess",
         "essence"
       ]
     },
@@ -1106,6 +1105,36 @@
       ]
     },
     {
+      "Name": "Ease of Execution",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 95410
+        }
+      ],
+      "Type": "Single",
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [
+        "eoe"
+      ]
+    },
+    {
+      "Name": "Coherent Notum Web",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 95411
+        }
+      ],
+      "Type": "Single",
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [
+        "cnw"
+      ]
+    },
+    {
       "Name": "Mocham's Neural Interface-Web",
       "LevelToId": [
         {
@@ -1120,7 +1149,7 @@
         "mniw",
         "neural",
         "web",
-        "cost"
+        "mcost"
       ]
     },
     {

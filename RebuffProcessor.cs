@@ -65,6 +65,12 @@ namespace MalisBuffBots
 
             foreach (var nano in expiredNano.Value)
             {
+                if (!_rebuffInfo.Contains(nano.Tags))
+                {
+                    Logger.Information($"Buff with id {buffArgs.Id} not found in RebuffInfo. Skipping rebuff attempt.");
+                    continue;
+                }
+
                 if (!nano.ContainsId(buffArgs.Id))
                     continue;
 
@@ -80,22 +86,23 @@ namespace MalisBuffBots
             if (!Main.BuffsJson.FindByTags(buffInfo.SelectMany(x => x.Buffs), out Dictionary<Profession, List<NanoEntry>> entries))
                 return;
 
-            List<NanoEntry> missingBuffs = entries.Values.SelectMany(x => x).ToList();
+            Dictionary<Profession, List<NanoEntry>> missingBuffs = entries.ToDictionary(entry => entry.Key, entry => entry.Value);
 
-            foreach (var entry in missingBuffs.ToList())
+            foreach (var entry in entries)
             {
                 foreach (var buff in DynelManager.LocalPlayer.Buffs.Select(x => x.Id))
                 {
-                    if (entry.ContainsId(buff) || entry.Type == CastType.Team)
-                        missingBuffs.Remove(entry);
+                    var buffToRemove = entry.Value.FirstOrDefault(x => x.ContainsId(buff));
+
+                    if (buffToRemove == null || buffToRemove.Type == CastType.Team)
+                        continue;
+
+                    missingBuffs[entry.Key].Remove(buffToRemove);
                 }
             }
 
-            if (Main.BuffsJson.FindByTags(missingBuffs.Select(x => x.Tags.FirstOrDefault()), out Dictionary<Profession, List<NanoEntry>> entrsies))
-            {
-                foreach (var entry in entrsies)
-                    Main.QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, DynelManager.LocalPlayer);
-            }
+            foreach (var entry in missingBuffs)
+                Main.QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, DynelManager.LocalPlayer);
         }
     }
 }

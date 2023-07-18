@@ -29,6 +29,8 @@ namespace MalisBuffBots
             return entries;
         }
 
+        public bool Contains(IEnumerable<string> tags) => Entries.Any(x => x.Value.Any(y => tags.Any(t => y.Buffs.Contains(t))));
+
         public RebuffJson(string jsonPath) : base(jsonPath) => Entries = _data;
     }
 
