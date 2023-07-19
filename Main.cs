@@ -30,7 +30,7 @@ namespace MalisBuffBots
 
             Client.SuppressDeserializationErrors();
             Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
-            Client.Chat.NetworkMessageReceived += (e, msg) => HandlePingMessages(msg); // We are leaving these for debugging purposes (will remove later)
+           // Client.Chat.NetworkMessageReceived += (e, msg) => HandlePingMessages(msg); // We are leaving these for debugging purposes (will remove later)
 
             SettingsJson = new SettingsJson($"{Utils.PluginDir}\\JSON\\Settings.json");
 
@@ -44,7 +44,7 @@ namespace MalisBuffBots
             QueueProcessor = new QueueProcessor();
 
             Client.OnUpdate += OnUpdate;
-            Client.MessageReceived += OnMessageReceived; // We are leaving these for debugging purposes (will remove later)
+           // Client.MessageReceived += OnMessageReceived; // We are leaving these for debugging purposes (will remove later)
             Client.OnUpdate += Ipc.OnUpdate;
         }
 
@@ -101,17 +101,17 @@ namespace MalisBuffBots
             InitBot();
         }
 
-        private void OnMessageReceived(object _, Message msg)
-        {
-            if (msg.Header.PacketType == PacketType.PingMessage)
-                Logger.Debug($"Received ping message from GAME server.");
-        }
+        //private void OnMessageReceived(object _, Message msg)
+        //{
+        //    if (msg.Header.PacketType == PacketType.PingMessage)
+        //        Logger.Debug($"Received ping message from GAME server.");
+        //}
 
-        private void HandlePingMessages(ChatMessage msg)
-        {
-            if (msg.Header.PacketType == ChatMessageType.Ping)
-                Logger.Debug($"Received ping message from CHAT server.");
-        }
+        //private void HandlePingMessages(ChatMessage msg)
+        //{
+        //    if (msg.Header.PacketType == ChatMessageType.Ping)
+        //        Logger.Debug($"Received ping message from CHAT server.");
+        //}
 
         public void ProcessCastRequest(string[] nanoTags, PlayerChar requester)
         {

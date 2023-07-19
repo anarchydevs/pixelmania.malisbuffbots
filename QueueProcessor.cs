@@ -36,7 +36,11 @@ namespace MalisBuffBots
 
         public void Enqueue(SimpleChar requester, NanoEntry entry) => _queue.Enqueue(new BuffEntry(requester, entry));
 
-        public void FinalizeBuffRequest(Profession castProf, IEnumerable<NanoEntry> results, PlayerChar requester)
+        public void FinalizeBuffRequest(Profession castProf, IEnumerable<NanoEntry> results, PlayerChar requester) => ProcessBuffRequest(castProf, results, requester);
+
+        public void FinalizeBuffRequest(Profession castProf, NanoEntry result, PlayerChar requester) => ProcessBuffRequest(castProf, new List<NanoEntry> { result }, requester);
+
+        private void ProcessBuffRequest(Profession castProf, IEnumerable<NanoEntry> results, PlayerChar requester)
         {
             if (castProf == Profession.Generic) // We handle generic buffs by distributing the results evenly amongst all buffers
             {

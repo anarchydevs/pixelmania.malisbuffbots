@@ -46,7 +46,22 @@ namespace MalisBuffBots
             return result.Count > 0;
         }
 
-        public bool FindByIds(IEnumerable<int> ids, out Dictionary<Profession, List<NanoEntry>> result)
+        public bool FindByIds(IEnumerable<int> ids, out Dictionary<Profession, List<NanoEntry>> result) => ProcessId(ids, out result);
+
+        public bool FindById(int id, out (Profession, NanoEntry) result)
+        {
+            result = default;
+
+            if (!ProcessId(new List<int> { id }, out Dictionary<Profession, List<NanoEntry>> results))
+                return false;
+
+            var firstResult = results.FirstOrDefault();
+            result = (firstResult.Key, firstResult.Value.FirstOrDefault());
+
+            return true; // Return true if the result is not default (i.e., it has a valid value).
+        }
+
+        private bool ProcessId(IEnumerable<int> ids, out Dictionary<Profession, List<NanoEntry>> result)
         {
             result = new Dictionary<Profession, List<NanoEntry>>();
 
@@ -59,7 +74,7 @@ namespace MalisBuffBots
 
                 foreach (var nanoEntry in entriesByProf.Value)
                 {
-                    if (!ids.Any(x => nanoEntry.LevelToId.Any(y=>y.Id == x)))
+                    if (!ids.Any(x => nanoEntry.LevelToId.Any(y => y.Id == x)))
                         continue;
 
                     results.Add(nanoEntry);
@@ -72,7 +87,7 @@ namespace MalisBuffBots
             }
 
             return result.Count > 0;
-        }   
+        }
     }
 
     public class BuffEntry

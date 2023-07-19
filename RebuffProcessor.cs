@@ -58,24 +58,16 @@ namespace MalisBuffBots
 
         private void ProcessBuffArgs(BuffChangedArgs buffArgs)
         {
-            if (!Main.BuffsJson.FindByIds(new List<int> { buffArgs.Id }, out Dictionary<Profession, List<NanoEntry>> entries))
+            if (!Main.BuffsJson.FindById(buffArgs.Id, out (Profession, NanoEntry) expiredNano))
                 return;
 
-            var expiredNano = entries.FirstOrDefault();
-
-            foreach (var nano in expiredNano.Value)
+            if (!_rebuffInfo.Contains(expiredNano.Item2.Tags))
             {
-                if (!_rebuffInfo.Contains(nano.Tags))
-                {
-                    Logger.Information($"Buff with id {buffArgs.Id} not found in RebuffInfo. Skipping rebuff attempt.");
-                    continue;
-                }
-
-                if (!nano.ContainsId(buffArgs.Id))
-                    continue;
-
-                Main.QueueProcessor.FinalizeBuffRequest(expiredNano.Key, new List<NanoEntry> { nano }, DynelManager.LocalPlayer);
+                Logger.Information($"Buff with id {buffArgs.Id} not found in local RebuffInfo. Skipping rebuff attempt.");
+                return;
             }
+
+            Main.QueueProcessor.FinalizeBuffRequest(expiredNano.Item1, expiredNano.Item2, DynelManager.LocalPlayer);
         }
 
         private void TryFindBuffs(IEnumerable<BuffInfo> buffInfo)
