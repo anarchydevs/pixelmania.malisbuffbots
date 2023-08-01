@@ -29,6 +29,7 @@ namespace MalisBuffBots
                         {
                             Tag = entry.Tags[0],
                             Nanoname = entry.Name,
+                            ncu = new Buff(entry.LevelToId[0].Id).NanoItem.NCU
                         }).ToList()
                     }).ToList()
                 },

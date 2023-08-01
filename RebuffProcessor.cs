@@ -48,16 +48,16 @@ namespace MalisBuffBots
                 return;
 
             if (buffArgs.Status == BuffState.Refreshed)
-            {
                 Logger.Information($"Somebody refreshed my buff with id: {buffArgs.Id}");
-                return;
-            }
 
             ProcessBuffArgs(buffArgs);
         }
 
         private void ProcessBuffArgs(BuffChangedArgs buffArgs)
         {
+            if (DynelManager.LocalPlayer.Buffs.Find(buffArgs.Id, out Buff buff) && buff.Cooldown.RemainingTime > 10f)
+                return;
+
             if (!Main.BuffsJson.FindById(buffArgs.Id, out (Profession, NanoEntry) expiredNano))
                 return;
 

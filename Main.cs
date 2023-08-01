@@ -30,13 +30,12 @@ namespace MalisBuffBots
 
             Client.SuppressDeserializationErrors();
             Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
-           // Client.Chat.NetworkMessageReceived += (e, msg) => HandlePingMessages(msg); // We are leaving these for debugging purposes (will remove later)
 
             SettingsJson = new SettingsJson($"{Utils.PluginDir}\\JSON\\Settings.json");
 
             Ipc = new IPC(SettingsJson.Data.IPCChannelId, 1);
 
-            _commandManager = new CommandManager();
+            _commandManager = new CommandManager(new UserRank($"{Utils.PluginDir}\\JSON\\UserRanks.json"));
 
             BuffsJson = new BuffsJson($"{Utils.PluginDir}\\JSON\\BuffsDb.json");
             RebuffJson = new RebuffJson($"{Utils.PluginDir}\\JSON\\RebuffInfo.json");
@@ -44,7 +43,6 @@ namespace MalisBuffBots
             QueueProcessor = new QueueProcessor();
 
             Client.OnUpdate += OnUpdate;
-           // Client.MessageReceived += OnMessageReceived; // We are leaving these for debugging purposes (will remove later)
             Client.OnUpdate += Ipc.OnUpdate;
         }
 
@@ -52,7 +50,6 @@ namespace MalisBuffBots
         {
             if (!_commandManager.TryProcess(msg, out Command command, out string[] commandParts, out int requester))
             {
-                ProcessUnknownCommand(requester);
                 return;
             }
 
@@ -101,18 +98,6 @@ namespace MalisBuffBots
             InitBot();
         }
 
-        //private void OnMessageReceived(object _, Message msg)
-        //{
-        //    if (msg.Header.PacketType == PacketType.PingMessage)
-        //        Logger.Debug($"Received ping message from GAME server.");
-        //}
-
-        //private void HandlePingMessages(ChatMessage msg)
-        //{
-        //    if (msg.Header.PacketType == ChatMessageType.Ping)
-        //        Logger.Debug($"Received ping message from CHAT server.");
-        //}
-
         public void ProcessCastRequest(string[] nanoTags, PlayerChar requester)
         {
             if (!BuffsJson.FindByTags(nanoTags, out Dictionary<Profession, List<NanoEntry>> entries))
@@ -159,12 +144,8 @@ namespace MalisBuffBots
 
         private void ProcessHelpRequest(PlayerChar requester)
         {
+            Client.SendPrivateMessage((uint)requester.Identity.Instance, "Retrieving available buffs. Just a moment.");
             Client.SendPrivateMessage((uint)requester.Identity.Instance, ScriptTemplate.Create());
-        }
-
-        private void ProcessUnknownCommand(int requester)
-        {
-            Client.SendPrivateMessage((uint)requester, "Command not found, try 'help'.");
         }
 
         private void InitBot()

@@ -88,6 +88,7 @@
     <Compile Include="Models\DataMigrate.cs" />
     <Compile Include="Models\JsonFile.cs" />
     <Compile Include="Models\NanoEntry.cs" />
+    <Compile Include="Models\UserRank.cs" />
     <Compile Include="Models\RebuffJson.cs" />
     <Compile Include="Models\SettingsJson.cs" />
     <Compile Include="QueueProcessor.cs" />
@@ -100,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="JSON\UserRanks.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="JSON\BuffsDb.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

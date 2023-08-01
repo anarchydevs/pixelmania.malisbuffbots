@@ -15,7 +15,17 @@ namespace MalisBuffBots
 {
     public class CommandManager
     {
-        private static readonly Dictionary<Command, Func<PrivateMessage, bool>> _commands = new Dictionary<Command, Func<PrivateMessage, bool>>()
+        private static readonly Dictionary<Command, Rank> _commandRanks = new Dictionary<Command, Rank>
+        {
+            { Command.Stand, Rank.Moderator },
+            { Command.Sit, Rank.Moderator },
+            { Command.Cast, Rank.Unranked },
+            { Command.Rebuff, Rank.Unranked },
+            { Command.Buffmacro, Rank.Unranked },
+            { Command.Help, Rank.Unranked },
+        };
+
+        private static readonly Dictionary<Command, Func<PrivateMessage, bool>> _commandActions = new Dictionary<Command, Func<PrivateMessage, bool>>()
         {
             { Command.Stand, msg => StandAction(msg) },
             { Command.Sit, msg => SitAction(msg) },
@@ -25,23 +35,43 @@ namespace MalisBuffBots
             { Command.Help, msg => HelpRequest(msg) },
         };
 
+        private static UserRank _userRank;
+
+        public CommandManager(UserRank userRank)
+        {
+            _userRank = userRank;
+        }
+
         public bool TryProcess(PrivateMessage msg, out Command command, out string[] commandParts, out int requesterId)
         {
             commandParts = msg.Message.ToLower().Split(' ');
             requesterId = (int)msg.SenderId;
 
             if (!Enum.TryParse(commandParts[0].ToTitleCase(), out command))
-                return false;
-
-            commandParts = commandParts.Length > 1 ? commandParts.Skip(1).ToArray() : null;
-
-            if (!_commands.TryGetValue(command, out var action))
             {
-                Logger.Error($"Invalid command '{command}.");
+                Client.SendPrivateMessage(msg.SenderId, "Command not found, try 'help'.");
                 return false;
             }
 
-            return _commands[command].Invoke(msg);
+            commandParts = commandParts.Length > 1 ? commandParts.Skip(1).ToArray() : null;
+
+            if (!_commandActions.TryGetValue(command, out var action))
+            {
+                Logger.Error($"Invalid command '{command}'.");
+                return false;
+            }
+
+
+            if (_commandRanks.TryGetValue(command, out Rank rank))
+            {
+                if (!_userRank.MeetsRank(_commandRanks[command], msg.SenderName))
+                {
+                    Logger.Error($"Permission error for user {msg.SenderName}, command '{command}'.");
+                    return false;
+                }
+            }
+
+            return _commandActions[command].Invoke(msg);
         }
 
         private static bool CastRequest(PrivateMessage msg)
@@ -93,6 +123,14 @@ namespace MalisBuffBots
         Cast,
         Rebuff,
         Buffmacro,
-        Help
+        Help,
+        Refresh
+    }
+
+    public enum Rank
+    {
+        Unranked,
+        Moderator,
+        Admin
     }
 }
