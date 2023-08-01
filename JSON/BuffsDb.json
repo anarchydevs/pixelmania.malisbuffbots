@@ -1356,21 +1356,6 @@
   ],
   "Trader": [
     {
-      "Name": "Skill Wrangler (Greater)",
-      "LevelToId": [
-        {
-          "Level": 0,
-          "Id": 121342
-        }
-      ],
-      "Type": "Single",
-      "TimeOut": 10,
-      "RemoveNanoIdUponCast": 0,
-      "Tags": [
-        "greater"
-      ]
-    },
-    {
       "Name": "Skill Wrangler (Premium)",
       "LevelToId": [
         {
@@ -1388,6 +1373,21 @@
       ]
     },
     {
+      "Name": "Skill Wrangler (Greater)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121342
+        }
+      ],
+      "Type": "Single",
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [
+        "greater"
+      ]
+    },
+    {
       "Name": "Skill Wrangler (Advanced)",
       "LevelToId": [
         {
@@ -1400,6 +1400,36 @@
       "RemoveNanoIdUponCast": 0,
       "Tags": [
         "advanced"
+      ]
+    },
+    {
+      "Name": "Lend Nano: 500",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30731
+        }
+      ],
+      "Type": "Single",
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [
+        "lend500"
+      ]
+    },
+    {
+      "Name": "Lend Nano: 250",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30729
+        }
+      ],
+      "Type": "Single",
+      "TimeOut": 10,
+      "RemoveNanoIdUponCast": 0,
+      "Tags": [
+        "lend250"
       ]
     },
     {
