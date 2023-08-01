@@ -200,6 +200,7 @@ namespace MalisBuffBots
         {
             if (_currentBuffEntry != null)
             {
+                Client.SendPrivateMessage((uint)_currentBuffEntry.Character.Identity.Instance, $"Failed to cast '{_currentBuffEntry.NanoEntry.Name}': Check line of sight, NCU availability, and no better nano running.");
                 Logger.Warning($"Casting '{_currentBuffEntry.NanoEntry.Name}' on '{_currentBuffEntry.Character.Name}' failed. Removing entry.");
                 ResetCurrentBuffEntry();
             }
