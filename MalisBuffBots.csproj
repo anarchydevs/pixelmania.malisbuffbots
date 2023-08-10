@@ -37,17 +37,14 @@
   <ItemGroup>
     <Reference Include="AOSharp.Clientless, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\aosharp.clientless\AOSharp.Clientless\bin\Debug\AOSharp.Clientless.dll</HintPath>
+      <HintPath>..\aosharp.clientless\Test\bin\Debug\AOSharp.Clientless.dll</HintPath>
     </Reference>
     <Reference Include="AOSharp.Clientless.Chat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\aosharp.clientless\AOSharp.Clientless\bin\Debug\AOSharp.Clientless.Chat.dll</HintPath>
+      <HintPath>..\aosharp.clientless\Test\bin\Debug\AOSharp.Clientless.Chat.dll</HintPath>
     </Reference>
     <Reference Include="AOSharp.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AOSharpSDK.1.0.34\lib\net48\AOSharp.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="AOSharp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AOSharpSDK.1.0.34\lib\net48\AOSharp.Core.dll</HintPath>
+      <HintPath>packages\AOSharpSDK.1.0.37\lib\net48\AOSharp.Common.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -76,25 +73,31 @@
   <ItemGroup>
     <Compile Include="Enums.cs" />
     <Compile Include="IPC.cs" />
+    <Compile Include="IPC\BotData.cs" />
     <Compile Include="IPC\CastRequestMessage.cs" />
     <Compile Include="IPC\IPCOpcode.cs" />
+    <Compile Include="IPC\PongMessage.cs" />
+    <Compile Include="IPC\TeamTrackerMessage.cs" />
+    <Compile Include="IPC\TeamInfoMessage.cs" />
     <Compile Include="IPC\QueueData.cs" />
-    <Compile Include="IPC\ReceiveQueueInfoMessage.cs" />
-    <Compile Include="IPC\ReceiveSpellListInfoMessage.cs" />
-    <Compile Include="IPC\RequestQueueInfoMessage.cs" />
-    <Compile Include="IPC\RequestSpellListInfoMessage.cs" />
-    <Compile Include="CommandManager.cs" />
+    <Compile Include="IPC\PingMessage.cs" />
+    <Compile Include="IPC\QueueInfoMessage.cs" />
+    <Compile Include="IPC\RequestTeamInviteMessage.cs" />
+    <Compile Include="IPC\BotInfoMessage.cs" />
+    <Compile Include="CommandProcessor.cs" />
     <Compile Include="Models\BuffsJson.cs" />
     <Compile Include="Models\DataMigrate.cs" />
     <Compile Include="Models\JsonFile.cs" />
     <Compile Include="Models\NanoEntry.cs" />
+    <Compile Include="Models\BuffQueue.cs" />
     <Compile Include="Models\UserRank.cs" />
     <Compile Include="Models\RebuffJson.cs" />
     <Compile Include="Models\SettingsJson.cs" />
+    <Compile Include="N3MessageProcessor.cs" />
     <Compile Include="QueueProcessor.cs" />
     <Compile Include="RebuffProcessor.cs" />
-    <Compile Include="ScriptTemplate.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Templates\ScriptTemplate.cs" />
+    <Compile Include="Path.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,7 +120,40 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\HelpTemplate.txt">
+    <Content Include="Templates\InvalidParamsTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\RetrievingBuffsTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\RequestRejectedTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TeamBotsBusyTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TeamInviteTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\TeamBuffTimeoutTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\PermissionErrorTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\CommandNotFoundTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\BuffmacroReplyTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\AlreadyInQueueTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\FeedbackReplyTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\BuffMenuTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

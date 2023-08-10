@@ -19,8 +19,10 @@ namespace MalisBuffBots
         public Config Data;
 
         public SettingsJson(string jsonPath) : base(jsonPath)
-        {         
-            Data = !DataMigrate.ElementExists(JToken.Parse(Raw), "InitDelay") ? DataMigrate.ConvertToNewSettings() : _data;
+        {
+            Data = _data;
+
+           // Data = !DataMigrate.ElementExists(JToken.Parse(Raw), "InitDelay") ? DataMigrate.ConvertToNewSettings() : _data;
         }
     }
 
@@ -31,5 +33,6 @@ namespace MalisBuffBots
         public int SitKitItemId = 297274;
         public byte IPCChannelId = 255;
         public double InitConnectionDelay = 20;
+        public double TeamTimeoutInSeconds = 10;
     }
 }

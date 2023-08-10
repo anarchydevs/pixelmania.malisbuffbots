@@ -9,13 +9,15 @@ using SmokeLounge.AOtomation.Messaging.Serialization.MappingAttributes;
 
 namespace MalisBuffBots
 {
-    public class QueueData
+    [AoContract((int)IPCOpcode.RegisterTeamTracker)]
+    public class TeamTrackerMessage : IPCMessage
     {
+        public override short Opcode => (int)IPCOpcode.RegisterTeamTracker;
 
         [AoMember(0)]
         public Profession Profession { get; set; }
 
-        [AoMember(1, SerializeSize = ArraySizeType.Int32)]
-        public BuffEntry[] Entries { get; set; }
+        [AoMember(1)]
+        public int TeamTrackerId { get; set; }
     }
 }

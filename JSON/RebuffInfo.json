@@ -6,7 +6,7 @@
   ],
   "Trader": [
     {
-      "Buffs": [ "mcmo", "tsmo" ]
+      "Buffs": [ "mcmo", "tsmo", "mmmo" ]
     }
   ]
 }

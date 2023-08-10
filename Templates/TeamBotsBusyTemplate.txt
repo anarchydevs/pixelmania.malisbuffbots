@@ -1,0 +1,1 @@
+﻿<font color =#{{ red }}>All bots are busy processing team buffs. Cancelling yours.</font>

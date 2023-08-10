@@ -13,91 +13,85 @@ namespace MalisBuffBots
 {
     public class IPC : IPCChannel
     {
-        public IPCQueueData QueueData = new IPCQueueData();
+        public IPCBotCacheData BotCache = new IPCBotCacheData();
+        
+        private AutoResetInterval _updateInterval;
 
-        public IPCSpellData SpellData = new IPCSpellData();
-        private double _updateInterval;
-        private double _cachedUpdateInterval;
-
-
-        public class IPCSpellData
+        public IPC(byte channelId, int pingPongUpdateMs) : base(channelId)
         {
-            public Dictionary<Profession, int[]> SpellData = new Dictionary<Profession, int[]>();
+           // _updateInterval = new AutoResetInterval(updateIntervalMs);
+            _updateInterval = new AutoResetInterval(pingPongUpdateMs);
 
-            public bool ContainsKey(Profession prof) => SpellData.ContainsKey(prof);
-
-            public void AddOrUpdate(Profession prof, int[] spellList)
-            {
-                if (!SpellData.ContainsKey(prof))
-                    SpellData.Add(prof, spellList);
-
-                SpellData[prof] = spellList;
-            }
-
-            public int[] GetValue(Profession proffesion) => SpellData[proffesion];
-
-            public bool ContainsNanoEntry(Profession prof, NanoEntry nanoEntry)
-            {
-                if (!SpellData.TryGetValue(prof, out var spellData))
-                    return false;
-
-                return spellData.Any(s => nanoEntry.ContainsId(s));
-            }
-        }
-
-        public class IPCQueueData
-        {
-            public Dictionary<Profession, QueueData> QueueData = new Dictionary<Profession, QueueData>();
-
-            public bool ContainsKey(Profession prof) => QueueData.ContainsKey(prof);
-            public void AddOrUpdate(Profession prof, QueueData queueData)
-            {
-                if (!QueueData.ContainsKey(prof))
-                    QueueData.Add(prof, queueData);
-
-                QueueData[prof] = queueData;
-            }
-
-            public IOrderedEnumerable<KeyValuePair<Profession, QueueData>> OrderByQueueEntries() => QueueData.OrderBy(x => x.Value.Entries);
-        }
-
-        public IPC(byte channelId, double updateInterval) : base(channelId)
-        {
-            _updateInterval = updateInterval;
-            _cachedUpdateInterval = _updateInterval;
-
-            RegisterCallback((int)IPCOpcode.CastRequest, OnActionRequestReceived);
-            RegisterCallback((int)IPCOpcode.ReceiveQueueInfo, OnDisplayQueueInfoReceived);
-            RegisterCallback((int)IPCOpcode.RequestQueueInfo, OnRequestQueueInfoReceived);
-            RegisterCallback((int)IPCOpcode.RequestSpellListInfo, OnRequestSpellListInfoReceived);
-            RegisterCallback((int)IPCOpcode.ReceiveSpellListInfo, OnDisplaySpellListInfoReceived);
-        }
-
-        public void AddQueueDataEntry(Profession prof, QueueData queueData)
-        {
-            QueueData.AddOrUpdate(prof, queueData);
-        }
-
-        public void AddSpellDataEntry(Profession prof, int[] spells)
-        {
-            SpellData.AddOrUpdate(prof, spells);
+            RegisterCallback((int)IPCOpcode.CastRequest, OnCastRequestReceived);
+            RegisterCallback((int)IPCOpcode.ReceiveQueueInfo, OnReceiveQueueInfoReceived);
+            RegisterCallback((int)IPCOpcode.UpdateBotInfo, OnReceivedBotInfoMessage);
+            RegisterCallback((int)IPCOpcode.UpdateTeamMember, OnReceivedTeamInfoMessage);
+            RegisterCallback((int)IPCOpcode.RequestTeamInvite, OnRequestTeamInviteReceived);
+            RegisterCallback((int)IPCOpcode.RegisterTeamTracker, OnRegisterTeamTracker);
+            RegisterCallback((int)IPCOpcode.Ping, OnPingMessageReceived);
+            RegisterCallback((int)IPCOpcode.Pong, OnPongMessageReceived);
         }
 
         public void OnUpdate(object _, double deltaTime)
         {
-            _updateInterval -= deltaTime;
-
-            if (_updateInterval > 0)
+            if (!_updateInterval.Elapsed)
                 return;
 
-            QueueData = new IPCQueueData();
-            QueueData.AddOrUpdate((Profession)DynelManager.LocalPlayer.Profession, new QueueData { Identity = DynelManager.LocalPlayer.Identity, Entries = Main.QueueProcessor.Entries });
-            Main.Ipc.Broadcast(new RequestQueueInfoMessage());
-
-            _updateInterval = _cachedUpdateInterval;
+            Main.Ipc.Broadcast(new PingMessage { Requester = Client.LocalDynelId });
         }
 
-        private void OnActionRequestReceived(int sender, IPCMessage msg)
+        public void Init()
+        {
+            BotCache.BroadcastBotInfoMessage();
+            BotCache.BroadcastTeamInfoMessage();
+            BotCache.BroadcastQueueInfoMessage();
+        }
+
+        private void OnRegisterTeamTracker(int arg1, IPCMessage msg)
+        {
+            TeamTrackerMessage trackMsg = (TeamTrackerMessage)msg;
+
+            BotCache.TeamTracker(trackMsg.Profession, trackMsg.TeamTrackerId);
+
+            if (trackMsg.Profession != (Profession)DynelManager.LocalPlayer.Profession)
+                return;
+
+            Main.QueueProcessor.TeamTrackerId = trackMsg.TeamTrackerId;
+            Team.Invite(new Identity(IdentityType.SimpleChar, trackMsg.TeamTrackerId));
+            Client.SendPrivateMessage((uint)trackMsg.TeamTrackerId, ScriptTemplate.TeamInvite());
+        }
+
+        private void OnPongMessageReceived(int arg1, IPCMessage ipcMsg)
+        {
+            PongMessage pongMsg = (PongMessage)ipcMsg;
+
+            if (pongMsg.Requester != Client.LocalDynelId)
+                return;
+
+            BotCache.PingPong(pongMsg.Receiver);
+        }
+
+        private void OnPingMessageReceived(int arg1, IPCMessage ipcMsg)
+        {
+            Main.Ipc.Broadcast(new PongMessage { Requester = ((PingMessage)ipcMsg).Requester, Receiver = (Profession)DynelManager.LocalPlayer.Profession });
+        }
+
+        private void OnRequestTeamInviteReceived(int arg1, IPCMessage ipcMsg)
+        {
+            RequestTeamInviteMessage teamInviteMsg = (RequestTeamInviteMessage)ipcMsg;
+
+            if (DynelManager.LocalPlayer.Identity.Instance != teamInviteMsg.Bot)
+                return;
+
+            if (teamInviteMsg.IsTeamTracker && Main.QueueProcessor.TeamTrackerId == 0)
+            {
+                Main.QueueProcessor.TeamTrackerId = teamInviteMsg.Requester;
+            }
+
+            Team.Invite(new Identity(IdentityType.SimpleChar, teamInviteMsg.Requester));
+        }
+
+        private void OnCastRequestReceived(int sender, IPCMessage msg)
         {
             CastRequestMessage cMsg = (CastRequestMessage)msg;
 
@@ -110,47 +104,149 @@ namespace MalisBuffBots
             var requester = DynelManager.Players.FirstOrDefault(x => x.Identity.Instance == cMsg.Requester);
 
             if (requester == null)
-                Logger.Error($"Could not find {cMsg.Requester}. Canceling request");
-
-            Main.QueueProcessor.FinalizeBuffRequest((Profession)DynelManager.LocalPlayer.Profession, cMsg.Entries, requester);
-        }
-
-        private void OnDisplayQueueInfoReceived(int sender, IPCMessage msg)
-        {
-            ReceiveQueueInfoMessage qMsg = (ReceiveQueueInfoMessage)msg;
-
-            Main.Ipc.AddQueueDataEntry(qMsg.Caster, qMsg.QueueData);
-        }
-
-        private void OnRequestQueueInfoReceived(int sender, IPCMessage msg)
-        {
-            if (!Client.InPlay)
                 return;
 
-            Main.Ipc.Broadcast(new ReceiveQueueInfoMessage
+            Main.QueueProcessor.LocalEnqueue(requester, cMsg.Entries);
+            BotCache.BroadcastQueueInfoMessage();
+        }
+
+        private void OnReceiveQueueInfoReceived(int sender, IPCMessage msg)
+        {
+            QueueInfoMessage qMsg = (QueueInfoMessage)msg;
+            BotCache.UpdateQueueInfo(qMsg.Profession, qMsg.Entries);
+        }
+
+        private void OnReceivedBotInfoMessage(int sender, IPCMessage msg)
+        {
+            BotInfoMessage sMsg = (BotInfoMessage)msg;
+            BotCache.UpdateBotInfo(sMsg.Profession, sMsg.Identity, sMsg.SpellData);
+        }
+
+        private void OnReceivedTeamInfoMessage(int arg1, IPCMessage msg)
+        {
+            TeamInfoMessage sMsg = (TeamInfoMessage)msg;
+            BotCache.UpdateTeamInfo(sMsg.Profession, sMsg.TeamMemberId);
+        }
+    }
+
+    public class IPCBotCacheData
+    {
+      //  public Dictionary<Profession, BotCache> Entries => _entries.Where(x => TimeSpan.FromTicks(DateTime.Now.Ticks - x.Value.LastUpdateInTicks).TotalSeconds > 10).ToDictionary(kv => kv.Key, kv => kv.Value);
+
+        public Dictionary<Profession, BotData> Entries = new Dictionary<Profession, BotData>();
+
+        public bool ContainsKey(Profession prof) => Entries.ContainsKey(prof);
+
+        public void BroadcastBotInfoMessage()
+        {
+            Profession prof = (Profession)DynelManager.LocalPlayer.Profession;
+            Identity identity = DynelManager.LocalPlayer.Identity;
+            int[] spellList = DynelManager.LocalPlayer.SpellList;
+
+            UpdateBotInfo(prof, identity, spellList);
+
+            Main.Ipc.Broadcast(new BotInfoMessage
             {
-                Caster = (Profession)DynelManager.LocalPlayer.Profession,
-                QueueData = new QueueData 
-                { 
-                    Entries = Main.QueueProcessor.Entries, 
-                    Identity = DynelManager.LocalPlayer.Identity 
-                }
+                Profession = prof,
+                Identity = identity,
+                SpellData = spellList,
             });
         }
 
-        private void OnRequestSpellListInfoReceived(int sender, IPCMessage msg)
+        public void BroadcastQueueInfoMessage()
         {
-            Main.Ipc.Broadcast(new ReceiveSpellListInfoMessage 
-            { 
-                Profession = (Profession)DynelManager.LocalPlayer.Profession, 
-                SpellList = DynelManager.LocalPlayer.SpellList 
+            Profession prof = (Profession)DynelManager.LocalPlayer.Profession;
+            BuffEntry[] queue = Main.QueueProcessor.Queue.AllEntries.ToArray();
+
+            UpdateQueueInfo(prof, queue);
+
+            Main.Ipc.Broadcast(new QueueInfoMessage
+            {
+                Profession = prof,
+                Entries  = queue
             });
         }
 
-        private void OnDisplaySpellListInfoReceived(int sender, IPCMessage msg)
+        public void BroadcastTeamTrackerMessage(Profession prof, int requester)
         {
-            ReceiveSpellListInfoMessage sMsg = (ReceiveSpellListInfoMessage)msg;
-            Main.Ipc.AddSpellDataEntry(sMsg.Profession, sMsg.SpellList);
+            TeamTracker(prof, requester);
+
+            Main.Ipc.Broadcast(new TeamTrackerMessage
+            {
+                Profession = prof,
+                TeamTrackerId = requester,
+            });
+        }
+
+        public void BroadcastTeamInfoMessage() => BroadcastTeamInfoMessage(Identity.None);
+   
+        public void BroadcastTeamInfoMessage(Identity target)
+        {
+            if (target != Identity.None && Main.Ipc.BotCache.Entries.Any(x => x.Value.Identity == target))
+                return;
+
+            Profession prof = (Profession)DynelManager.LocalPlayer.Profession;
+            UpdateTeamInfo(prof, target.Instance);
+
+            Main.Ipc.Broadcast(new TeamInfoMessage
+            {
+                Profession = (Profession)DynelManager.LocalPlayer.Profession,
+                TeamMemberId = target.Instance
+            });
+        }
+
+        public void TeamTracker(Profession prof, int trackId)
+        {
+            TryAdd(prof);
+            Entries[prof].TeamTrackerId = trackId;
+        }
+
+        public void PingPong(Profession prof)
+        {
+            TryAdd(prof);
+            Entries[prof].LastUpdateInTicks = DateTime.Now.Ticks;
+        }
+
+        public void TryAdd(Profession prof)
+        {
+            if (!Entries.ContainsKey(prof))
+                Entries.Add(prof, new BotData());
+        }
+
+        public bool ContainsNanoEntry(Profession prof, NanoEntry nanoEntry)
+        {
+            if (!Entries.TryGetValue(prof, out BotData botCache))
+                return false;
+
+            return botCache.SpellData.Any(s => nanoEntry.ContainsId(s));
+        }
+
+        public Dictionary<Profession, BotData> OutOfTeamBots() => Entries.Count == 0 ? new Dictionary<Profession, BotData>() : Entries.Where(x => x.Value.TeamMemberId == 0).ToDictionary(kv => kv.Key, kv => kv.Value);
+
+        public Dictionary<Profession, BotData> NonTeamTrackerBots() => Entries.Count == 0 ? new Dictionary<Profession, BotData>() : Entries.Where(x => x.Value.TeamTrackerId == 0).ToDictionary(kv => kv.Key, kv => kv.Value);
+
+
+        public bool IsTeamQueueEmpty(int charId) => Entries.Values.SelectMany(x => x.Queue).Where(x => x != null && x.NanoEntry != null && x.NanoEntry.Type == CastType.Team && x.Requester.Instance == charId).ToList().Count == 0;
+
+        public IOrderedEnumerable<KeyValuePair<Profession, BotData>> OrderByQueueEntries() => Entries.OrderBy(x => x.Value.Queue.Count());
+
+        internal void UpdateBotInfo(Profession profession, Identity identity, int[] spellData)
+        {
+            TryAdd(profession);
+            Entries[profession].Identity = identity;
+            Entries[profession].SpellData = spellData;
+        }
+
+        internal void UpdateTeamInfo(Profession profession, int teamMemberId)
+        {
+            TryAdd(profession);
+            Entries[profession].TeamMemberId = teamMemberId;
+        }
+
+        internal void UpdateQueueInfo(Profession profession, BuffEntry[] entries)
+        {
+            TryAdd(profession);
+            Entries[profession].Queue = entries;
         }
     }
 }

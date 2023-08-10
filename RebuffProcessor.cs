@@ -16,7 +16,7 @@ namespace MalisBuffBots
 {
     public class RebuffProcessor
     {
-        private RebuffJson _rebuffInfo;
+        public RebuffJson _rebuffInfo;
         private double _initDelay;
 
         public RebuffProcessor(RebuffJson rebuffInfo, float initDelay = 1f)
@@ -34,8 +34,7 @@ namespace MalisBuffBots
             if (_initDelay > 0)
                 return;
 
-            TryFindBuffs(_rebuffInfo.GenericEntries);
-            TryFindBuffs(_rebuffInfo.LocalProfEntries);
+            TryFindBuffs(_rebuffInfo.LocalPlayerRebuffTags());
 
             BuffStatus.BuffChanged += OnBuffChanged;
             Client.OnUpdate -= OnUpdate;
@@ -47,19 +46,20 @@ namespace MalisBuffBots
             if (buffArgs.Identity != DynelManager.LocalPlayer.Identity)
                 return;
 
-            if (buffArgs.Status == BuffState.Refreshed)
-                Logger.Information($"Somebody refreshed my buff with id: {buffArgs.Id}");
-
+            Logger.Information($"Buff change triggered: {buffArgs.Id}");
             ProcessBuffArgs(buffArgs);
         }
 
         private void ProcessBuffArgs(BuffChangedArgs buffArgs)
         {
-            if (DynelManager.LocalPlayer.Buffs.Find(buffArgs.Id, out Buff buff) && buff.Cooldown.RemainingTime > 10f)
+            if (DynelManager.LocalPlayer.Buffs.Find(buffArgs.Id, out Buff buff) && buff.Cooldown.RemainingTime > 0.05f * buff.NanoItem.TotalTime)
                 return;
 
             if (!Main.BuffsJson.FindById(buffArgs.Id, out (Profession, NanoEntry) expiredNano))
+            {
+                Logger.Information($"Couldn't find buff with id: {buffArgs.Id}");
                 return;
+            }
 
             if (!_rebuffInfo.Contains(expiredNano.Item2.Tags))
             {
@@ -70,31 +70,15 @@ namespace MalisBuffBots
             Main.QueueProcessor.FinalizeBuffRequest(expiredNano.Item1, expiredNano.Item2, DynelManager.LocalPlayer);
         }
 
-        private void TryFindBuffs(IEnumerable<BuffInfo> buffInfo)
+        private void TryFindBuffs(IEnumerable<string> buffTags)
         {
-            if (buffInfo == null || buffInfo.Count() == 0)
+            if (buffTags.Count() == 0)
                 return;
 
-            if (!Main.BuffsJson.FindByTags(buffInfo.SelectMany(x => x.Buffs), out Dictionary<Profession, List<NanoEntry>> entries))
+            if (!Main.BuffsJson.FindMissingBuffs(buffTags, out Dictionary<Profession, List<NanoEntry>> missingBuffs))
                 return;
 
-            Dictionary<Profession, List<NanoEntry>> missingBuffs = entries.ToDictionary(entry => entry.Key, entry => entry.Value);
-
-            foreach (var entry in entries)
-            {
-                foreach (var buff in DynelManager.LocalPlayer.Buffs.Select(x => x.Id))
-                {
-                    var buffToRemove = entry.Value.FirstOrDefault(x => x.ContainsId(buff));
-
-                    if (buffToRemove == null || buffToRemove.Type == CastType.Team)
-                        continue;
-
-                    missingBuffs[entry.Key].Remove(buffToRemove);
-                }
-            }
-
-            foreach (var entry in missingBuffs)
-                Main.QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, DynelManager.LocalPlayer);
+            Main.QueueProcessor.RequestBuffs(missingBuffs, DynelManager.LocalPlayer);
         }
     }
 }

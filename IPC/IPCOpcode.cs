@@ -10,8 +10,11 @@ namespace MalisBuffBots
     {
         CastRequest = 0,
         ReceiveQueueInfo = 1,
-        RequestQueueInfo = 2,
-        ReceiveSpellListInfo = 3,
-        RequestSpellListInfo = 4,
+        UpdateBotInfo = 2,
+        RequestTeamInvite = 3,
+        Ping = 4,
+        Pong = 5,
+        UpdateTeamMember = 6,
+        RegisterTeamTracker =7,
     }
 }

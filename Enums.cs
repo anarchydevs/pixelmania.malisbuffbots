@@ -42,5 +42,18 @@ namespace MalisBuffBots
         Single,
         Team
     }
+
+    public enum LdbFeedback
+    {
+        NotInLineOfSight = 8605508,
+        BetterNanoInNcu = 101968183,
+        UnableToUseNano = 108119101,
+        SuccessfulCast = 124550313,
+        MustStandToCast = 20556461,
+        NotEnoughNano = 206104233,
+        WaitForNanoToFinish = 213890029,
+        NotEnoughNcu = 220179189,
+        OutOfRange = 32054429,
+    }
 }
 

@@ -9,15 +9,18 @@ using SmokeLounge.AOtomation.Messaging.Serialization.MappingAttributes;
 
 namespace MalisBuffBots
 {
-    [AoContract((int)IPCOpcode.ReceiveSpellListInfo)]
-    public class ReceiveSpellListInfoMessage : IPCMessage
+    [AoContract((int)IPCOpcode.UpdateBotInfo)]
+    public class BotInfoMessage : IPCMessage
     {
-        public override short Opcode => (int)IPCOpcode.ReceiveSpellListInfo;
+        public override short Opcode => (int)IPCOpcode.UpdateBotInfo;
 
         [AoMember(0)]
         public Profession Profession { get; set; }
 
-        [AoMember(1, SerializeSize = ArraySizeType.Int32)]
-        public int[] SpellList { get; set; }
+        [AoMember(1)]
+        public Identity Identity { get; set; }
+
+        [AoMember(2, SerializeSize = ArraySizeType.Int32)]
+        public int[] SpellData { get; set; }
     }
 }

@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using SmokeLounge.AOtomation.Messaging.GameData;
 using SmokeLounge.AOtomation.Messaging.Messages;
 using SmokeLounge.AOtomation.Messaging.Messages.N3Messages;
+using SmokeLounge.AOtomation.Messaging.Serialization;
+using SmokeLounge.AOtomation.Messaging.Serialization.MappingAttributes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +21,7 @@ namespace MalisBuffBots
 
         public BuffsJson(string jsonPath) : base(jsonPath)
         {
-            Entries = _data == null ? DataMigrate.ConvertToNewDb() : _data;
+            Entries = _data;
         }
 
         public bool FindByTags(IEnumerable<string> tags, out Dictionary<Profession, List<NanoEntry>> result)
@@ -46,6 +48,47 @@ namespace MalisBuffBots
             return result.Count > 0;
         }
 
+        public bool FindMissingBuffs(IEnumerable<string> tags, out Dictionary<Profession, List<NanoEntry>> missingBuffs)
+        {
+            missingBuffs = null;
+
+            if (!FindByTags(tags, out Dictionary<Profession, List<NanoEntry>> entries))
+                return false;
+
+            missingBuffs = entries.ToDictionary(entry => entry.Key, entry => entry.Value);
+
+            if (DynelManager.LocalPlayer.Buffs.Count == 0)
+                return true;
+
+            foreach (var entry in entries)
+            {
+                foreach (var buff in DynelManager.LocalPlayer.Buffs.Select(x => x.Id))
+                {
+                    var buffToRemove = entry.Value.FirstOrDefault(x => x.ContainsId(buff));
+
+                    if (buffToRemove == null || buffToRemove.Type == CastType.Team)
+                        continue;
+
+                    missingBuffs[entry.Key].Remove(buffToRemove);
+                }
+            }
+
+            return missingBuffs.Count() != 0;
+        }
+
+        public bool FindByIds(IEnumerable<int> ids, out List<string> tags)
+        {
+            tags = new List<string>();
+
+            if (!FindByIds(ids, out Dictionary<Profession, List<NanoEntry>> result))
+                return false;
+
+            foreach (var entry in result.Values.SelectMany(x => x))
+                tags.Add(entry.Tags.FirstOrDefault());
+
+            return tags.Count != 0;
+        }
+
         public bool FindByIds(IEnumerable<int> ids, out Dictionary<Profession, List<NanoEntry>> result) => ProcessId(ids, out result);
 
         public bool FindById(int id, out (Profession, NanoEntry) result)
@@ -58,7 +101,7 @@ namespace MalisBuffBots
             var firstResult = results.FirstOrDefault();
             result = (firstResult.Key, firstResult.Value.FirstOrDefault());
 
-            return true; // Return true if the result is not default (i.e., it has a valid value).
+            return true; 
         }
 
         private bool ProcessId(IEnumerable<int> ids, out Dictionary<Profession, List<NanoEntry>> result)
@@ -74,7 +117,7 @@ namespace MalisBuffBots
 
                 foreach (var nanoEntry in entriesByProf.Value)
                 {
-                    if (!ids.Any(x => nanoEntry.LevelToId.Any(y => y.Id == x)))
+                    if (!ids.Any(x => nanoEntry.RemoveNanoIdUponCast.Contains(x) || nanoEntry.LevelToId.Any(y => y.Id == x)))
                         continue;
 
                     results.Add(nanoEntry);
@@ -92,13 +135,42 @@ namespace MalisBuffBots
 
     public class BuffEntry
     {
-        public SimpleChar Character;
-        public NanoEntry NanoEntry;
+        [AoMember(0)]
+        public NanoEntry NanoEntry { get; set; }
 
-        public BuffEntry(SimpleChar simpleChar, NanoEntry nanoEntry)
+        [AoMember(1)]
+        public Identity Requester { get; set; }
+
+        public override bool Equals(object obj)
         {
-            Character = simpleChar;
-            NanoEntry = nanoEntry;
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            if (obj is null || GetType() != obj.GetType())
+                return false;
+
+            BuffEntry other = (BuffEntry)obj;
+
+            // Check NanoEntry equality using the NanoEntryComparer
+            if (!NanoEntry.Equals(other.NanoEntry))
+                return false;
+
+            // Check if the Identity matches
+            if (Requester != other.Requester)
+                return false;
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            // Combine hash codes of NanoEntry and Identity
+            hash = hash * 31 + NanoEntry.GetHashCode();
+            hash = hash * 31 + Requester.GetHashCode();
+
+            return hash;
         }
     }
 }

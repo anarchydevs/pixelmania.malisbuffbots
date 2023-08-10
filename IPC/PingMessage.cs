@@ -9,9 +9,12 @@ using SmokeLounge.AOtomation.Messaging.Serialization.MappingAttributes;
 
 namespace MalisBuffBots
 {
-    [AoContract((int)IPCOpcode.RequestSpellListInfo)]
-    public class RequestSpellListInfoMessage : IPCMessage
+    [AoContract((int)IPCOpcode.Ping)]
+    public class PingMessage : IPCMessage
     {
-        public override short Opcode => (int)IPCOpcode.RequestSpellListInfo;
+        public override short Opcode => (int)IPCOpcode.Ping;
+
+        [AoMember(0)]
+        public int Requester { get; set; }
     }
 }

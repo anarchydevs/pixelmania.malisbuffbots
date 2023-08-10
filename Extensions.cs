@@ -1,6 +1,8 @@
 ﻿using AOSharp.Clientless;
 using AOSharp.Clientless.Logging;
 using AOSharp.Common.GameData;
+using AOSharp.Common.Unmanaged.DataTypes;
+using AOSharp.Common.Unmanaged.Imports;
 using SmokeLounge.AOtomation.Messaging.GameData;
 using SmokeLounge.AOtomation.Messaging.Messages.N3Messages;
 using System;
@@ -13,23 +15,19 @@ namespace MalisBuffBots
     {
         public static bool IsPvpFlagged(this SimpleChar simpleChar) => simpleChar.Buffs.Any(x => Enum.GetValues(typeof(PvpFlagId)).Cast<int>().ToList().Contains(x.Id));
 
-        public static bool IsInTeam(this LocalPlayer localPlayer) => localPlayer.GetStat(Stat.Team) != 0;
+        public static bool CanUseSitKit(this LocalPlayer localPlayer, out Item item) => Inventory.Items.Find(Main.SettingsJson.Data.SitKitItemId, out item) && !localPlayer.Cooldowns.ContainsKey(Stat.Treatment);
 
-        public static bool ShouldUseSitKit(this LocalPlayer localPlayer,out Item item)
+        public static void TryRemoveBuffs(this LocalPlayer localPlayer, IEnumerable<int> ids)
         {
-            item = null;
-
-            return localPlayer.TryGetStat(Stat.CurrentNano, out int currentNano) &&
-                 currentNano < Main.SettingsJson.Data.SitKitThreshold &&
-                 !localPlayer.Cooldowns.ContainsKey(Stat.Treatment) &&
-                 Inventory.Items.Find((int)Main.SettingsJson.Data.SitKitItemId, out item);
+            foreach (var id in ids)
+                TryRemoveBuff(id);
         }
 
-        public static void TryRemoveBuff(this LocalPlayer localPlayer, int id)
+        private static void TryRemoveBuff(int id)
         {
-            if (id == 0)
+            if (!DynelManager.LocalPlayer.Buffs.Contains(id))
                 return;
-
+            
             Client.Send(new CharacterActionMessage
             {
                 Action = CharacterActionType.RemoveFriendlyNano,
@@ -38,6 +36,20 @@ namespace MalisBuffBots
             });
 
             Logger.Information($"Removing buff with id: {id}.");
+        }
+
+        public static bool DequeueIfNull<T>(this Queue<T> queue, ref T currentValue)
+        {
+            if (currentValue != null)
+                return true;
+
+            if (queue.Count == 0)
+                return false;
+            else
+            {
+                currentValue = queue.Dequeue();
+                return true;
+            }
         }
 
         public static string ToTitleCase(this string text) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text.ToLower());

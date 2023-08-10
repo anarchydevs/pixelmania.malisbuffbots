@@ -3,5 +3,6 @@
   "PvpFlagCheck": true,
   "SitKitItemId": 297274,
   "IPCChannelId": 255,
-  "InitConnectionDelay": 20.0
+  "InitConnectionDelay": 30.0,
+  "TeamReplyTimeoutInSeconds": 35.0
 }

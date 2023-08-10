@@ -16,44 +16,48 @@ namespace MalisBuffBots
 {
     public class Main : ClientlessPluginEntry
     {
-        public static SettingsJson SettingsJson;        // Behavior related settings (configurable in JSON/Settings.json)
-        public static BuffsJson BuffsJson;              // All bot nanos (configurable in JSON/BuffsDb.json)
-        public static RebuffJson RebuffJson;            // Rebuff info (configurable in JSON/RebuffInfo.json)
-        public static QueueProcessor QueueProcessor;
-        public static RebuffProcessor RebuffProcessor;
-        public static IPC Ipc;
-        private static CommandManager _commandManager;  // Command processor
+        public static IPC Ipc;                              // Used to communicate between different bots
+        public static SettingsJson SettingsJson;            // Behavior related settings (configurable in JSON/Settings.json)
+        public static BuffsJson BuffsJson;                  // All bot nanos (configurable in JSON/BuffsDb.json)
+        public static RebuffJson RebuffJson;                // Rebuff info (configurable in JSON/RebuffInfo.json)
+        public static QueueProcessor QueueProcessor;        // Queue processing logic
+        public static RebuffProcessor RebuffProcessor;      // Rebuff processing logic
+        public static CommandProcessor _commandProcessor;   // Command processing logic
 
         public override void Init(string pluginDir)
         {
-            Logger.Information("- Mali's Clientless Buffbots -");
+            try
+            {
+                Logger.Information("- Mali's Clientless Buffbots -");
 
-            Client.SuppressDeserializationErrors();
-            Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
+                //Client.SuppressDeserializationErrors();
+                Client.Chat.PrivateMessageReceived += (e, msg) => HandlePrivateMessage(msg);
 
-            SettingsJson = new SettingsJson($"{Utils.PluginDir}\\JSON\\Settings.json");
+                SettingsJson = new SettingsJson(Path.SETTINGS_JSON); 
+                Ipc = new IPC(SettingsJson.Data.IPCChannelId, 5000);
+                BuffsJson = new BuffsJson(Path.BUFF_JSON);
+                RebuffJson = new RebuffJson(Path.REBUFF_JSON);
 
-            Ipc = new IPC(SettingsJson.Data.IPCChannelId, 1);
+                _commandProcessor = new CommandProcessor(new UserRank(Path.USERRANK_JSON));
+                QueueProcessor = new QueueProcessor();
 
-            _commandManager = new CommandManager(new UserRank($"{Utils.PluginDir}\\JSON\\UserRanks.json"));
+                Client.OnUpdate += OnUpdate;
+            }
 
-            BuffsJson = new BuffsJson($"{Utils.PluginDir}\\JSON\\BuffsDb.json");
-            RebuffJson = new RebuffJson($"{Utils.PluginDir}\\JSON\\RebuffInfo.json");
-
-            QueueProcessor = new QueueProcessor();
-
-            Client.OnUpdate += OnUpdate;
-            Client.OnUpdate += Ipc.OnUpdate;
+            catch (Exception ex)
+            {
+                Logger.Information(ex.Message);
+            }
         }
 
         private void HandlePrivateMessage(PrivateMessage msg)
         {
-            if (!_commandManager.TryProcess(msg, out Command command, out string[] commandParts, out int requester))
+            if (!_commandProcessor.TryProcess(msg, out Command command, out string[] commandParts, out int requester))
             {
                 return;
             }
 
-            if (!DynelManager.Find(new Identity { Type = IdentityType.SimpleChar,Instance = requester }, out PlayerChar simpleChar))
+            if (!DynelManager.Find(new Identity { Type = IdentityType.SimpleChar, Instance = requester }, out PlayerChar simpleChar))
             {
                 Logger.Error($"Unable to locate requester.");
                 return;
@@ -61,7 +65,8 @@ namespace MalisBuffBots
 
             if (SettingsJson.Data.InitConnectionDelay > 0)
             {
-                Client.SendPrivateMessage((uint)requester, "I am still loading. Your request will be processed shortly.");
+                Client.SendPrivateMessage((uint)requester, ScriptTemplate.RequestRejected());
+                return;
             }
 
             // Command logic execution
@@ -90,12 +95,15 @@ namespace MalisBuffBots
 
         private void OnUpdate(object sender, double delta)
         {
-            SettingsJson.Data.InitConnectionDelay -= delta;
-
-            if (SettingsJson.Data.InitConnectionDelay > 0)
-                return;
-
-            InitBot();
+            if ((SettingsJson.Data.InitConnectionDelay -= delta) < 0)
+            {
+                DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+                Ipc.Init();
+                RebuffProcessor = new RebuffProcessor(RebuffJson);
+                // Client.OnUpdate += Ipc.OnUpdate; TODO
+                Client.OnUpdate += QueueProcessor.OnUpdate; 
+                Client.OnUpdate -= OnUpdate;
+            }
         }
 
         public void ProcessCastRequest(string[] nanoTags, PlayerChar requester)
@@ -103,21 +111,22 @@ namespace MalisBuffBots
             if (!BuffsJson.FindByTags(nanoTags, out Dictionary<Profession, List<NanoEntry>> entries))
                 return;
 
-            foreach (var entry in entries)
-                QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, requester);
+            QueueProcessor.RequestBuffs(entries, requester);
 
             Logger.Information($"Received cast request from '{requester.Name}'");
         }
 
         private void ProcessRebuffRequest(PlayerChar requester)
         {
-            List<int> requesterBuffs = requester.Buffs.Select(x => x.Id).ToList();
+            var requesterBuffs = requester.Buffs;
 
-            if (!BuffsJson.FindByIds(requesterBuffs, out Dictionary<Profession, List<NanoEntry>> entries))
+            if (requesterBuffs.Count == 0)
                 return;
 
-            foreach (var entry in entries)
-                QueueProcessor.FinalizeBuffRequest(entry.Key, entry.Value, requester);
+            if (!BuffsJson.FindByIds(requesterBuffs.Select(x => x.Id), out Dictionary<Profession, List<NanoEntry>> entries))
+                return;
+
+            QueueProcessor.RequestBuffs(entries, requester);
 
             Logger.Information($"Received rebuff request from '{requester.Name}'");
         }
@@ -125,38 +134,23 @@ namespace MalisBuffBots
 
         private void ProcessBuffmacroRequest(PlayerChar requester)
         {
-            List<string> buffsByTag = new List<string>();
+            var requesterBuffs = requester.Buffs;
 
-            if (!BuffsJson.FindByIds(requester.Buffs.Select(x=>x.Id), out Dictionary<Profession, List<NanoEntry>> entries))
+            if (requesterBuffs.Count == 0)
                 return;
 
-            // Skipping team casts
-            foreach (var entry in entries.Values.SelectMany(x => x))
-            {
-                if (entry.Type == CastType.Team)
-                    continue;
+            List<string> buffsByTag = new List<string>();
 
-                buffsByTag.Add(entry.Tags.FirstOrDefault());
-            }
+            if (!BuffsJson.FindByIds(requesterBuffs.Select(x=>x.Id), out List<string> tags))
+                return;
 
-            Client.SendPrivateMessage((uint)requester.Identity.Instance, $"/macro buffpreset /tell {DynelManager.LocalPlayer.Name} cast {string.Join(" ", buffsByTag)}");
+            Client.SendPrivateMessage((uint)requester.Identity.Instance, ScriptTemplate.Buffmacro(DynelManager.LocalPlayer.Name, tags));
         }
 
         private void ProcessHelpRequest(PlayerChar requester)
         {
-            Client.SendPrivateMessage((uint)requester.Identity.Instance, "Retrieving available buffs. Just a moment.");
-            Client.SendPrivateMessage((uint)requester.Identity.Instance, ScriptTemplate.Create());
-        }
-
-        private void InitBot()
-        {
-            Ipc.Broadcast(new RequestSpellListInfoMessage());
-            DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
-            Ipc.AddSpellDataEntry((Profession)DynelManager.LocalPlayer.Profession, DynelManager.LocalPlayer.SpellList);
-            RebuffProcessor = new RebuffProcessor(RebuffJson);
-            Client.OnUpdate += QueueProcessor.OnUpdate;
-            Client.MessageReceived += QueueProcessor.OnMessageReceived;
-            Client.OnUpdate -= OnUpdate;
+            Client.SendPrivateMessage((uint)requester.Identity.Instance, ScriptTemplate.RetrievingBuffs());
+            Client.SendPrivateMessage((uint)requester.Identity.Instance, ScriptTemplate.HelpMenu());
         }
     }
 }
