@@ -4,5 +4,5 @@
   "SitKitItemId": 297274,
   "IPCChannelId": 255,
   "InitConnectionDelay": 30.0,
-  "TeamReplyTimeoutInSeconds": 35.0
+  "TeamTimeoutInSeconds": 30.0
 }
