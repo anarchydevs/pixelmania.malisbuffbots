@@ -21,18 +21,16 @@ namespace MalisBuffBots
         public SettingsJson(string jsonPath) : base(jsonPath)
         {
             Data = _data;
-
-           // Data = !DataMigrate.ElementExists(JToken.Parse(Raw), "InitDelay") ? DataMigrate.ConvertToNewSettings() : _data;
         }
     }
 
     public class Config
     {
-        public int SitKitThreshold = 1000;
-        public bool PvpFlagCheck = true;
-        public int SitKitItemId = 297274;
-        public byte IPCChannelId = 255;
-        public double InitConnectionDelay = 20;
-        public double TeamTimeoutInSeconds = 10;
+        public bool DanceOnCast;
+        public bool PvpFlagCheck;
+        public int SitKitItemId;
+        public byte IPCChannelId;
+        public double InitConnectionDelay;
+        public double TeamTimeoutInSeconds;
     }
 }

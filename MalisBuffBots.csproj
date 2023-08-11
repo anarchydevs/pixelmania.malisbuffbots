@@ -86,7 +86,6 @@
     <Compile Include="IPC\BotInfoMessage.cs" />
     <Compile Include="CommandProcessor.cs" />
     <Compile Include="Models\BuffsJson.cs" />
-    <Compile Include="Models\DataMigrate.cs" />
     <Compile Include="Models\JsonFile.cs" />
     <Compile Include="Models\NanoEntry.cs" />
     <Compile Include="Models\BuffQueue.cs" />

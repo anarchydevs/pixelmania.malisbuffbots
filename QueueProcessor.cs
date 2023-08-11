@@ -249,7 +249,9 @@ namespace MalisBuffBots
                 return;
             }
 
-            Client.Send(new SocialActionCmdMessage { Unknown5 = 0x3E, Unknown = 1, Action = SocialAction.DanceBallet });
+            if (Main.SettingsJson.Data.DanceOnCast)
+                Client.Send(new SocialActionCmdMessage { Unknown5 = 0x3E, Unknown = 1, Action = SocialAction.DanceBallet });
+
             DynelManager.LocalPlayer.Cast(buffTarget, firstAvailableBuff.Id);
         }
 

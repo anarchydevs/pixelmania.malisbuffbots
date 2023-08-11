@@ -1,5 +1,5 @@
 {
-  "SitKitThreshold": 1000,
+  "DanceOnCast": true,
   "PvpFlagCheck": true,
   "SitKitItemId": 297274,
   "IPCChannelId": 255,
