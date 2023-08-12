@@ -63,7 +63,8 @@ namespace MalisBuffBots
 
             if (!_rebuffInfo.Contains(expiredNano.Item2.Tags))
             {
-                Logger.Information($"Buff with id {buffArgs.Id} not found in local RebuffInfo. Skipping rebuff attempt.");
+                DynelManager.LocalPlayer.RemoveBuff(buff.Id);
+                Logger.Information($"Buff with id {buffArgs.Id} not found in local RebuffInfo. Removing from ncu.");
                 return;
             }
 

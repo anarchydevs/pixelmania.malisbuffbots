@@ -23,7 +23,7 @@ namespace MalisBuffBots
                 TryRemoveBuff(id);
         }
 
-        private static void TryRemoveBuff(int id)
+        public static void TryRemoveBuff(int id)
         {
             if (!DynelManager.LocalPlayer.Buffs.Contains(id))
                 return;
