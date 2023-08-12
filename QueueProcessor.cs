@@ -28,30 +28,37 @@ namespace MalisBuffBots
 
         public void OnUpdate(object _, double deltaTime)
         {
-            if (!_gracePeriod.Elapsed)
-                return;
-
-            if (Team.IsInTeam)
-                ProcessLeaveTeam();
-
-            if (TeamTrackerId != 0 && Main.Ipc.BotCache.IsTeamQueueEmpty(TeamTrackerId))
-                ProcessResetTeamTrackerId();
-
-            if (DynelManager.LocalPlayer.IsCasting)
-                return;
-
-            switch (Queue.Process())
+            try
             {
-                case QueueState.Current:
-                    ProcessCurrentBuffEntry();
-                    break;
-                case QueueState.Dequeue:
-                    TeamTimeout.Reset();
-                    Main.Ipc.Broadcast(new QueueInfoMessage { Profession = (Profession)DynelManager.LocalPlayer.Profession, Entries = Main.QueueProcessor.Queue.AllEntries });
-                    ProcessCurrentBuffEntry();
-                    break;
-                case QueueState.Empty:
-                    break;
+                if (!_gracePeriod.Elapsed)
+                    return;
+
+                if (Team.IsInTeam)
+                    ProcessLeaveTeam();
+
+                if (TeamTrackerId != 0 && Main.Ipc.BotCache.IsTeamQueueEmpty(TeamTrackerId))
+                    ProcessResetTeamTrackerId();
+
+                if (DynelManager.LocalPlayer.IsCasting)
+                    return;
+
+                switch (Queue.Process())
+                {
+                    case QueueState.Current:
+                        ProcessCurrentBuffEntry();
+                        break;
+                    case QueueState.Dequeue:
+                        TeamTimeout.Reset();
+                        Main.Ipc.Broadcast(new QueueInfoMessage { Profession = (Profession)DynelManager.LocalPlayer.Profession, Entries = Main.QueueProcessor.Queue.AllEntries });
+                        ProcessCurrentBuffEntry();
+                        break;
+                    case QueueState.Empty:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Information(ex.Message);
             }
         }
 
