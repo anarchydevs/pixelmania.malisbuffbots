@@ -58,7 +58,21 @@ namespace MalisBuffBots
                     if (actionMsg.Target == DynelManager.LocalPlayer.Identity)
                         Main.Ipc.BotCache.BroadcastTeamInfoMessage();
                     break;
+                case CharacterActionType.SetNanoDuration:
+                    OnSetNanoDurationAction(actionMsg.Identity,actionMsg.Target.Instance);
+                    break;
             }
+        }
+
+        private void OnSetNanoDurationAction(Identity identity, int nanoId)
+        {
+            if (identity != DynelManager.LocalPlayer.Identity)
+                return;
+
+            if (Main.RebuffProcessor.Contains(nanoId, out _))
+                return;
+
+            DynelManager.LocalPlayer.ForceRemoveBuff(nanoId);    
         }
 
         internal static void OnTeamMemberMessage(TeamMemberMessage teamMsg)

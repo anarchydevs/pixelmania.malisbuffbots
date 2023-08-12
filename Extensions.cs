@@ -20,14 +20,19 @@ namespace MalisBuffBots
         public static void TryRemoveBuffs(this LocalPlayer localPlayer, IEnumerable<int> ids)
         {
             foreach (var id in ids)
-                TryRemoveBuff(id);
+                TryRemoveBuff(localPlayer, id);
         }
 
-        public static void TryRemoveBuff(int id)
+        private static void TryRemoveBuff(this LocalPlayer localPlayer, int id)
         {
             if (!DynelManager.LocalPlayer.Buffs.Contains(id))
                 return;
-            
+
+            ForceRemoveBuff(localPlayer, id);
+        }
+
+        public static void ForceRemoveBuff(this LocalPlayer localPlayer, int id)
+        {
             Client.Send(new CharacterActionMessage
             {
                 Action = CharacterActionType.RemoveFriendlyNano,

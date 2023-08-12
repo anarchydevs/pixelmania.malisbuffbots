@@ -55,20 +55,27 @@ namespace MalisBuffBots
             if (DynelManager.LocalPlayer.Buffs.Find(buffArgs.Id, out Buff buff) && buff.Cooldown.RemainingTime > 0.05f * buff.NanoItem.TotalTime)
                 return;
 
-            if (!Main.BuffsJson.FindById(buffArgs.Id, out (Profession, NanoEntry) expiredNano))
-            {
-                Logger.Information($"Couldn't find buff with id: {buffArgs.Id}");
+            if (!Contains(buffArgs.Id, out (Profession, NanoEntry) expiredNano))
                 return;
+
+            Main.QueueProcessor.FinalizeBuffRequest(expiredNano.Item1, expiredNano.Item2, DynelManager.LocalPlayer);
+        }
+
+        public bool Contains(int id, out (Profession, NanoEntry) expiredNano)
+        {
+            if (!Main.BuffsJson.FindById(id, out expiredNano))
+            {
+                Logger.Information($"Couldn't find buff with id: {id}");
+                return false;
             }
 
             if (!_rebuffInfo.Contains(expiredNano.Item2.Tags))
             {
-                DynelManager.LocalPlayer.RemoveBuff(buff.Id);
-                Logger.Information($"Buff with id {buffArgs.Id} not found in local RebuffInfo. Removing from ncu.");
-                return;
+                Logger.Information($"Buff with id {id} not found in local RebuffInfo. Removing from ncu.");
+                return false;
             }
 
-            Main.QueueProcessor.FinalizeBuffRequest(expiredNano.Item1, expiredNano.Item2, DynelManager.LocalPlayer);
+            return true;
         }
 
         private void TryFindBuffs(IEnumerable<string> buffTags)
