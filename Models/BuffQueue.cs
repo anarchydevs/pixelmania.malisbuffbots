@@ -37,6 +37,12 @@ namespace MalisBuffBots
         public void Enqueue(BuffEntry entry) => _queue.Enqueue(entry);
 
         internal void ClearCurrent() => Current = null;
+
+        internal void Clear()
+        {
+            _queue.Clear();
+            Current = null;
+        }
     }
 
     public enum QueueState

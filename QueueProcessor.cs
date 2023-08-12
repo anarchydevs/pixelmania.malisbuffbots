@@ -58,6 +58,7 @@ namespace MalisBuffBots
             }
             catch (Exception ex)
             {
+                ResetBotQueue();
                 Logger.Information(ex.Message);
             }
         }
@@ -69,6 +70,14 @@ namespace MalisBuffBots
 
             if (Queue.Current == null || Queue.Current.NanoEntry.Type != CastType.Team)
                 Team.LeaveTeam();
+        }
+
+        private void ResetBotQueue()
+        {
+            Logger.Information("Clearing my queue");
+            Team.LeaveTeam();
+            Queue.Clear();
+            TeamTrackerId = 0;
         }
 
         private void ProcessResetTeamTrackerId()
