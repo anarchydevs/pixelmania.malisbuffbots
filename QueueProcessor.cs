@@ -72,7 +72,7 @@ namespace MalisBuffBots
                 Team.LeaveTeam();
         }
 
-        private void ResetBotQueue()
+        public void ResetBotQueue()
         {
             Logger.Information("Clearing my queue due to an exception");
             Team.LeaveTeam();

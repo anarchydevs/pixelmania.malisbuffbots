@@ -90,7 +90,30 @@ namespace MalisBuffBots
                 case Command.Help:
                     ProcessHelpRequest(simpleChar);
                     break;
+                case Command.Debug:
+                    ProcessDebugRequest(requester);
+                    break;
+                case Command.Clear:
+                    ProcessClearRequest(requester);
+                    break;
             }
+        }
+
+        private void ProcessClearRequest(int requester)
+        {
+            QueueProcessor.ResetBotQueue();
+            Client.SendPrivateMessage((uint)requester, "Clearing my queue");
+        }
+
+        private void ProcessDebugRequest(int requester)
+        {
+            Client.SendPrivateMessage((uint)requester, $"{DynelManager.LocalPlayer.Name}\n" +
+                $"teamTrackerId: {QueueProcessor.TeamTrackerId}\n" +
+                $"QueueData.Entries.Count: {Ipc.BotCache.Entries.Count}\n " +
+                $"IPCBotCache.BotData.Count: {Ipc.BotCache.Entries.Count}\n" +
+                $"QueueData.Entries.Values.All: {Ipc.BotCache.Entries.Values.All(x => x.Queue.Count() == 0)}\n" +
+                $"Team.IsInTeam: {Team.IsInTeam}\n " +
+                $"QueueData.IsTeamQueueEmpty(trackId): {Ipc.BotCache.IsTeamQueueEmpty(QueueProcessor.TeamTrackerId)}");
         }
 
         private void OnUpdate(object sender, double delta)

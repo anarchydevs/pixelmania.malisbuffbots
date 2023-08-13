@@ -24,21 +24,8 @@ namespace MalisBuffBots
             { Command.Buffmacro, new CommandInfo(Rank.Unranked, BuffMacroRequest) },
             { Command.Help, new CommandInfo(Rank.Unranked, HelpRequest) },
             { Command.Debug, new CommandInfo(Rank.Admin, Debug) },
-            //{ Command.Reload, new CommandInfo(Rank.Admin, ReloadRequest) },
+            { Command.Clear, new CommandInfo(Rank.Admin, ClearRequest) },
         };
-
-        private static bool Debug(PrivateMessage arg)
-        {
-            Logger.Information(DynelManager.LocalPlayer.Name);
-            Logger.Information($"Main.QueueProcessor._teamTrackerId: {Main.QueueProcessor.TeamTrackerId}");
-            Logger.Information($"Main.Ipc.QueueData.Entries.Count: {Main.Ipc.BotCache.Entries.Count}");
-            Logger.Information($"Main.Ipc.IPCBotCache.BotData.Count: {Main.Ipc.BotCache.Entries.Count}");
-            Logger.Information($"Main.Ipc.QueueData.Entries.Values.All: {Main.Ipc.BotCache.Entries.Values.All(x => x.Queue.Count() == 0)}");
-            Logger.Information($"Team.IsInTeam: {Team.IsInTeam}");
-            Logger.Information($"Main.Ipc.QueueData.IsTeamQueueEmpty(_teamTrackerId): {Main.Ipc.BotCache.IsTeamQueueEmpty(Main.QueueProcessor.TeamTrackerId)}");
-
-            return true;
-        }
 
         private static UserRank _userRank;
 
@@ -116,11 +103,17 @@ namespace MalisBuffBots
             return true;
         }
 
-        //private static bool ReloadRequest(PrivateMessage msg)
-        //{
-        //    Logger.Information($"Received reload request from {msg.SenderName}");
-        //    return true;
-        //}
+        private static bool ClearRequest(PrivateMessage msg)
+        {
+            Logger.Information($"Received clear request from {msg.SenderName}");
+            return true;
+        }
+
+        private static bool Debug(PrivateMessage msg)
+        {
+            Logger.Information($"Received debug request from {msg.SenderName}");
+            return true;
+        }
 
     }
 
@@ -146,6 +139,7 @@ namespace MalisBuffBots
         Help,
         Reload,
         Debug,
+        Clear
     }
 
     public enum Rank
