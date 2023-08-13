@@ -58,7 +58,7 @@ namespace MalisBuffBots
             }
             catch (Exception ex)
             {
-                ResetBotQueue();
+                ResetBotQueue(); // Temporary until exceptions are handled
                 Logger.Information(ex.Message);
             }
         }
@@ -74,9 +74,11 @@ namespace MalisBuffBots
 
         private void ResetBotQueue()
         {
-            Logger.Information("Clearing my queue");
+            Logger.Information("Clearing my queue due to an exception");
             Team.LeaveTeam();
             Queue.Clear();
+            ProcessResetTeamTrackerId();
+            Main.Ipc.BotCache.BroadcastQueueInfoMessage();
             TeamTrackerId = 0;
         }
 
