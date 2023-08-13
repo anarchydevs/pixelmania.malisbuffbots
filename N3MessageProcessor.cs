@@ -13,6 +13,7 @@ namespace MalisBuffBots
     public class N3MessageProcessor
     {
         private QueueProcessor _queueProcessor;
+        public int LastLdbMessage = 0;
 
         public N3MessageProcessor(QueueProcessor queueProcessor)
         {
@@ -134,6 +135,8 @@ namespace MalisBuffBots
                     Logger.Information($"Unregistered ldbfeedback msg:{feedbackMsg.MessageId}");
                     break;
             }
+
+            LastLdbMessage = feedbackMsg.MessageId;
         }
 
         private void OnNotEnoughNanoFeedback(LdbFeedback messageId)
