@@ -239,9 +239,6 @@ namespace MalisBuffBots
         {
             var buffTarget = DynelManager.Players.FirstOrDefault(x => x.Identity == Queue.Current.Requester);
 
-            if (buffTarget == null)
-                return;
-
             if (buffTarget == null || Queue.Current.Requester == Identity.None)
             {
                 Logger.Information($"Cast attempt on UNKNOWN character skipped.");
