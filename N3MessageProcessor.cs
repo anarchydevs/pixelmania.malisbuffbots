@@ -131,6 +131,7 @@ namespace MalisBuffBots
                     OnNotEnoughNanoFeedback((LdbFeedback)feedbackMsg.MessageId);
                     break;
                 default:
+                    Logger.Information($"Unregistered ldbfeedback msg:{feedbackMsg.MessageId}");
                     break;
             }
         }
