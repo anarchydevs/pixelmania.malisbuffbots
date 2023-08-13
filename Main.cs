@@ -125,7 +125,6 @@ namespace MalisBuffBots
 
         private void OnUpdate(object sender, double delta)
         {
-            N3MessageType
             if ((SettingsJson.Data.InitConnectionDelay -= delta) < 0)
             {
                 DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
