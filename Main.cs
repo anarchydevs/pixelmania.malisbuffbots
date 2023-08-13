@@ -119,8 +119,8 @@ namespace MalisBuffBots
                 $"QueueData.Entries.Values.All: {Ipc.BotCache.Entries.Values.All(x => x.Queue.Count() == 0)}\n" +
                 $"Team.IsInTeam: {Team.IsInTeam}\n " +
                 $"QueueData.IsTeamQueueEmpty(trackId): {Ipc.BotCache.IsTeamQueueEmpty(QueueProcessor.TeamTrackerId)}\n " +
-                $"{currentQueue}" +
-                $"ldb:{QueueProcessor.N3MessageProcessor.LastLdbMessage}\n");
+                $"ldb:{QueueProcessor.N3MessageProcessor.LastLdbMessage}\n" +
+                $"{currentQueue}\n ");
         }
 
         private void OnUpdate(object sender, double delta)
