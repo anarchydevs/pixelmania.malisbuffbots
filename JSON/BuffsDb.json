@@ -14,7 +14,7 @@
         0
       ],
       "Tags": [
-        "compatt"
+        "catt"
       ]
     },
     {
@@ -31,7 +31,7 @@
         0
       ],
       "Tags": [
-        "compnano"
+        "cnano"
       ]
     },
     {
@@ -48,7 +48,7 @@
         0
       ],
       "Tags": [
-        "computil"
+        "cutil"
       ]
     },
     {
@@ -65,7 +65,7 @@
         0
       ],
       "Tags": [
-        "comptrade"
+        "ctrade"
       ]
     },
     {
@@ -82,7 +82,7 @@
         0
       ],
       "Tags": [
-        "compmart"
+        "cmart"
       ]
     },
     {
@@ -99,7 +99,7 @@
         0
       ],
       "Tags": [
-        "comprang"
+        "crang"
       ]
     },
     {
@@ -116,7 +116,7 @@
         0
       ],
       "Tags": [
-        "comprangsp"
+        "crangs"
       ]
     },
     {
@@ -133,7 +133,7 @@
         0
       ],
       "Tags": [
-        "compmelee"
+        "cmelee"
       ]
     },
     {
@@ -150,7 +150,7 @@
         0
       ],
       "Tags": [
-        "compphyspec"
+        "cmelees"
       ]
     }
   ],
@@ -335,6 +335,24 @@
       ]
     },
     {
+      "Name": "Authority Figure",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30057
+        }
+      ],
+      "Type": 0,
+      "Description": "+50 Psychology",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "af",
+        "psy50"
+      ]
+    },
+    {
       "Name": "Soothing Calm",
       "LevelToId": [
         {
@@ -466,6 +484,23 @@
         "channeler",
         "life"
       ]
+    },
+    {
+      "Name": "Specialist Treatment",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 204422
+        }
+      ],
+      "Type": 0,
+      "Description": "+35 Treatment, +20 First Aid",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "st"
+      ]  
     },
     {
       "Name": "Superior First Aid",
@@ -633,6 +668,24 @@
       "Tags": [
         "ep",
         "prejudice"
+      ]
+    },
+    {
+      "Name": "Sloughing Combat Field",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 204422
+        }
+      ],
+      "Type": 1,
+      "Description": "+3 Special Attack Blockers",
+      "RemoveNanoIdUponCast": [
+        231055
+      ],
+      "Tags": [
+        "+3",
+        "blockers"
       ]
     },
     {
@@ -1691,40 +1744,6 @@
   ],
   "Trader": [
     {
-      "Name": "Skill Wrangler (Advanced)",
-      "LevelToId": [
-        {
-          "Level": 0,
-          "Id": 121345
-        }
-      ],
-      "Type": 0,
-      "Description": "+74 all Weap/Nano skills",
-      "RemoveNanoIdUponCast": [
-        0
-      ],
-      "Tags": [
-        "advanced"
-      ]
-    },
-    {
-      "Name": "Skill Wrangler (Greater)",
-      "LevelToId": [
-        {
-          "Level": 0,
-          "Id": 121342
-        }
-      ],
-      "Type": 0,
-      "Description": "+99 all Weap/Nano skills",
-      "RemoveNanoIdUponCast": [
-        0
-      ],
-      "Tags": [
-        "greater"
-      ]
-    },
-    {
       "Name": "Skill Wrangler (Premium)",
       "LevelToId": [
         {
@@ -1738,9 +1757,82 @@
         0
       ],
       "Tags": [
-        "wrangle",
+        "131",
         "premium",
-        "131"
+        "wrangle",
+        "wrangler"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Greater)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121342
+        }
+      ],
+      "Type": 0,
+      "Description": "+99 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "+99",
+        "+greater"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Advanced)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121345
+        }
+      ],
+      "Type": 0,
+      "Description": "+74 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "+74",
+        "+advanced"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Inferior)+46",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121341
+        }
+      ],
+      "Type": 0,
+      "Description": "+46 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "+46",
+        "+inferior"
+      ]
+    },
+    {
+      "Name": "Lend Nano: 1000",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30732
+        }
+      ],
+      "Type": 0,
+      "Description": "+1000 Max Nano",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lend1000",
+        "lendnano1000"
       ]
     },
     {
@@ -1757,8 +1849,8 @@
         0
       ],
       "Tags": [
-        "lendnano500",
-        "lend500"
+        "lend500",
+        "lendnano500"
       ]
     },
     {
