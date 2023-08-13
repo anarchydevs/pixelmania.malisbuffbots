@@ -107,13 +107,19 @@ namespace MalisBuffBots
 
         private void ProcessDebugRequest(int requester)
         {
-            Client.SendPrivateMessage((uint)requester, $"{DynelManager.LocalPlayer.Name}\n" +
+            string currentQueue = "";
+
+            if (QueueProcessor.Queue.Current != null)
+                currentQueue = $"CurrQueue {QueueProcessor.Queue.Current.NanoEntry.Name}";
+
+            Client.SendPrivateMessage((uint)requester, $"{DynelManager.LocalPlayer.Name}\n " +
                 $"teamTrackerId: {QueueProcessor.TeamTrackerId}\n" +
                 $"QueueData.Entries.Count: {Ipc.BotCache.Entries.Count}\n " +
                 $"IPCBotCache.BotData.Count: {Ipc.BotCache.Entries.Count}\n" +
                 $"QueueData.Entries.Values.All: {Ipc.BotCache.Entries.Values.All(x => x.Queue.Count() == 0)}\n" +
                 $"Team.IsInTeam: {Team.IsInTeam}\n " +
-                $"QueueData.IsTeamQueueEmpty(trackId): {Ipc.BotCache.IsTeamQueueEmpty(QueueProcessor.TeamTrackerId)}");
+                $"QueueData.IsTeamQueueEmpty(trackId): {Ipc.BotCache.IsTeamQueueEmpty(QueueProcessor.TeamTrackerId)}\n " +
+                $"{currentQueue}");
         }
 
         private void OnUpdate(object sender, double delta)
