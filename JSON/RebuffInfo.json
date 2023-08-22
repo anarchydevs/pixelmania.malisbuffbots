@@ -6,7 +6,12 @@
   ],
   "Trader": [
     {
-      "Buffs": [ "mcmo", "tsmo", "mmmo" ]
+      "Buffs": [ "mcmo", "tsmo", "mmmo", "pmmo", "simo" ]
+    }
+  ],
+  "MartialArtist": [
+    {
+      "Buffs": [ "pmmo", "tsmo", "simo" ]
     }
   ]
 }

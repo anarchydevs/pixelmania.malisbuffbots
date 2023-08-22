@@ -1586,7 +1586,7 @@
         }
       ],
       "Type": 0,
-      "Description": "Nano Cost -4%, RangeInc. NF 104",
+      "Description": "Nano Cost +4%, RangeInc. NF 104",
       "RemoveNanoIdUponCast": [
         0
       ],
@@ -1752,7 +1752,7 @@
         }
       ],
       "Type": 0,
-      "Description": "+131 all Weap/Nano skills",
+      "Description": "+131 Weap/Nano skills",
       "RemoveNanoIdUponCast": [
         0
       ],
@@ -1800,7 +1800,7 @@
       ]
     },
     {
-      "Name": "Skill Wrangler (Inferior)+46",
+      "Name": "Skill Wrangler (Inferior)",
       "LevelToId": [
         {
           "Level": 0,
