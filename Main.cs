@@ -125,14 +125,22 @@ namespace MalisBuffBots
 
         private void OnUpdate(object sender, double delta)
         {
-            if ((SettingsJson.Data.InitConnectionDelay -= delta) < 0)
+            try
             {
-                DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
-                Ipc.Init();
-                RebuffProcessor = new RebuffProcessor(RebuffJson);
-                // Client.OnUpdate += Ipc.OnUpdate; TODO
-                Client.OnUpdate += QueueProcessor.OnUpdate; 
-                Client.OnUpdate -= OnUpdate;
+                if ((SettingsJson.Data.InitConnectionDelay -= delta) < 0)
+                {
+                    DynelManager.LocalPlayer.MovementComponent.ChangeMovement(MovementAction.LeaveSit);
+                    Ipc.Init();
+                    RebuffProcessor = new RebuffProcessor(RebuffJson);
+                    // Client.OnUpdate += Ipc.OnUpdate; TODO
+                    Client.OnUpdate += QueueProcessor.OnUpdate;
+                    Client.OnUpdate -= OnUpdate;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                Logger.Error("MainOnUpdate");
             }
         }
 

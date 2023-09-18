@@ -29,25 +29,41 @@ namespace MalisBuffBots
 
         private void OnUpdate(object sender, double deltaTime)
         {
-            _initDelay -= deltaTime;
+            try
+            {
+                _initDelay -= deltaTime;
 
-            if (_initDelay > 0)
-                return;
+                if (_initDelay > 0)
+                    return;
 
-            TryFindBuffs(_rebuffInfo.LocalPlayerRebuffTags());
+                TryFindBuffs(_rebuffInfo.LocalPlayerRebuffTags());
 
-            BuffStatus.BuffChanged += OnBuffChanged;
-            Client.OnUpdate -= OnUpdate;
+                BuffStatus.BuffChanged += OnBuffChanged;
+                Client.OnUpdate -= OnUpdate;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                Logger.Error($"RebuffProcessorOnUpdate");
+            }
         }
 
 
         private void OnBuffChanged(object sender, BuffChangedArgs buffArgs)
         {
-            if (buffArgs.Identity != DynelManager.LocalPlayer.Identity)
-                return;
+            try
+            {
+                if (buffArgs.Identity != DynelManager.LocalPlayer.Identity)
+                    return;
 
-            Logger.Information($"Buff change triggered: {buffArgs.Id}");
-            ProcessBuffArgs(buffArgs);
+                Logger.Information($"Buff change triggered: {buffArgs.Id}");
+                ProcessBuffArgs(buffArgs);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                Logger.Error($"OnBuffChanged");
+            }
         }
 
         private void ProcessBuffArgs(BuffChangedArgs buffArgs)

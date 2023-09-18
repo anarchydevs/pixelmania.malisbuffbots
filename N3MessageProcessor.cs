@@ -26,19 +26,27 @@ namespace MalisBuffBots
             if (msg.Header.PacketType != PacketType.N3Message)
                 return;
 
-            N3Message n3Msg = (N3Message)msg.Body;
-
-            switch (n3Msg.N3MessageType)
+            try
             {
-                case N3MessageType.CharacterAction:
-                    ProcessCharacterActionMessage((CharacterActionMessage)n3Msg);
-                    break;
-                case N3MessageType.Feedback:
-                    ProcessFeedbackMessage((FeedbackMessage)n3Msg);
-                    break;
-                case N3MessageType.TeamMember:
-                    OnTeamMemberMessage((TeamMemberMessage)n3Msg);
-                    break;
+                N3Message n3Msg = (N3Message)msg.Body;
+
+                switch (n3Msg.N3MessageType)
+                {
+                    case N3MessageType.CharacterAction:
+                        ProcessCharacterActionMessage((CharacterActionMessage)n3Msg);
+                        break;
+                    case N3MessageType.Feedback:
+                        ProcessFeedbackMessage((FeedbackMessage)n3Msg);
+                        break;
+                    case N3MessageType.TeamMember:
+                        OnTeamMemberMessage((TeamMemberMessage)n3Msg);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                Logger.Error("N3MessageProcessorOnMessageReceived");
             }
         }
 

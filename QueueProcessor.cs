@@ -59,7 +59,8 @@ namespace MalisBuffBots
             catch (Exception ex)
             {
                 ResetBotQueue(); // Temporary until exceptions are handled
-                Logger.Information(ex.Message);
+                Logger.Error(ex.Message);
+                Logger.Error("QueueProcessorOnUpdate");
             }
         }
 
