@@ -38,6 +38,10 @@ namespace MalisBuffBots
         {
             commandParts = msg.Message.ToLower().Split(' ');
             requesterId = (int)msg.SenderId;
+            command = new Command();
+
+            if (Main.Ipc.BotCache.ContainsIdentity(requesterId))
+                return false;
 
             if (!Enum.TryParse(commandParts[0].ToTitleCase(), out command))
             {
@@ -50,6 +54,7 @@ namespace MalisBuffBots
             if (!_commandActions.TryGetValue(command, out CommandInfo action))
             {
                 Client.SendPrivateMessage(msg.SenderId, ScriptTemplate.CommandNotFound());
+
                 return false;
             }
 

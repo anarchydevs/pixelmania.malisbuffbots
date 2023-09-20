@@ -131,11 +131,11 @@ namespace MalisBuffBots
 
     public class IPCBotCacheData
     {
-      //  public Dictionary<Profession, BotCache> Entries => _entries.Where(x => TimeSpan.FromTicks(DateTime.Now.Ticks - x.Value.LastUpdateInTicks).TotalSeconds > 10).ToDictionary(kv => kv.Key, kv => kv.Value);
-
         public Dictionary<Profession, BotData> Entries = new Dictionary<Profession, BotData>();
 
         public bool ContainsKey(Profession prof) => Entries.ContainsKey(prof);
+
+        public bool ContainsIdentity(int identityInstance) => Entries.Count() > 0 && Entries.Values.Any(x => x.Identity.Instance == identityInstance);
 
         public void BroadcastBotInfoMessage()
         {
