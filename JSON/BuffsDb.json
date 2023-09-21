@@ -846,6 +846,125 @@
       ]
     },
     {
+      "Name": "Grid Phase Accelerator",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93126
+        }
+      ],
+      "Type": 0,
+      "Description": "+620 RS, +70 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "gpa"
+      ]
+    },
+    {
+      "Name": "Partial Grid Jump",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93127
+        }
+      ],
+      "Type": 0,
+      "Description": "+450 RS, +61 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "pgj"
+      ]
+    },
+    {
+      "Name": "Grid Surfer",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93128
+        }
+      ],
+      "Type": 0,
+      "Description": "+390 RS, +37 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "gs"
+      ]
+    },
+    {
+      "Name": "Leech Grid Vector",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93129
+        }
+      ],
+      "Type": 0,
+      "Description": "+310 RS, +25 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lgv"
+      ]
+    },
+    {
+      "Name": "Grid Runner",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93130
+        }
+      ],
+      "Type": 0,
+      "Description": "+260 RS, +16 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "gr"
+      ]
+    },
+    {
+      "Name": "Hack Grid Vector",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93131
+        }
+      ],
+      "Type": 0,
+      "Description": "+190 RS, +7 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "hgv"
+      ]
+    },
+    {
+      "Name": "Limited Grid Jump",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 93125
+        }
+      ],
+      "Type": 0,
+      "Description": "+140 RS, +2 Evades",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lgj"
+      ]
+    },
+    {
       "Name": "Hack Grid Data Stream (Team)",
       "LevelToId": [
         {
@@ -1307,7 +1426,7 @@
       ]
     },
     {
-      "Name": "BioMet Mastery",
+      "Name": "Mastery: Biological Metamorphose",
       "LevelToId": [
         {
           "Level": 0,
@@ -1324,7 +1443,7 @@
       ]
     },
     {
-      "Name": "MatCrea Mastery",
+      "Name": "Mastery: Material Creation",
       "LevelToId": [
         {
           "Level": 0,
@@ -1341,7 +1460,7 @@
       ]
     },
     {
-      "Name": "SpaceTime Mastery",
+      "Name": "Mastery: Time and Space",
       "LevelToId": [
         {
           "Level": 0,
@@ -1359,7 +1478,7 @@
       ]
     },
     {
-      "Name": "MatMet Mastery",
+      "Name": "Mastery: Material Metamorphose",
       "LevelToId": [
         {
           "Level": 0,
@@ -1376,7 +1495,7 @@
       ]
     },
     {
-      "Name": "PsyMod Mastery",
+      "Name": "Mastery: Psychological Modification",
       "LevelToId": [
         {
           "Level": 0,
@@ -1393,7 +1512,7 @@
       ]
     },
     {
-      "Name": "Sense Imp Mastery",
+      "Name": "Mastery: Sensory Improvement",
       "LevelToId": [
         {
           "Level": 0,
@@ -1409,6 +1528,112 @@
         "sima"
       ]
     },
+
+    {
+      "Name": "Teachings: Biological Metamorphose",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 151768
+        }
+      ],
+      "Type": 0,
+      "Description": "+25 BioMet",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "bmteach"
+      ]
+    },
+    {
+      "Name": "Teachings: Material Creation",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 151765
+        }
+      ],
+      "Type": 0,
+      "Description": "+25 MatCrea",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "mcteach"
+      ]
+    },
+    {
+      "Name": "Teachings: Time and Space",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 151766
+        }
+      ],
+      "Type": 0,
+      "Description": "+25 SpaceTime",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "stteach",
+        "tsteach"
+      ]
+    },
+    {
+      "Name": "Teachings: Material Metamorphose",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 151767
+        }
+      ],
+      "Type": 0,
+      "Description": "+25 MatMet",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "mmteach"
+      ]
+    },
+    {
+      "Name": "Teachings: Psychological Modification",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 151763
+        }
+      ],
+      "Type": 0,
+      "Description": "+25 PsyMod",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "pmteach"
+      ]
+    },
+    {
+      "Name": "Teachings: Sensory Improvement",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 151764
+        }
+      ],
+      "Type": 0,
+      "Description": "+25 Sense Imp",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "siteach"
+      ]
+    },
+
+
     {
       "Name": "One Mind, One Purpose",
       "LevelToId": [
@@ -1740,6 +1965,142 @@
         "rrfe",
         "reflect"
       ]
+    },
+    {
+      "Name": "Minor Reflective Field (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70319
+        }
+      ],
+      "Type": 0,
+      "Description": "+22 Reflect AC, +29 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "mrf"
+      ]
+    },
+    {
+      "Name": "Partial Reflective Field (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70315
+        }
+      ],
+      "Type": 0,
+      "Description": "+21 Reflect AC, +25 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "prf"
+      ]
+    },
+    {
+      "Name": "Reactive Deflection Shield (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70313
+        }
+      ],
+      "Type": 0,
+      "Description": "+19 Reflect AC, +21 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "rds"
+      ]
+    },
+    {
+      "Name": "Major Deflection Shield (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70327
+        }
+      ],
+      "Type": 0,
+      "Description": "+17 Reflect AC, +18 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "mds"
+      ]
+    },
+    {
+      "Name": "Greater Deflection Shield (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70335
+        }
+      ],
+      "Type": 0,
+      "Description": "+15 Reflect AC, +14 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "gds"
+      ]
+    },
+    {
+      "Name": "Deflection Shield (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70336
+        }
+      ],
+      "Type": 0,
+      "Description": "+14 Reflect AC, +10 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "ds"
+      ]
+    },
+    {
+      "Name": "Lesser Deflection Shield (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70331
+        }
+      ],
+      "Type": 0,
+      "Description": "+13 Reflect AC, +7 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lds"
+      ]
+    },
+    {
+      "Name": "Partial Deflection Shield (Extended)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70317
+        }
+      ],
+      "Type": 0,
+      "Description": "+10 Reflect AC, +2 Reflect Dmg",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "pds"
+      ]
     }
   ],
   "Trader": [
@@ -1759,8 +2120,61 @@
       "Tags": [
         "131",
         "premium",
-        "wrangle",
-        "wrangler"
+        "wrangle"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Exceptional)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121333
+        }
+      ],
+      "Type": 0,
+      "Description": "+121 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "121",
+        "exceptional"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Superb)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121334
+        }
+      ],
+      "Type": 0,
+      "Description": "+112 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "111",
+        "superb"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Sophisticated)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121335
+        }
+      ],
+      "Type": 0,
+      "Description": "+106 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "106",
+        "sophisticated"
       ]
     },
     {
@@ -1777,8 +2191,26 @@
         0
       ],
       "Tags": [
-        "+99",
-        "+greater"
+        "99",
+        "greater"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Superior)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121332
+        }
+      ],
+      "Type": 0,
+      "Description": "+85 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "85",
+        "superior"
       ]
     },
     {
@@ -1795,8 +2227,44 @@
         0
       ],
       "Tags": [
-        "+74",
-        "+advanced"
+        "74",
+        "advanced"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Major)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121338
+        }
+      ],
+      "Type": 0,
+      "Description": "+65 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "65",
+        "major"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121346
+        }
+      ],
+      "Type": 0,
+      "Description": "+56 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "56",
+        "wrangler"
       ]
     },
     {
@@ -1813,8 +2281,116 @@
         0
       ],
       "Tags": [
-        "+46",
-        "+inferior"
+        "46",
+        "inferior"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Lesser)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121340
+        }
+      ],
+      "Type": 0,
+      "Description": "+37 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "37",
+        "lesser"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Lossy)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121339
+        }
+      ],
+      "Type": 0,
+      "Description": "+27 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "27",
+        "lossy"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Commonplace)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121344
+        }
+      ],
+      "Type": 0,
+      "Description": "+22 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "22",
+        "commonplace"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Minor)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121337
+        }
+      ],
+      "Type": 0,
+      "Description": "+13 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "13",
+        "minor"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Patchy)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121336
+        }
+      ],
+      "Type": 0,
+      "Description": "+9 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "9",
+        "patchy"
+      ]
+    },
+    {
+      "Name": "Skill Wrangler (Weak)",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 121330
+        }
+      ],
+      "Type": 0,
+      "Description": "+3 Weap/Nano skills",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "3",
+        "weak"
       ]
     },
     {
@@ -1867,8 +2443,44 @@
         0
       ],
       "Tags": [
-        "lendnano250",
-        "lend250"
+        "lend250",
+        "lendnano250"
+      ]
+    },
+    {
+      "Name": "Lend Nano: 100",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30265
+        }
+      ],
+      "Type": 0,
+      "Description": "+100 Max Nano",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lend100",
+        "lendnano100"
+      ]
+    },
+    {
+      "Name": "Lend Nano: 50",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30730
+        }
+      ],
+      "Type": 0,
+      "Description": "+50 Max Nano",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lend50",
+        "lendnano50"
       ]
     },
     {
