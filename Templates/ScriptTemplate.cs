@@ -25,7 +25,7 @@ namespace MalisBuffBots
             { LdbFeedback.NotEnoughNcu , "Not enough (NCU) left."},
             { LdbFeedback.NotInLineOfSight , "Not in line of sight."},
             { LdbFeedback.OutOfRange , "Out of range."},
-            { LdbFeedback.UnableToUseNano , "Not enough nanoskills."},
+            { LdbFeedback.UnableToUseNano , "I was unable to use this nano."},
             { LdbFeedback.NotEnoughNano, "Not enough nano energy left and my sit kit is on cooldown."},
             { LdbFeedback.BetterNanoInNcu, "Better nano already running."}
         };
