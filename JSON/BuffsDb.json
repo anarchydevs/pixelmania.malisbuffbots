@@ -14,6 +14,7 @@
         0
       ],
       "Tags": [
+        "c1",
         "catt"
       ]
     },
@@ -31,6 +32,7 @@
         0
       ],
       "Tags": [
+        "c2",
         "cnano"
       ]
     },
@@ -48,6 +50,7 @@
         0
       ],
       "Tags": [
+        "c3",
         "cutil"
       ]
     },
@@ -65,6 +68,7 @@
         0
       ],
       "Tags": [
+        "c4",
         "ctrade"
       ]
     },
@@ -82,6 +86,7 @@
         0
       ],
       "Tags": [
+        "c5",
         "cmart"
       ]
     },
@@ -99,6 +104,7 @@
         0
       ],
       "Tags": [
+        "c6",
         "crang"
       ]
     },
@@ -116,6 +122,7 @@
         0
       ],
       "Tags": [
+        "c7",
         "crangs"
       ]
     },
@@ -133,6 +140,7 @@
         0
       ],
       "Tags": [
+        "c8",
         "cmelee"
       ]
     },
@@ -150,6 +158,7 @@
         0
       ],
       "Tags": [
+        "c9",
         "cmelees"
       ]
     }
@@ -369,6 +378,57 @@
         "sc",
         "soothing"
       ]
+    },
+    {
+      "Name": "Baton of Command",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 90448
+        }
+      ],
+      "Type": 0,
+      "Description": "+19 Experience",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "com"
+      ]
+    },
+    {
+      "Name": "Baton of Leadership",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 90449
+        }
+      ],
+      "Type": 0,
+      "Description": "+14 Experience",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "lea"
+      ]
+    },
+    {
+      "Name": "Baton of Authority",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 90450
+        }
+      ],
+      "Type": 0,
+      "Description": "+11 Experience",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "aut"
+      ]
     }
   ],
   "Doctor": [
@@ -459,10 +519,10 @@
         95673
       ],
       "Tags": [
+        "hp",
         "omni-med",
         "omnimed",
         "some",
-        "hp",
         "health"
       ]
     },
@@ -500,7 +560,7 @@
       ],
       "Tags": [
         "st"
-      ]  
+      ]
     },
     {
       "Name": "Superior First Aid",
@@ -650,6 +710,60 @@
       "Tags": [
         "ab",
         "aegis"
+      ]
+    },
+    {
+      "Name": "Perfected Defensive Screen",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70535
+        }
+      ],
+      "Type": 0,
+      "Description": "+472 AC's",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "perfds",
+        "perfdefscreen"
+      ]
+    },
+    {
+      "Name": "Superior Defensive Screen",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70549
+        }
+      ],
+      "Type": 0,
+      "Description": "+322 AC's",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "supds",
+        "superiordefscreen"
+      ]
+    },
+    {
+      "Name": "Basic Defensive Screen",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 70541
+        }
+      ],
+      "Type": 0,
+      "Description": "+122 AC's",
+      "RemoveNanoIdUponCast": [
+        0
+      ],
+      "Tags": [
+        "basds",
+        "basicdefscreen"
       ]
     },
     {
@@ -1051,7 +1165,7 @@
         0
       ],
       "Tags": [
-        "fervor",
+        "fer",
         "devotee"
       ]
     },
@@ -1161,7 +1275,7 @@
         0
       ],
       "Tags": [
-        "mamastery",
+        "mama",
         "mam"
       ]
     },
@@ -1325,8 +1439,8 @@
         0
       ],
       "Tags": [
-        "bminf",
         "bmi",
+        "bminf",
         "bminfuse"
       ]
     },
@@ -1344,8 +1458,8 @@
         0
       ],
       "Tags": [
-        "mcinf",
         "mci",
+        "mcinf",
         "mcinfuse"
       ]
     },
@@ -1363,8 +1477,8 @@
         0
       ],
       "Tags": [
-        "tsinf",
         "tsi",
+        "tsinf",
         "tsinfuse"
       ]
     },
@@ -1382,8 +1496,8 @@
         0
       ],
       "Tags": [
-        "mminf",
         "mmi",
+        "mminf",
         "mminfuse"
       ]
     },
@@ -1401,8 +1515,8 @@
         0
       ],
       "Tags": [
-        "pminf",
         "pmi",
+        "pminf",
         "pminfuse"
       ]
     },
@@ -1420,8 +1534,8 @@
         0
       ],
       "Tags": [
-        "siinf",
         "sii",
+        "siinf",
         "siinfuse"
       ]
     },
@@ -1543,7 +1657,7 @@
         0
       ],
       "Tags": [
-        "bmteach"
+        "bmte"
       ]
     },
     {
@@ -1560,7 +1674,7 @@
         0
       ],
       "Tags": [
-        "mcteach"
+        "mcte"
       ]
     },
     {
@@ -1577,8 +1691,8 @@
         0
       ],
       "Tags": [
-        "stteach",
-        "tsteach"
+        "stte",
+        "tste"
       ]
     },
     {
@@ -1595,7 +1709,7 @@
         0
       ],
       "Tags": [
-        "mmteach"
+        "mmte"
       ]
     },
     {
@@ -1612,7 +1726,7 @@
         0
       ],
       "Tags": [
-        "pmteach"
+        "pmte"
       ]
     },
     {
@@ -1629,7 +1743,7 @@
         0
       ],
       "Tags": [
-        "siteach"
+        "site"
       ]
     },
 
@@ -1648,8 +1762,8 @@
         0
       ],
       "Tags": [
-        "onemind",
         "om",
+        "onemind",
         "omop"
       ]
     },
@@ -2164,7 +2278,7 @@
       "LevelToId": [
         {
           "Level": 0,
-          "Id": 121335
+          "Id": 121334
         }
       ],
       "Type": 0,
@@ -2484,6 +2598,23 @@
       ]
     },
     {
+      "Name": "Relentless Slayer",
+      "LevelToId": [
+        {
+          "Level": 0,
+          "Id": 30746
+        }
+      ],
+      "Type": 0,
+      "Description": "+23 Proj., Melee, Energy Dmg",
+      "RemoveNanoIdUponCast": [
+        81927
+      ],
+      "Tags": [
+        "rel"
+      ]
+    },
+    {
       "Name": "Guard Convoy",
       "LevelToId": [
         {
@@ -2491,7 +2622,7 @@
           "Id": 30721
         }
       ],
-      "Type": 1,
+      "Type": 0,
       "Description": "+21 Proj., Melee, Energy Dmg",
       "RemoveNanoIdUponCast": [
         81927
